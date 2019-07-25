@@ -1,0 +1,53 @@
+<aside class="app-sidebar">
+    <div class="app-sidebar__user">
+        <div class="dropdown">
+            <a class="nav-link pl-2 pr-2 leading-none d-flex" data-toggle="dropdown" href="#">
+                <img alt="image" src="__STATIC__/img/avatar/avatar-1.jpeg.jpg" class=" avatar-md rounded-circle">
+                <span class="ml-2 d-lg-block">
+                    <span class="text-white app-sidebar__user-name mt-5">{$Think.session.admin_name}</span><br>
+                    <span class="text-muted app-sidebar__user-name text-sm"> Web-Designer</span>
+                </span>
+            </a>
+        </div>
+    </div>
+    <ul class="side-menu">
+        {volist name="menu" id="menu"}
+        {if condition="$menu['star'] eq true"}
+        <li class="slide active">
+            <a class="side-menu__item active"  data-toggle="slide" href="{:url($menu.name)}">
+                <i class="{$menu.icon}"></i>
+                <span class="side-menu__label">{$menu.title}</span>
+                {neq name="menu['children']" value="1"}
+                <i class="angle fa fa-angle-right"></i>
+                {/neq}
+            </a>
+            <ul class="slide-menu">
+                {volist name="menu['children']" id="children"}
+                {if condition="$children['star'] eq true"}
+                <li class="active"><a class="slide-item"  href="{:url($children.name)}"><span>{$children.title}</span></a></li>
+                {else/}
+                <li><a class="slide-item"  href="{:url($children.name)}"><span>{$children.title}</span></a></li>
+                {/if}
+                {/volist}
+               
+            </ul>
+        </li>
+        {else/}
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="{:url($menu.name)}">
+                <i class="{$menu.icon}"></i>
+                <span class="side-menu__label">{$menu.title}</span>
+                {neq name="menu['children']" value="1"}
+                <i class="angle fa fa-angle-right"></i>
+                {/neq}
+            </a>
+            <ul class="slide-menu">
+                {volist name="menu['children']" id="children"}
+                <li><a class="slide-item"  href="{:url($children.name)}"><span>{$children.title}</span></a></li>
+                {/volist}
+            </ul>
+        </li>
+        {/if}
+        {/volist}
+    </ul>
+</aside>

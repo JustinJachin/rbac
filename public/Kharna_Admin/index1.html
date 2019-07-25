@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Kharna-Admin Dashboard</title>
+
+		<!--Favicon -->
+		<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon"/>
+
+		<!--Bootstrap.min css-->
+		<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+
+		<!--Icons css-->
+		<link rel="stylesheet" href="assets/css/icons.css">
+
+		<!--Style css-->
+		<link rel="stylesheet" href="assets/css/style.css">
+
+		<!--mCustomScrollbar css-->
+		<link rel="stylesheet" href="assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
+
+		<!--Sidemenu css-->
+		<link rel="stylesheet" href="assets/plugins/toggle-menu/sidemenu.css">
+
+		<!--Chartist css-->
+		<link rel="stylesheet" href="assets/plugins/chartist/chartist.css">
+		<link rel="stylesheet" href="assets/plugins/chartist/chartist-plugin-tooltip.css">
+
+		<!--Full calendar css-->
+		<link rel="stylesheet" href="assets/plugins/fullcalendar/stylesheet1.css">
+		
+		<!--morris css-->
+		<link rel="stylesheet" href="assets/plugins/morris/morris.css">
+
+
+	</head>
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				<nav class="navbar navbar-expand-lg main-navbar">
+					<a class="header-brand" href="index.html">
+						<img src="assets/img/brand/logo.png" class="header-brand-img" alt="Kharna-Admin  logo">
+					</a>
+					<form class="form-inline mr-auto">
+						<ul class="navbar-nav mr-3">
+							<li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
+							<li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="ion ion-search"></i></a></li>
+						</ul>
+						<div class="search-element">
+							<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+							<button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
+						</div>
+					</form>
+					<ul class="navbar-nav navbar-right">
+						<li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="ion-ios-email-outline"></i></a>
+							<div class="dropdown-menu dropdown-list dropdown-menu-right">
+								<div class="dropdown-header">Messages
+									<div class="float-right">
+										<a href="#">View All</a>
+									</div>
+								</div>
+								<div class="dropdown-list-content">
+									<a href="#" class="dropdown-item dropdown-item-unread">
+										<img alt="image" src="assets/img/avatar/avatar-1.jpeg.jpg" class="rounded-circle dropdown-item-img">
+										<div class="dropdown-item-desc">
+											<div class="dropdownmsg d-flex">
+												<div class="">
+													<b>Stewart Ball</b>
+													<p>Your template awesome</p>
+												</div>
+												<div class="time">6 hours ago</div>
+											</div>
+
+										</div>
+									</a>
+									<a href="#" class="dropdown-item dropdown-item-unread">
+										<img alt="image" src="assets/img/avatar/avatar-2.jpeg.jpg" class="rounded-circle dropdown-item-img">
+										<div class="dropdown-item-desc">
+											<div class="dropdownmsg d-flex">
+												<div class="">
+													<b>Jonathan North</b>
+													<p>Your Order Shipped.....</p>
+												</div>
+												<div class="time">45 mins ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<img alt="image" src="assets/img/avatar/avatar-4.jpeg.jpg" class="rounded-circle dropdown-item-img">
+										<div class="dropdown-item-desc">
+											<div class="dropdownmsg d-flex">
+												<div class="">
+													<b>Victor Taylor</b>
+													<p>Hi!, I' am web developer</p>
+												</div>
+												<div class="time"> 8 hours ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<img alt="image" src="assets/img/avatar/avatar-3.jpeg.jpg" class="rounded-circle dropdown-item-img">
+										<div class="dropdown-item-desc">
+											<div class="dropdownmsg d-flex">
+												<div class="">
+													<b>Ruth	Arnold</b>
+													<p>Hi!, I' am web designer</p>
+												</div>
+												<div class="time"> 3 hours ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<img alt="image" src="assets/img/avatar/avatar-5.jpeg.jpg" class="rounded-circle dropdown-item-img">
+										<div class="dropdown-item-desc">
+											<div class="dropdownmsg d-flex">
+												<div class="">
+													<b>Sam	Lyman</b>
+													<p>Hi!, I' am java developer</p>
+												</div>
+												<div class="time"> 15 mintues ago</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</li>
+						<li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link  nav-link-lg beep"><i class="ion-ios-bell-outline"></i></a>
+							<div class="dropdown-menu dropdown-list dropdown-menu-right">
+								<div class="dropdown-header">Notifications
+									<div class="float-right">
+										<a href="#">View All</a>
+									</div>
+								</div>
+								<div class="dropdown-list-content">
+									<a href="#" class="dropdown-item">
+										<i class="fa fa-users text-primary"></i>
+										<div class="dropdown-item-desc">
+											<b>So many Users Visit your template</b>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="fa fa-exclamation-triangle text-danger"></i>
+										<div class="dropdown-item-desc">
+											<b>Error message occurred....</b>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="fa fa-users text-warning"></i>
+										<div class="dropdown-item-desc">
+											<b> Adding new people</b>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="fa fa-shopping-cart text-success"></i>
+										<div class="dropdown-item-desc">
+											<b>Your items Arrived</b>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="fa fa-comment text-primary"></i>
+										<div class="dropdown-item-desc">
+											<b>New Message received</b> <div class="float-right"><span class="badge badge-pill badge-danger badge-sm">67</span></div>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="fa fa-users text-primary"></i>
+										<div class="dropdown-item-desc">
+											<b>So many Users Visit your template</b>
+										</div>
+									</a>
+								</div>
+							</div>
+						</li>
+						<li class="dropdown dropdown-list-toggle">
+							<a href="#" class="nav-link nav-link-lg full-screen-link">
+								<i class="ion-arrow-expand"  id="fullscreen-button"></i>
+							</a>
+						</li>
+						<li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+							<img src="assets/img/avatar/avatar-1.jpeg.jpg" alt="profile-user" class="rounded-circle w-32">
+							<div class="d-sm-none d-lg-inline-block">Jessica Lee</div></a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<a href="profile.html" class="dropdown-item has-icon">
+									<i class="ion ion-android-person"></i> Profile
+								</a>
+								<a href="profile.html" class="dropdown-item has-icon">
+									<i class="ion-android-drafts"></i> Messages
+								</a>
+								<a href="profile.html" class="dropdown-item has-icon">
+									<i class="ion ion-gear-a"></i> Settings
+								</a>
+								<a href="#" class="dropdown-item has-icon">
+									<i class="ion-ios-redo"></i> Logout
+								</a>
+							</div>
+						</li>
+					</ul>
+				</nav>
+
+				<aside class="app-sidebar">
+					<div class="app-sidebar__user">
+					    <div class="dropdown">
+							<a class="nav-link pl-2 pr-2 leading-none d-flex" data-toggle="dropdown" href="#">
+								<img alt="image" src="assets/img/avatar/avatar-1.jpeg.jpg" class=" avatar-md rounded-circle">
+								<span class="ml-2 d-lg-block">
+									<span class="text-white app-sidebar__user-name mt-5">Jessica Lee</span><br>
+									<span class="text-muted app-sidebar__user-name text-sm"> Web-Designer</span>
+								</span>
+							</a>
+						</div>
+					</div>
+					<ul class="side-menu">
+						<li class="slide">
+							<a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span class="side-menu__label">Dashboard</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a class="slide-item"  href="index.html"><span>Dashboard 01</span></a></li>
+								<li><a class="slide-item" href="index2.html"><span>Dashboard 02</span></a></li>
+								<li><a class="slide-item" href="index3.html"><span>Dashboard 03</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a class="side-menu__item" href="widgets.html"><i class="side-menu__icon fa fa-flask"></i><span class="side-menu__label">Widgets</span></a>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-tasks"></i><span class="side-menu__label">UI Elements</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="elements.html" class="slide-item"> Elements</a></li>
+								<li><a href="buttons.html" class="slide-item"> Buttons</a></li>
+								<li><a href="toastr.html" class="slide-item"> Toastr</a></li>
+								<li><a href="calender.html" class="slide-item"> Calendar</a></li>
+								<li><a href="rangesliders.html" class="slide-item"> Rangeslider</a></li>
+								<li><a href="modals.html" class="slide-item"> Modals</a></li>
+								<li><a href="timeline.html" class="slide-item"> Timeline</a></li>
+								<li><a href="invoice.html" class="slide-item"> Invoice</a></li>
+								<li><a href="users.html" class="slide-item"> Users List</a></li>
+								<li><a href="mailinbox.html" class="slide-item"> Mail-inbox</a></li>
+								<li><a href="mail-compose.html" class="slide-item"> Mail-Compose</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+						    <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-paw"></i><span class="side-menu__label">Icons</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="icons-ion.html" class="slide-item"> Ion Icons</a></li>
+								<li><a href="icons-fontawesome.html" class="slide-item"> Font Awesome</a></li>
+								<li><a href="icons-feather.html" class="slide-item"> Feather Awesome</a></li>
+								<li><a href="icons-materialdesign.html" class="slide-item"> Material Design</a></li>
+								<li><a href="icons-themify.html" class="slide-item"> Themify</a></li>
+								<li><a href="icons-simpleline.html" class="slide-item"> Simple line</a></li>
+								<li><a href="icons-pe7.html" class="slide-item"> pe7</a></li>
+								<li><a href="icons-flag.html" class="slide-item"> Flag Icons</a></li>
+								<li><a href="icons-weather.html" class="slide-item"> Weather Icons</a></li>
+								<li><a href="icons-typicons.html" class="slide-item"> Typicons</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-table"></i><span class="side-menu__label">Tables</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="table.html" class="slide-item">Basic Tables</a></li>
+								<li><a href="datatables.html" class="slide-item"> Data Tables</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-file-text"></i><span class="side-menu__label">Forms</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="formelements.html" class="slide-item"> Form Elements</a></li>
+								<li><a href="formadvanced.html" class="slide-item"> Advanced Form</a></li>
+								<li><a href="formeditor.html" class="slide-item"> Form Editor</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-bar-chart"></i><span class="side-menu__label">Charts</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="chartjs.html" class="slide-item">Chart Js</a></li>
+								<li><a href="flotcharts.html" class="slide-item"> Flot Charts</a></li>
+								<li><a href="barcharts.html" class="slide-item"> Bar Charts</a></li>
+								<li><a href="echart.html" class="slide-item"> ECharts</a></li>
+								<li><a href="chartist.html" class="slide-item"> Chartist</a></li>
+								<li><a href="morris.html" class="slide-item"> Morris Charts</a></li>
+								<li><a href="othercharts.html" class="slide-item"> Other Charts</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-map"></i><span class="side-menu__label">Maps</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="maps.html" class="slide-item"> Google Maps</a></li>
+								<li><a href="vector-map.html" class="slide-item">Vector Maps</a></li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-pie-chart"></i><span class="side-menu__label">Pages</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="profile.html" class="slide-item"> Profile</a></li>
+								<li><a href="pricing-tables.html" class="slide-item"> Pricing Tables</a></li>
+								<li><a href="gallery.html" class="slide-item"> Gallery</a></li>
+								<li><a href="shop.html" class="slide-item"> Shop</a></li>
+								<li><a href="shop-cart.html" class="slide-item"> Shop Cart</a></li>
+								<li><a href="terms.html" class="slide-item"> Terms and Conditions</a></li>
+								<li><a href="register.html" class="slide-item"> Register</a></li>
+								<li><a href="login.html" class="slide-item"> Login</a></li>
+								<li><a href="forgot.html" class="slide-item"> Forgot Password</a></li>
+								<li><a href="reset.html" class="slide-item"> Reset Password</a></li>
+								<li><a href="under-construction.html" class="slide-item"> Under Construction</a></li>
+								<li><a href="lockscreen.html" class="slide-item"> Lock Screen</a></li>
+								<li><a href="404.html" class="slide-item"> 404</a></li>
+								<li><a href="505.html" class="slide-item"> 505</a></li>
+								<li><a href="emptypage.html" class="slide-item"> Empty  Page</a></li>
+							</ul>
+						</li>
+					</ul>
+				</aside>
+
+				<div class="app-content">
+					<section class="section">
+                    	<ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item active text-" aria-current="page">Dashboard 01</li>
+                        </ol>
+
+						<div class="row">
+							<div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="dash1">
+													<h4 class="text-dark">675</h4>
+													<small class="text-muted ">Posts</small>
+												</div>
+											</div>
+											<div class="col-6">
+												<div id="chart1" class="overflow-hidden"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="dash1">
+													<h4 class="text-dark">875</h4>
+													<small class="text-muted">Clicks</small>
+												</div>
+											</div>
+											<div class="col-6">
+												<div id="chart2" class="overflow-hidden"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="dash1">
+													<h4 class="text-dark">976</h4>
+													<small class="text-muted">Shares</small>
+												</div>
+											</div>
+											<div class="col-6">
+												<div id="chart3" class="overflow-hidden"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 col-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-6">
+												<div class="dash1">
+													<h4 class="text-dark">418</h4>
+													<small class="text-muted">Remarks</small>
+												</div>
+											</div>
+											<div class="col-6">
+												<div id="chart4" class="overflow-hidden"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+
+						<div class="row ">
+							<div class="col-lg-12 col-xl-6 col-md-12 col-12 col-sm-12">
+								<div class="card">
+									<div class="card-header">
+										<h4>Monthly Sales</h4>
+									</div>
+									<div class="card-body">
+										<div id="bar-chart" class="overflow-hidden" > </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 col-xl-6 col-md-12 col-12 col-sm-12">
+								<div class="card">
+									<div class="card-header">
+										<h4>Yearly Template Sales</h4>
+									</div>
+									<div class="card-body">
+										<div id="sales-chart" class="overflow-hidden"> </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-sm-12">
+								<div class="card">
+									<div class="card-header">
+										<h4>Account Retention</h4>
+									</div>
+									<div class="card-body">
+										<div id="index" class="overflow-hidden h-400 mx-auto text-center " ></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							
+							<i class="fe fe-activity"></i>
+							<i class="fe fe-airplay"></i>
+							<i class="fe fe-alert-circle"></i>
+							<i class="fe fe-alert-octagon"></i>
+							<i class="fe fe-alert-triangle"></i>
+							<i class="fe fe-align-justify"></i>
+							<i class="fe fe-align-left"></i>
+							<i class="fe fe-align-right"></i>
+							<i class="fe fe-anchor"></i>
+							<i class="fe fe-aperture"></i>
+							<i class="fe fe-arrow-down"></i>
+							<i class="fe fe-arrow-down-circle"></i>
+							<i class="fe fe-arrow-down-left"></i>
+							<i class="fe fe-arrow-down-right"></i>
+							<i class="fe fe-arrow-left"></i>
+							<i class="fe fe-arrow-left-circle"></i>
+							<i class="fe fe-arrow-right"></i>
+							<i class="fe fe-arrow-right-circle"></i>
+							<i class="fe fe-arrow-up"></i>
+
+							<i class="fe fe-arrow-up-circle"></i>
+							<i class="fe fe-arrow-up-left"></i>
+							<i class="fe fe-arrow-up-right"></i>
+							<i class="fe fe-at-sign"></i>
+							<i class="fe fe-award"></i>
+							<i class="fe fe-bar-chart"></i>
+							<i class="fe fe-bar-chart-2"></i>
+							<i class="fe fe-battery"></i>
+							<i class="fe fe-battery-charging"></i>
+							<i class="fe fe-bell"></i>
+							<i class="fe fe-bell-off"></i>
+							<i class="fe fe-bluetooth"></i>
+							<i class="fe fe-bold"></i>
+							<i class="fe fe-book"></i>
+							<i class="fe fe-book-open"></i>
+							<i class="fe fe-bookmark"></i>
+
+							<i class="fe fe-box"></i>
+							<i class="fe fe-briefcase"></i>
+							<i class="fe fe-calendar"></i>
+							<i class="fe fe-camera"></i>
+							<i class="fe fe-camera-off"></i>
+							<i class="fe fe-cast"></i>
+							<i class="fe fe-check"></i>
+							<i class="fe fe-check-circle"></i>
+							<i class="fe fe-check-square"></i>
+							<i class="fe fe-chevron-down"></i>
+							<i class="fe fe-chevron-left"></i>
+
+							<i class="fe fe-chevron-right"></i>
+							<i class="fe fe-chevron-up"></i>
+							<i class="fe fe-chevrons-down"></i>
+							<i class="fe fe-chevrons-left"></i>
+							<i class="fe fe-chevrons-right"></i>
+							<i class="fe fe-chevrons-up"></i>
+							<i class="fe fe-chrome"></i>
+							<i class="fe fe-circle"></i>
+							<i class="fe fe-clipboard"></i>
+							<i class="fe fe-clock"></i>
+							<i class="fe fe-cloud"></i>
+							<i class="fe fe-cloud-drizzle"></i>
+							<i class="fe fe-cloud-lightning"></i>
+							<i class="fe fe-cloud-off"></i>
+							<i class="fe fe-cloud-rain"></i>
+							<i class="fe fe-cloud-snow"></i>
+							<i class="fe fe-code"></i>
+							<i class="fe fe-codepen"></i>
+							<i class="fe fe-command"></i>
+							<i class="fe fe-compass"></i>
+							<i class="fe fe-copy"></i>
+							<i class="fe fe-corner-down-left"></i>
+							<i class="fe fe-corner-down-right"></i>
+							<i class="fe fe-corner-left-down"></i>
+
+
+							<i class="fe fe-corner-left-up"></i>
+							<i class="fe fe-corner-right-down"></i>
+							<i class="fe fe-corner-right-up"></i>
+							<i class="fe fe-corner-up-left"></i>
+							<i class="fe fe-corner-up-right"></i>
+							<i class="fe fe-cpu"></i>
+							<i class="fe fe-credit-card"></i>
+							<i class="fe fe-crop"></i>
+							<i class="fe fe-crosshair"></i>
+							<i class="fe fe-database"></i>
+							<i class="fe fe-delete"></i>
+							<i class="fe fe-disc"></i>
+							<i class="fe fe-dollar-sign"></i>
+							<i class="fe fe-download"></i>
+							<i class="fe fe-download-cloud"></i>
+							<i class="fe fe-droplet"></i>
+
+							<i class="fe fe-edit"></i>
+							<i class="fe fe-edit-2"></i>
+							<i class="fe fe-edit-3"></i>
+							<i class="fe fe-external-link"></i>
+							<i class="fe fe-eye"></i>
+							<i class="fe fe-eye-off"></i>
+							<i class="fe fe-facebook"></i>
+							<i class="fe fe-fast-forward"></i>
+							<i class="fe fe-feather"></i>
+							<i class="fe fe-file"></i>
+							<i class="fe fe-file-minus"></i>
+							<i class="fe fe-file-plus"></i>
+							<i class="fe fe-file-text"></i>
+							<i class="fe fe-film"></i>
+							<i class="fe fe-filter"></i>
+							<i class="fe fe-flag"></i>
+							<i class="fe fe-folder"></i>
+							<i class="fe fe-folder-minus"></i>
+							<i class="fe fe-folder-plus"></i>
+							<i class="fe fe-git-branch"></i>
+							<i class="fe fe-git-commit"></i>
+							<i class="fe fe-git-merge"></i>
+							<i class="fe fe-git-pull-request"></i>
+							<i class="fe fe-github"></i>
+							<i class="fe fe-gitlab"></i>
+							<i class="fe fe-globe"></i>
+							<i class="fe fe-grid"></i>
+							<i class="fe fe-hard-drive"></i>
+							<i class="fe fe-hash"></i>
+							<i class="fe fe-headphones"></i>
+							<i class="fe fe-heart"></i>
+							<i class="fe fe-help-circle"></i>
+							<i class="fe fe-home"></i>
+							<i class="fe fe-image"></i>
+							<i class="fe fe-inbox"></i>
+							<i class="fe fe-info"></i>
+							<i class="fe fe-instagram"></i>
+							<i class="fe fe-italic"></i>
+							<i class="fe fe-layers"></i>
+							<i class="fe fe-layout"></i>
+							<i class="fe fe-life-buoy"></i>
+							<i class="fe fe-link"></i>
+							<i class="fe fe-link-2"></i>
+							<i class="fe fe-linkedin"></i>
+							<i class="fe fe-list"></i>
+							<i class="fe fe-loader"></i>
+							<i class="fe fe-lock"></i>
+							<i class="fe fe-log-in"></i>
+							<i class="fe fe-log-out"></i>
+							<i class="fe fe-mail"></i>
+							<i class="fe fe-map"></i>
+							<i class="fe fe-map-pin"></i>
+							<i class="fe fe-maximize"></i>
+							<i class="fe fe-maximize-2"></i>
+							<i class="fe fe-menu"></i>
+							<i class="fe fe-message-circle"></i>
+							<i class="fe fe-message-square"></i>
+							<i class="fe fe-mic"></i>
+							<i class="fe fe-mic-off"></i>
+							<i class="fe fe-minimize"></i>
+							<i class="fe fe-minimize-2"></i>
+							<i class="fe fe-minus"></i>
+							<i class="fe fe-minus-circle"></i>
+							<i class="fe fe-minus-square"></i>
+							<i class="fe fe-monitor"></i>
+							<i class="fe fe-moon"></i>
+							<i class="fe fe-more-horizontal"></i>
+							<i class="fe fe-more-vertical"></i>
+							<i class="fe fe-move"></i>
+							<i class="fe fe-music"></i>
+							<i class="fe fe-navigation"></i>
+							<i class="fe fe-navigation-2"></i>
+							<i class="fe fe-octagon"></i>
+							<i class="fe fe-package"></i>
+							<i class="fe fe-paperclip"></i>
+							<i class="fe fe-pause"></i>
+							<i class="fe fe-pause-circle"></i>
+							<i class="fe fe-percent"></i>
+							<i class="fe fe-phone"></i>
+							<i class="fe fe-phone-call"></i>
+							<i class="fe fe-phone-forwarded"></i>
+							<i class="fe fe-phone-incoming"></i>
+							<i class="fe fe-phone-missed"></i>
+							<i class="fe fe-phone-off"></i>
+							<i class="fe fe-phone-outgoing"></i>
+							<i class="fe fe-pie-chart"></i>
+							<i class="fe fe-play"></i>
+							<i class="fe fe-play-circle"></i>
+							<i class="fe fe-plus"></i>
+							<i class="fe fe-plus-circle"></i>
+							<i class="fe fe-plus-square"></i>
+							<i class="fe fe-pocket"></i>
+							<i class="fe fe-power"></i>
+							<i class="fe fe-printer"></i>
+							<i class="fe fe-radio"></i>
+							<i class="fe fe-refresh-ccw"></i>
+							<i class="fe fe-refresh-cw"></i>
+							<i class="fe fe-repeat"></i>
+							<i class="fe fe-rewind"></i>
+
+							<i class="fe fe-rotate-ccw"></i>
+							<i class="fe fe-rotate-cw"></i>
+							<i class="fe fe-rss"></i>
+							<i class="fe fe-save"></i>
+							<i class="fe fe-scissors"></i>
+							<i class="fe fe-search"></i>
+							<i class="fe fe-send"></i>
+							<i class="fe fe-server"></i>
+							<i class="fe fe-settings"></i>
+							<i class="fe fe-share"></i>
+							<i class="fe fe-share-2"></i>
+							<i class="fe fe-shield"></i>
+							<i class="fe fe-shield-off"></i>
+							<i class="fe fe-shopping-bag"></i>
+							<i class="fe fe-shopping-cart"></i>
+							<i class="fe fe-shuffle"></i>
+							<i class="fe fe-sidebar"></i>
+							<i class="fe fe-skip-back"></i>
+							<i class="fe fe-skip-forward"></i>
+							<i class="fe fe-slack"></i>
+							<i class="fe fe-slash"></i>
+							<i class="fe fe-sliders"></i>
+							<i class="fe fe-smartphone"></i>
+							<i class="fe fe-speaker"></i>
+							<i class="fe fe-square"></i>
+							<i class="fe fe-star"></i>
+							<i class="fe fe-stop-circle"></i>
+							<i class="fe fe-sun"></i>
+							<i class="fe fe-sunrise"></i>
+							<i class="fe fe-sunset"></i>
+							<i class="fe fe-tablet"></i>
+							<i class="fe fe-tag"></i>
+							<i class="fe fe-target"></i>
+							<i class="fe fe-terminal"></i>
+							<i class="fe fe-thermometer"></i>
+							<i class="fe fe-thumbs-down"></i>
+							<i class="fe fe-thumbs-up"></i>
+							<i class="fe fe-toggle-left"></i>
+							<i class="fe fe-toggle-right"></i>
+							<i class="fe fe-trash"></i>
+							<i class="fe fe-trash-2"></i>
+							<i class="fe fe-trending-down"></i>
+							<i class="fe fe-trending-up"></i>
+							<i class="fe fe-triangle"></i>
+							<i class="fe fe-truck"></i>
+							<i class="fe fe-tv"></i>
+							<i class="fe fe-twitter"></i>
+							<i class="fe fe-type"></i>
+							<i class="fe fe-umbrella"></i>
+							<i class="fe fe-underline"></i>
+							<i class="fe fe-unlock"></i>
+							<i class="fe fe-upload"></i>
+							<i class="fe fe-upload-cloud"></i>
+							<i class="fe fe-user"></i>
+
+							<i class="fe fe-user-check"></i>
+							<i class="fe fe-user-minus"></i>
+							<i class="fe fe-user-plus"></i>
+							<i class="fe fe-user-x"></i>
+							<i class="fe fe-users"></i>
+							<i class="fe fe-video"></i>
+							<i class="fe fe-video-off"></i>
+							<i class="fe fe-voicemail"></i>
+							<i class="fe fe-volume"></i>
+							<i class="fe fe-volume-1"></i>
+							<i class="fe fe-volume-2"></i>
+							<i class="fe fe-volume-x"></i>
+							<i class="fe fe-watch"></i>
+							<i class="fe fe-wifi"></i>
+							<i class="fe fe-wifi-off"></i>
+							<i class="fe fe-wind"></i>
+							<i class="fe fe-x"></i>
+							<i class="fe fe-x-circle"></i>
+							<i class="fe fe-x-square"></i>
+							<i class="fe fe-zap"></i>
+							<i class="fe fe-zap-off"></i>
+							<i class="fe fe-zoom-in"></i>
+							<i class="fe fe-zoom-out"></i>
+							<br/>
+							<i class="wi wi-fw"></i>
+							<i class="wi wi-rotate-90"></i>
+							<i class="wi wi-rotate-270"></i>
+							<i class="wi wi-flip-horizontal"></i>
+							<i class="wi wi-flip-vertical"></i>
+							<i class="wi wi-day-sunny"></i>
+							<i class="wi wi-day-cloudy"></i>
+							<i class="wi wi-day-cloudy-gusts"></i>
+							<i class="wi wi-day-cloudy-windy"></i>
+							<i class="wi wi-day-fog"></i>
+							<i class="wi wi-day-hail"></i>
+							<i class="wi wi-day-haze"></i>
+							<i class="wi wi-day-lightning"></i>
+							<i class="wi wi-day-rain"></i>
+							<i class="wi wi-day-rain-mix"></i>
+							<i class="wi wi-day-rain-wind"></i>
+							<i class="wi wi-day-showers"></i>
+							<i class="wi wi-day-sleet"></i>
+							<i class="wi wi-day-sleet-storm"></i>
+							<i class="wi wi-day-snow"></i>
+							<i class="wi wi-day-snow-thunderstorm"></i>
+							<i class="wi wi-day-snow-wind"></i>
+							<i class="wi wi-day-sprinkle"></i>
+							<i class="wi wi-day-storm-showers"></i>
+							<i class="wi wi-day-sunny-overcast"></i>
+							<i class="wi wi-day-thunderstorm"></i>
+							<i class="wi wi-day-windy"></i>
+							<i class="wi wi-solar-eclipse"></i>
+							<i class="wi wi-hot"></i>
+							<i class="wi wi-day-cloudy-high"></i>
+							<i class="wi wi-day-light-wind"></i>
+							<i class="wi wi-night-clear"></i>
+							<i class="wi wi-night-alt-cloudy"></i>
+							<i class="wi wi-night-alt-cloudy-gusts"></i>
+							<i class="wi wi-night-alt-cloudy-windy"></i>
+							<i class="wi wi-night-alt-hail"></i>
+							<i class="wi wi-night-alt-lightning"></i>
+							<i class="wi wi-night-alt-rain"></i>
+							<i class="wi wi-night-alt-rain-mix"></i>
+							<i class="wi wi-night-alt-rain-wind"></i>
+							<i class="wi wi-night-alt-showers"></i>
+							<i class="wi wi-night-alt-sleet"></i>
+							<i class="wi wi-night-alt-sleet-storm"></i>
+							<i class="wi wi-night-alt-snow"></i>
+							<i class="wi wi-night-alt-snow-thunderstorm"></i>
+							<i class="wi wi-night-alt-snow-wind"></i>
+							<i class="wi wi-night-alt-sprinkle"></i>
+							<i class="wi wi-night-alt-storm-showers"></i>
+							<i class="wi wi-night-alt-thunderstorm"></i>
+							<i class="wi wi-night-cloudy"></i>
+							<i class="wi wi-night-cloudy-gusts"></i>
+							<i class="wi wi-night-cloudy-windy"></i>
+							<i class="wi wi-night-fog"></i>
+							<i class="wi wi-night-hail"></i>
+							<i class="wi wi-night-lightning"></i>
+							<i class="wi wi-night-partly-cloudy"></i>
+							<i class="wi wi-night-rain"></i>
+							<i class="wi wi-night-rain-mix"></i>
+							<i class="wi wi-night-rain-wind"></i>
+							<i class="wi wi-night-showers"></i>
+							<i class="wi wi-night-sleet"></i>
+							<i class="wi wi-night-sleet-storm"></i>
+							<i class="wi wi-night-snow"></i>
+							<i class="wi wi-night-snow-thunderstorm"></i>
+							<i class="wi wi-night-snow-wind"></i>
+							<i class="wi wi-night-sprinkle"></i>
+							<i class="wi wi-night-storm-showers"></i>
+							<i class="wi wi-night-thunderstorm"></i>
+							<i class="wi wi-lunar-eclipse"></i>
+							<i class="wi wi-stars"></i>
+							<i class="wi wi-storm-showers"></i>
+							<i class="wi wi-thunderstorm"></i>
+							<i class="wi wi-night-alt-cloudy-high"></i>
+							<i class="wi wi-night-cloudy-high"></i>
+							<i class="wi wi-night-alt-partly-cloudy"></i>
+							<i class="wi wi-cloud"></i>
+							<i class="wi wi-cloudy"></i>
+							<i class="wi wi-cloudy-gusts"></i>
+							<i class="wi wi-cloudy-windy"></i>
+							<i class="wi wi-fog"></i>
+							<i class="wi wi-hail"></i>
+							<i class="wi wi-rain"></i>
+							<i class="wi wi-rain-mix"></i>
+							<i class="wi wi-rain-wind"></i>
+							<i class="wi wi-showers"></i>
+							<i class="wi wi-sleet"></i>
+							<i class="wi wi-snow"></i>
+							<i class="wi wi-sprinkle"></i>
+							<i class="wi wi-storm-showers"></i>
+							<i class="wi wi-thunderstorm"></i>
+							<i class="wi wi-snow-wind"></i>
+							<i class="wi wi-snow"></i>
+							<i class="wi wi-smog"></i>
+							<i class="wi wi-smoke"></i>
+							<i class="wi wi-raindrops"></i>
+							<i class="wi wi-raindrop"></i>
+							<i class="wi wi-dust"></i>
+							<i class="wi wi-windy"></i>
+							<i class="wi wi-strong-wind"></i>
+							<i class="wi wi-sandstorm"></i>
+							<i class="wi wi-earthquake"></i>
+							<i class="wi wi-fire"></i>
+							<i class="wi wi-flood"></i>
+							<i class="wi wi-meteor"></i>
+							<i class="wi wi-tsunami"></i>
+							<i class="wi wi-volcano"></i>
+							<i class="wi wi-hurricane"></i>
+							<i class="wi wi-tornado"></i>
+							<i class="wi wi-small-craft-advisory"></i>
+							<i class="wi wi-gale-warning"></i>
+							<i class="wi wi-storm-warning"></i>
+							<i class="wi wi-hurricane-warning"></i>
+							<i class="wi wi-wind-direction"></i>
+							<i class="wi wi-alien"></i>
+							<i class="wi wi-celsius"></i>
+							<i class="wi wi-fahrenheit"></i>
+							<i class="wi wi-degrees"></i>
+							<i class="wi wi-thermometer"></i>
+							<i class="wi wi-thermometer-exterior"></i>
+							<i class="wi wi-thermometer-internal"></i>
+							<i class="wi wi-cloud-down"></i>
+							<i class="wi wi-cloud-up"></i>
+							<i class="wi wi-cloud-refresh"></i>
+							<i class="wi wi-horizon"></i>
+							<i class="wi wi-horizon-alt"></i>
+							<i class="wi wi-sunrise"></i>
+							<i class="wi wi-sunset"></i>
+							<i class="wi wi-moonrise"></i>
+							<i class="wi wi-moonset"></i>
+							<i class="wi wi-refresh"></i>
+							<i class="wi wi-refresh-alt"></i>
+							<i class="wi wi-umbrella"></i>
+							<i class="wi wi-barometer"></i>
+							<i class="wi wi-humidity"></i>
+							<i class="wi wi-na"></i>
+							<i class="wi wi-train"></i>
+							<i class="wi wi-moon-new"></i>
+							<i class="wi wi-moon-waxing-crescent-1"></i>
+							<i class="wi wi-moon-waxing-crescent-2"></i>
+							<i class="wi wi-moon-waxing-crescent-3"></i>
+							<i class="wi wi-moon-waxing-crescent-4"></i>
+							<i class="wi wi-moon-waxing-crescent-5"></i>
+							<i class="wi wi-moon-waxing-crescent-6"></i>
+							<i class="wi wi-moon-first-quarter"></i>
+							<i class="wi wi-moon-first-quarter-1"></i>
+							<i class="wi wi-moon-first-quarter-2"></i>
+							<i class="wi wi-moon-first-quarter-3"></i>
+							<i class="wi wi-moon-first-quarter-4"></i>
+							<i class="wi wi-moon-first-quarter-5"></i>
+							<i class="wi wi-moon-first-quarter-6"></i>
+							<i class="wi wi-moon-full"></i>
+							<i class="wi wi-moon-waning-gibbous-1"></i>
+							<i class="wi wi-moon-waning-gibbous-2"></i>
+							<i class="wi wi-moon-waning-gibbous-3"></i>
+							<i class="wi wi-moon-waning-gibbous-4"></i>
+							<i class="wi wi-moon-waning-gibbous-5"></i>
+							<i class="wi wi-moon-waning-gibbous-6"></i>
+							<i class="wi wi-moon-third-quarter"></i>
+							<i class="wi wi-moon-waning-crescent-1"></i>
+							<i class="wi wi-moon-waning-crescent-2"></i>
+							<i class="wi wi-moon-waning-crescent-3"></i>
+							<i class="wi wi-moon-waning-crescent-4"></i>
+							<i class="wi wi-moon-waning-crescent-5"></i>
+							<i class="wi wi-moon-waning-crescent-6"></i>
+							<i class="wi wi-moon-alt-new"></i>
+							<i class="wi wi-moon-alt-waxing-crescent-1"></i>
+							<i class="wi wi-moon-alt-waxing-crescent-2"></i>
+							<i class="wi wi-moon-alt-waxing-crescent-3"></i>
+							<i class="wi wi-moon-alt-waxing-crescent-4"></i>
+							<i class="wi wi-moon-alt-waxing-crescent-5"></i>
+							<i class="wi wi-moon-alt-waxing-crescent-6"></i>
+							<i class="wi wi-moon-alt-first-quarter"></i>
+							<i class="wi wi-moon-alt-waxing-gibbous-1"></i>
+							<i class="wi wi-moon-alt-waxing-gibbous-2"></i>
+							<i class="wi wi-moon-alt-waxing-gibbous-3"></i>
+							<i class="wi wi-moon-alt-waxing-gibbous-4"></i>
+							<i class="wi wi-moon-alt-waxing-gibbous-5"></i>
+							<i class="wi wi-moon-alt-waxing-gibbous-6"></i>
+							<i class="wi wi-moon-alt-full"></i>
+							<i class="wi wi-moon-alt-waning-gibbous-1"></i>
+							<i class="wi wi-moon-alt-waning-gibbous-2"></i>
+							<i class="wi wi-moon-alt-waning-gibbous-3"></i>
+							<i class="wi wi-moon-alt-waning-gibbous-4"></i>
+							<i class="wi wi-moon-alt-waning-gibbous-5"></i>
+							<i class="wi wi-moon-alt-waning-gibbous-6"></i>
+							<i class="wi wi-moon-alt-third-quarter"></i>
+							<i class="wi wi-moon-alt-waning-crescent-1"></i>
+							<i class="wi wi-moon-alt-waning-crescent-2"></i>
+							<i class="wi wi-moon-alt-waning-crescent-3"></i>
+							<i class="wi wi-moon-alt-waning-crescent-4"></i>
+							<i class="wi wi-moon-alt-waning-crescent-5"></i>
+							<i class="wi wi-moon-alt-waning-crescent-6"></i>
+							<i class="wi wi-moon-0"></i>
+							<i class="wi wi-moon-1"></i>
+							<i class="wi wi-moon-2"></i>
+							<i class="wi wi-moon-3"></i>
+							<i class="wi wi-moon-4"></i>
+							<i class="wi wi-moon-5"></i>
+							<i class="wi wi-moon-6"></i>
+							<i class="wi wi-moon-7"></i>
+							<i class="wi wi-moon-8"></i>
+							<i class="wi wi-moon-9"></i>
+							<i class="wi wi-moon-10"></i>
+							<i class="wi wi-moon-11"></i>
+							<i class="wi wi-moon-12"></i>
+							<i class="wi wi-moon-13"></i>
+							<i class="wi wi-moon-14"></i>
+							<i class="wi wi-moon-15"></i>
+							<i class="wi wi-moon-16"></i>
+							<i class="wi wi-moon-17"></i>
+							<i class="wi wi-moon-18"></i>
+							<i class="wi wi-moon-19"></i>
+							<i class="wi wi-moon-20"></i>
+							<i class="wi wi-moon-21"></i>
+							<i class="wi wi-moon-22"></i>
+							<i class="wi wi-moon-23"></i>
+							<i class="wi wi-moon-24"></i>
+							<i class="wi wi-moon-25"></i>
+							<i class="wi wi-moon-26"></i>
+							<i class="wi wi-moon-27"></i>
+							<i class="wi wi-time-1"></i>
+							<i class="wi wi-time-2"></i>
+							<i class="wi wi-time-3"></i>
+							<i class="wi wi-time-4"></i>
+							<i class="wi wi-time-5"></i>
+							<i class="wi wi-time-6"></i>
+							<i class="wi wi-time-7"></i>
+							<i class="wi wi-time-8"></i>
+							<i class="wi wi-time-9"></i>
+							<i class="wi wi-time-10"></i>
+							<i class="wi wi-time-11"></i>
+							<i class="wi wi-time-12"></i>
+							<i class="wi wi-direction-up"></i>
+							<i class="wi wi-direction-up-right"></i>
+							<i class="wi wi-direction-right"></i>
+							<i class="wi wi-direction-down-right"></i>
+							<i class="wi wi-direction-down"></i>
+							<i class="wi wi-direction-down-left"></i>
+							<i class="wi wi-direction-left"></i>
+							<i class="wi wi-direction-up-left"></i>
+							<i class="wi wi-wind-beaufort-0"></i>
+							<i class="wi wi-wind-beaufort-1"></i>
+							<i class="wi wi-wind-beaufort-2"></i>
+							<i class="wi wi-wind-beaufort-3"></i>
+							<i class="wi wi-wind-beaufort-4"></i>
+							<i class="wi wi-wind-beaufort-5"></i>
+							<i class="wi wi-wind-beaufort-6"></i>
+							<i class="wi wi-wind-beaufort-7"></i>
+							<i class="wi wi-wind-beaufort-8"></i>
+							<i class="wi wi-wind-beaufort-9"></i>
+							<i class="wi wi-wind-beaufort-10"></i>
+							<i class="wi wi-wind-beaufort-11"></i>
+							<i class="wi wi-wind-beaufort-12"></i>
+							<i class="wi wi-yahoo-0"></i>
+							<i class="wi wi-yahoo-1"></i>
+							<i class="wi wi-yahoo-2"></i>
+							<i class="wi wi-yahoo-3"></i>
+							<i class="wi wi-yahoo-4"></i>
+							<i class="wi wi-yahoo-5"></i>
+							<i class="wi wi-yahoo-6"></i>
+							<i class="wi wi-yahoo-7"></i>
+							<i class="wi wi-yahoo-8"></i>
+							<i class="wi wi-yahoo-9"></i>
+							<i class="wi wi-yahoo-10"></i>
+							<i class="wi wi-yahoo-11"></i>
+							<i class="wi wi-yahoo-12"></i>
+							<i class="wi wi-yahoo-13"></i>
+							<i class="wi wi-yahoo-14"></i>
+							<i class="wi wi-yahoo-15"></i>
+							<i class="wi wi-yahoo-16"></i>
+							<i class="wi wi-yahoo-17"></i>
+							<i class="wi wi-yahoo-18"></i>
+							<i class="wi wi-yahoo-19"></i>
+							<i class="wi wi-yahoo-20"></i>
+							<i class="wi wi-yahoo-21"></i>
+							<i class="wi wi-yahoo-22"></i>
+							<i class="wi wi-yahoo-23"></i>
+							<i class="wi wi-yahoo-24"></i>
+							<i class="wi wi-yahoo-25"></i>
+							<i class="wi wi-yahoo-26"></i>
+							<i class="wi wi-yahoo-27"></i>
+							<i class="wi wi-yahoo-28"></i>
+							<i class="wi wi-yahoo-29"></i>
+							<i class="wi wi-yahoo-30"></i>
+							<i class="wi wi-yahoo-31"></i>
+							<i class="wi wi-yahoo-32"></i>
+							<i class="wi wi-yahoo-33"></i>
+							<i class="wi wi-yahoo-34"></i>
+							<i class="wi wi-yahoo-35"></i>
+							<i class="wi wi-yahoo-36"></i>
+							<i class="wi wi-yahoo-37"></i>
+							<i class="wi wi-yahoo-38"></i>
+							<i class="wi wi-yahoo-39"></i>
+							<i class="wi wi-yahoo-40"></i>
+							<i class="wi wi-yahoo-41"></i>
+							<i class="wi wi-yahoo-42"></i>
+							<i class="wi wi-yahoo-43"></i>
+							<i class="wi wi-yahoo-44"></i>
+							<i class="wi wi-yahoo-45"></i>
+							<i class="wi wi-yahoo-46"></i>
+							<i class="wi wi-yahoo-47"></i>
+							<i class="wi wi-yahoo-3200"></i>
+							<i class="wi wi-forecast-io-clear-day"></i>
+							<i class="wi wi-forecast-io-clear-night"></i>
+							<i class="wi wi-forecast-io-rain"></i>
+							<i class="wi wi-forecast-io-snow"></i>
+							<i class="wi wi-forecast-io-sleet"></i>
+							<i class="wi wi-forecast-io-wind"></i>
+							<i class="wi wi-forecast-io-fog"></i>
+							<i class="wi wi-forecast-io-cloudy"></i>
+							<i class="wi wi-forecast-io-partly-cloudy-day"></i>
+							<i class="wi wi-forecast-io-partly-cloudy-night"></i>
+							<i class="wi wi-forecast-io-hail"></i>
+							<i class="wi wi-forecast-io-thunderstorm"></i>
+							<i class="wi wi-forecast-io-tornado"></i>
+							<i class="wi wi-wmo4680-00"></i>
+							<i class="wi wi-wmo4680-01"></i>
+							<i class="wi wi-wmo4680-02"></i>
+							<i class="wi wi-wmo4680-03"></i>
+							<i class="wi wi-wmo4680-04"></i>
+							<i class="wi wi-wmo4680-05"></i>
+							<i class="wi wi-wmo4680-10"></i>
+							<i class="wi wi-wmo4680-11"></i>
+							<i class="wi wi-wmo4680-12"></i>
+							<i class="wi wi-wmo4680-18"></i>
+							<i class="wi wi-wmo4680-20"></i>
+							<i class="wi wi-wmo4680-21"></i>
+							<i class="wi wi-wmo4680-22"></i>
+							<i class="wi wi-wmo4680-23"></i>
+							<i class="wi wi-wmo4680-24"></i>
+							<i class="wi wi-wmo4680-25"></i>
+							<i class="wi wi-wmo4680-26"></i>
+							<i class="wi wi-wmo4680-27"></i>
+							<i class="wi wi-wmo4680-28"></i>
+							<i class="wi wi-wmo4680-29"></i>
+							<i class="wi wi-wmo4680-30"></i>
+							<i class="wi wi-wmo4680-31"></i>
+							<i class="wi wi-wmo4680-32"></i>
+							<i class="wi wi-wmo4680-33"></i>
+							<i class="wi wi-wmo4680-34"></i>
+							<i class="wi wi-wmo4680-35"></i>
+							<i class="wi wi-wmo4680-36"></i>
+							<i class="wi wi-wmo4680-37"></i>
+							<i class="wi wi-wmo4680-38"></i>
+							<i class="wi wi-wmo4680-39"></i>
+							<i class="wi wi-wmo4680-40"></i>
+							<i class="wi wi-wmo4680-41"></i>
+							<i class="wi wi-wmo4680-42"></i>
+							<i class="wi wi-wmo4680-43"></i>
+							<i class="wi wi-wmo4680-44"></i>
+							<i class="wi wi-wmo4680-45"></i>
+							<i class="wi wi-wmo4680-46"></i>
+							<i class="wi wi-wmo4680-47"></i>
+							<i class="wi wi-wmo4680-48"></i>
+							<i class="wi wi-wmo4680-49"></i>
+							<i class="wi wi-wmo4680-50"></i>
+							<i class="wi wi-wmo4680-51"></i>
+							<i class="wi wi-wmo4680-52"></i>
+							<i class="wi wi-wmo4680-53"></i>
+							<i class="wi wi-wmo4680-54"></i>
+							<i class="wi wi-wmo4680-55"></i>
+							<i class="wi wi-wmo4680-56"></i>
+							<i class="wi wi-wmo4680-57"></i>
+							<i class="wi wi-wmo4680-58"></i>
+							<i class="wi wi-wmo4680-59"></i>
+							<i class="wi wi-wmo4680-60"></i>
+							<i class="wi wi-wmo4680-61"></i>
+							<i class="wi wi-wmo4680-62"></i>
+							<i class="wi wi-wmo4680-63"></i>
+							<i class="wi wi-wmo4680-64"></i>
+							<i class="wi wi-wmo4680-65"></i>
+							<i class="wi wi-wmo4680-66"></i>
+							<i class="wi wi-wmo4680-67"></i>
+							<i class="wi wi-wmo4680-68"></i>
+							<i class="wi wi-wmo4680-69"></i>
+							<i class="wi wi-wmo4680-70"></i>
+							<i class="wi wi-wmo4680-71"></i>
+							<i class="wi wi-wmo4680-72"></i>
+							<i class="wi wi-wmo4680-73"></i>
+							<i class="wi wi-wmo4680-74"></i>
+							<i class="wi wi-wmo4680-75"></i>
+							<i class="wi wi-wmo4680-76"></i>
+							<i class="wi wi-wmo4680-77"></i>
+							<i class="wi wi-wmo4680-78"></i>
+							<i class="wi wi-wmo4680-79"></i>
+							<i class="wi wi-wmo4680-80"></i>
+							<i class="wi wi-wmo4680-81"></i>
+							<i class="wi wi-wmo4680-82"></i>
+							<i class="wi wi-wmo4680-83"></i>
+							<i class="wi wi-wmo4680-84"></i>
+							<i class="wi wi-wmo4680-85"></i>
+							<i class="wi wi-wmo4680-86"></i>
+							<i class="wi wi-wmo4680-87"></i>
+							<i class="wi wi-wmo4680-88"></i>
+							<i class="wi wi-wmo4680-89"></i>
+							<i class="wi wi-wmo4680-90"></i>
+							<i class="wi wi-wmo4680-91"></i>
+							<i class="wi wi-wmo4680-92"></i>
+							<i class="wi wi-wmo4680-93"></i>
+							<i class="wi wi-wmo4680-94"></i>
+							<i class="wi wi-wmo4680-95"></i>
+							<i class="wi wi-wmo4680-96"></i>
+							<i class="wi wi-wmo4680-97"></i>
+							<i class="wi wi-wmo4680-98"></i>
+							<i class="wi wi-wmo4680-99"></i>
+
+							<i class="wi wi-owm-200"></i>
+							<i class="wi wi-owm-201"></i>
+							<i class="wi wi-owm-202"></i>
+							<i class="wi wi-owm-210"></i>
+							<i class="wi wi-owm-211"></i>
+							<i class="wi wi-owm-212"></i>
+							<i class="wi wi-owm-221"></i>
+							<i class="wi wi-owm-230"></i>
+							<i class="wi wi-owm-231"></i>
+							<i class="wi wi-owm-232"></i>
+							<i class="wi wi-owm-300"></i>
+							<i class="wi wi-owm-301"></i>
+							<i class="wi wi-owm-302"></i>
+							<i class="wi wi-owm-310"></i>
+							<i class="wi wi-owm-311"></i>
+							<i class="wi wi-owm-312"></i>
+							<i class="wi wi-owm-313"></i>
+							<i class="wi wi-owm-314"></i>
+							<i class="wi wi-owm-321"></i>
+							<i class="wi wi-owm-500"></i>
+							<i class="wi wi-owm-501"></i>
+							<i class="wi wi-owm-502"></i>
+							<i class="wi wi-owm-503"></i>
+							<i class="wi wi-owm-504"></i>
+							<i class="wi wi-owm-511"></i>
+							<i class="wi wi-owm-520"></i>
+							<i class="wi wi-owm-521"></i>
+							<i class="wi wi-owm-522"></i>
+							<i class="wi wi-owm-531"></i>
+							<i class="wi wi-owm-600"></i>
+							<i class="wi wi-owm-601"></i>
+							<i class="wi wi-owm-602"></i>
+							<i class="wi wi-owm-611"></i>
+							<i class="wi wi-owm-612"></i>
+							<i class="wi wi-owm-615"></i>
+							<i class="wi wi-owm-616"></i>
+							<i class="wi wi-owm-620"></i>
+							<i class="wi wi-owm-621"></i>
+							<i class="wi wi-owm-622"></i>
+							<i class="wi wi-owm-701"></i>
+							<i class="wi wi-owm-711"></i>
+							<i class="wi wi-owm-721"></i>
+							<i class="wi wi-owm-731"></i>
+							<i class="wi wi-owm-741"></i>
+							<i class="wi wi-owm-761"></i>
+							<i class="wi wi-owm-762"></i>
+							<i class="wi wi-owm-771"></i>
+							<i class="wi wi-owm-781"></i>
+							<i class="wi wi-owm-800"></i>
+							<i class="wi wi-owm-801"></i>
+							<i class="wi wi-owm-802"></i>
+							<i class="wi wi-owm-803"></i>
+							<i class="wi wi-owm-804"></i>
+							<i class="wi wi-owm-900"></i>
+							<i class="wi wi-owm-901"></i>
+							<i class="wi wi-owm-902"></i>
+							<i class="wi wi-owm-903"></i>
+							<i class="wi wi-owm-904"></i>
+							<i class="wi wi-owm-905"></i>
+							<i class="wi wi-owm-906"></i>
+							<i class="wi wi-owm-957"></i>
+							<i class="wi wi-owm-day-200"></i>
+							<i class="wi wi-owm-day-201"></i>
+							<i class="wi wi-owm-day-202"></i>
+							<i class="wi wi-owm-day-210"></i>
+							<i class="wi wi-owm-day-211"></i>
+							<i class="wi wi-owm-day-212"></i>
+							<i class="wi wi-owm-day-221"></i>
+							<i class="wi wi-owm-day-230"></i>
+							<i class="wi wi-owm-day-231"></i>
+							<i class="wi wi-owm-day-232"></i>
+							<i class="wi wi-owm-day-300"></i>
+							<i class="wi wi-owm-day-301"></i>
+							<i class="wi wi-owm-day-302"></i>
+							<i class="wi wi-owm-day-310"></i>
+							<i class="wi wi-owm-day-311"></i>
+							<i class="wi wi-owm-day-312"></i>
+							<i class="wi wi-owm-day-313"></i>
+							<i class="wi wi-owm-day-314"></i>
+							<i class="wi wi-owm-day-321"></i>
+							<i class="wi wi-owm-day-500"></i>
+							<i class="wi wi-owm-day-501"></i>
+							<i class="wi wi-owm-day-502"></i>
+							<i class="wi wi-owm-day-503"></i>
+							<i class="wi wi-owm-day-504"></i>
+							<i class="wi wi-owm-day-511"></i>
+							<i class="wi wi-owm-day-520"></i>
+							<i class="wi wi-owm-day-521"></i>
+							<i class="wi wi-owm-day-522"></i>
+							<i class="wi wi-owm-day-531"></i>
+							<i class="wi wi-owm-day-600"></i>
+							<i class="wi wi-owm-day-601"></i>
+							<i class="wi wi-owm-day-602"></i>
+							<i class="wi wi-owm-day-611"></i>
+							<i class="wi wi-owm-day-612"></i>
+							<i class="wi wi-owm-day-615"></i>
+							<i class="wi wi-owm-day-616"></i>
+							<i class="wi wi-owm-day-620"></i>
+							<i class="wi wi-owm-day-621"></i>
+							<i class="wi wi-owm-day-622"></i>
+							<i class="wi wi-owm-day-701"></i>
+							<i class="wi wi-owm-day-711"></i>
+							<i class="wi wi-owm-day-721"></i>
+							<i class="wi wi-owm-day-731"></i>
+							<i class="wi wi-owm-day-741"></i>
+							<i class="wi wi-owm-day-761"></i>
+							<i class="wi wi-owm-day-762"></i>
+							<i class="wi wi-owm-day-781"></i>
+							<i class="wi wi-owm-day-801"></i>
+							<i class="wi wi-owm-day-802"></i>
+							<i class="wi wi-owm-day-804"></i>
+							<i class="wi wi-owm-day-900"></i>
+							<i class="wi wi-owm-day-903"></i>
+							<i class="wi wi-owm-day-904"></i>
+							<i class="wi wi-owm-day-906"></i>
+							<i class="wi wi-owm-day-957"></i>
+							<i class="wi wi-owm-night-200"></i>
+							<i class="wi wi-owm-night-201"></i>
+							<i class="wi wi-owm-night-202"></i>
+							<i class="wi wi-owm-night-210"></i>
+							<i class="wi wi-owm-night-211"></i>
+							<i class="wi wi-owm-night-212"></i>
+							<i class="wi wi-owm-night-221"></i>
+							<i class="wi wi-owm-night-230"></i>
+							<i class="wi wi-owm-night-231"></i>
+							<i class="wi wi-owm-night-232"></i>
+							<i class="wi wi-owm-night-300"></i>
+							<i class="wi wi-owm-night-301"></i>
+							<i class="wi wi-owm-night-302"></i>
+							<i class="wi wi-owm-night-310"></i>
+							<i class="wi wi-owm-night-311"></i>
+							<i class="wi wi-owm-night-312"></i>
+							<i class="wi wi-owm-night-313"></i>
+							<i class="wi wi-owm-night-314"></i>
+							<i class="wi wi-owm-night-321"></i>
+							<i class="wi wi-owm-night-500"></i>
+							<i class="wi wi-owm-night-501"></i>
+							<i class="wi wi-owm-night-502"></i>
+							<i class="wi wi-owm-night-503"></i>
+							<i class="wi wi-owm-night-504"></i>
+							<i class="wi wi-owm-night-511"></i>
+							<i class="wi wi-owm-night-520"></i>
+							<i class="wi wi-owm-night-521"></i>
+							<i class="wi wi-owm-night-522"></i>
+							<i class="wi wi-owm-night-531"></i>
+							<i class="wi wi-owm-night-600"></i>
+							<i class="wi wi-owm-night-601"></i>
+							<i class="wi wi-owm-night-602"></i>
+							<i class="wi wi-owm-night-611"></i>
+							<i class="wi wi-owm-night-612"></i>
+							<i class="wi wi-owm-night-615"></i>
+							<i class="wi wi-owm-night-616"></i>
+							<i class="wi wi-owm-night-620"></i>
+							<i class="wi wi-owm-night-621"></i>
+							<i class="wi wi-owm-night-622"></i>
+							<i class="wi wi-owm-night-701"></i>
+							<i class="wi wi-owm-night-711"></i>
+							<i class="wi wi-owm-night-721"></i>
+							<i class="wi wi-owm-night-731"></i>
+							<i class="wi wi-owm-night-741"></i>
+							<i class="wi wi-owm-night-761"></i>
+							<i class="wi wi-owm-night-762"></i>
+							<i class="wi wi-owm-night-781"></i>
+							<i class="wi wi-owm-night-800"></i>
+							<i class="wi wi-owm-night-801"></i>
+							<i class="wi wi-owm-night-802"></i>
+							<i class="wi wi-owm-night-803"></i>
+							<i class="wi wi-owm-night-804"></i>
+							<i class="wi wi-owm-night-900"></i>
+							<i class="wi wi-owm-night-902"></i>
+							<i class="wi wi-owm-night-903"></i>
+							<i class="wi wi-owm-night-904"></i>
+							<i class="wi wi-owm-night-906"></i>
+							<i class="wi wi-owm-night-957"></i>
+							<i class="wi wi-wu-chanceflurries"></i>
+							<i class="wi wi-wu-chancerain"></i>
+							<i class="wi wi-wu-chancesleat"></i>
+							<i class="wi wi-wu-chancesnow"></i>
+							<i class="wi wi-wu-chancetstorms"></i>
+							<i class="wi wi-wu-clear"></i>
+							<i class="wi wi-wu-cloudy"></i>
+							<i class="wi wi-wu-flurries"></i>
+							<i class="wi wi-wu-hazy"></i>
+							<i class="wi wi-wu-mostlycloudy"></i>
+							<i class="wi wi-wu-mostlysunny"></i>
+							<i class="wi wi-wu-partlycloudy"></i>
+							<i class="wi wi-wu-partlysunny"></i>
+							<i class="wi wi-wu-rain"></i>
+							<i class="wi wi-wu-sleat"></i>
+							<i class="wi wi-wu-snow"></i>
+							<i class="wi wi-wu-sunny"></i>
+							<i class="wi wi-wu-tstorms"></i>
+							<i class="wi wi-wu-unknown"></i>
+
+							<i class="wi wi-xue"></i>
+
+
+						</div>
+
+					</section>
+				</div>
+
+				<footer class="main-footer">
+					<div class="text-center">
+						Copyright &copy;Kharna-Admin 2018. Design By更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
+					</div>
+				</footer>
+
+			</div>
+		</div>
+
+		<!--Jquery.min js-->
+		<script src="assets/js/jquery.min.js"></script>
+
+		<!--popper js-->
+		<script src="assets/js/popper.js"></script>
+
+		<!--Tooltip js-->
+		<script src="assets/js/tooltip.js"></script>
+
+		<!--Bootstrap.min js-->
+		<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+		<!--Jquery.nicescroll.min js-->
+		<script src="assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+		<!--Scroll-up-bar.min js-->
+		<script src="assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+		<!--Sidemenu js-->
+		<script src="assets/plugins/toggle-menu/sidemenu.js"></script>
+
+		<!--mCustomScrollbar js-->
+		<script src="assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+		<!-- ECharts -->
+		<script src="assets/plugins/echarts/dist/echarts.js"></script>
+
+		<!--Min Calendar -->
+		<script src="assets/plugins/fullcalendar/calendar.min.js"></script>
+		<script src="assets/plugins/fullcalendar/custom_calendar.js"></script>
+
+		<!--Morris js-->
+		<script src="assets/plugins/morris/morris.min.js"></script>
+		<script src="assets/plugins/morris/raphael.min.js"></script>	
+
+		<!--Scripts js-->
+		<script src="assets/js/scripts.js"></script>
+
+		<!--Dashboard js-->
+		<script src="assets/js/dashboard.js"></script>
+		<script src="assets/js/apexcharts.js"></script>
+	</body>
+</html>
