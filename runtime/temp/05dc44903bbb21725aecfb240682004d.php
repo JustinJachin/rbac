@@ -1,4 +1,4 @@
-<?php /*a:1:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\login\login.html";i:1563327834;}*/ ?>
+<?php /*a:1:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\login\login.html";i:1564105382;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -71,7 +71,7 @@
 				var url = "<?php echo url('login/verify',['random'=>"+Math.random+"]); ?>";  //兼容低版本的浏览器
 				obj.src = url;
 			}
-			$
+			
 		</script>
 		<!--Jquery.min js-->
 		<script src="/../static/js/jquery.min.js"></script>

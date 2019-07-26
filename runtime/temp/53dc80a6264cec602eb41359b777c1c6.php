@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564041145;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1562124745;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1563327285;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1558075280;}*/ ?>
+<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564109649;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564107527;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1563327285;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -31,11 +31,18 @@
 <!--Full calendar css-->
 <link rel="stylesheet" href="/../static/plugins/fullcalendar/stylesheet1.css">
 
+
+
+
+
 <!--&lt;!&ndash;morris css&ndash;&gt;-->
 <!--<link rel="stylesheet" href="/../static/plugins/morris/morris.css">-->
 			<block name="topCss">
 				<!--DataTables css-->
 				<link rel="stylesheet" href="/../static/plugins/Datatable/css/dataTables.bootstrap4.css">
+
+				<!--iCheck css-->
+				<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
 			</block>
 		</head>
 
@@ -142,24 +149,21 @@
 												<h4>权限列表</h4>
 											</div>
 											<div class="card-body">
-												<a href="#" class="btn btn-primary">添加</a>
+												<a href="#" class="btn btn-primary">add</a>
 												<div class="table-responsive">
 													<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 														<thead>
 															<tr>
 																<th class="row-selected">
-																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" name="" id="check">
-																		<label for="" class="custom-control-label"></label>
-																	</div>
-																	<!-- <input class="checkbox check-all" type="checkbox"> -->
+																	<input class="minimal" type="checkbox"  onclick="selectAll(this)" id="checkall">
+																	<label for="checkall">全选</label>
 																</th>
 																<th class="wd-15p">ID</th>
 																<th class="wd-15p">描述</th>
 																<th class="wd-15p">名字</th>
 																<th class="wd-20p">模型</th>
 																<th class="wd-15p">图标</th>
-																<th class="wd-10p">是否被禁用</th>
+															
 																<th class="wd-10p">是否是导航栏</th>
 																<th class="wd-25p">上级描述</th>
 																<th class="wd-25p">创建时间</th>
@@ -171,26 +175,14 @@
 															<?php if(is_array($permission) || $permission instanceof \think\Collection || $permission instanceof \think\Paginator): $i = 0; $__LIST__ = $permission;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 															<tr>
 																<td>
-																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" name="id[]" id="<?php echo htmlentities($vo['id']); ?>">
-																		<label for="<?php echo htmlentities($vo['id']); ?>" class="custom-control-label"></label>
-																	</div>
-																	<!-- <input class="ids" type="checkbox" name="id[]" value="<?php echo htmlentities($vo['id']); ?>"/> -->
+																	<input type="checkbox" class="minimal" name="choice" value="<?php echo htmlentities($vo['id']); ?>">
 																</td>
 																<td><?php echo htmlentities($vo['id']); ?></td>
 																<td><?php echo htmlentities($vo['title']); ?></td>
 																<td><?php echo htmlentities($vo['name']); ?></td>
 																<td><?php echo htmlentities($vo['model']); ?></td>
 																<td><i class="<?php echo htmlentities($vo['icon']); ?>"></i></td>
-																<td>
-																	<?php if($vo['status'] ==  '正常'): ?>
-																	<div class="badge badge-success"><?php echo htmlentities($vo['status']); ?></div>
-																	<?php endif; if($vo['status'] ==  '禁用'): ?>
-																	<div class="badge badge-warning"><?php echo htmlentities($vo['status']); ?></div>
-																	<?php endif; if($vo['status'] ==  '删除'): ?>
-																	<div class="badge badge-danger"><?php echo htmlentities($vo['status']); ?></div>
-																	<?php endif; ?>
-																</td>
+																
 																<td><?php echo htmlentities($vo['display_menu']); ?></td>
 																<td>
 																	<?php echo htmlentities($vo['parentName']); ?>
@@ -198,14 +190,12 @@
 																<td><?php echo htmlentities($vo['create_time']); ?></td>
 																<td><?php echo htmlentities($vo['update_time']); ?></td>
 																<td>
-																	<?php if($vo['status'] !=  '正常'): ?>
-																	<a href="#" class="btn btn-primary">启用</a>
-																	<?php else: ?>
-																	<a href="#" class="btn btn-warning">禁用</a>
-																	<?php endif; ?>
-																	
-																	<a href="#" class="btn btn-info m-b-5 m-t-5">编辑</a>
-																	<a href="#" class="btn btn-danger m-b-5 m-t-5">删除</a>
+																	<div class="btn-group align-top">
+																		<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">Edit</button>
+																	</div>
+																	<div class="btn-group align-top">
+																		<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i></button>
+																	</div>
 																</td>
 															
 															</tr>
@@ -269,28 +259,35 @@
 <!--Scripts js-->
 <script src="/../static/js/scripts.js"></script>
 
-<!--Dashboard js-->
-<script src="/../static/js/dashboard.js"></script>
-<script src="/../static/js/apexcharts.js"></script>
+
 			<block name="js">
 				<script>
-					document.getElementById("check").onclick = function(){
-        var checked = document.getElementById("check").checked;
-        var checkson = document.getElementsByName("id[]");
-        if(checked){
-            for(var i = 0; i < checkson.length ;i++){
-                checkson[i].checked = true;
-            }
-        }else{
-            for(var i = 0; i < checkson.length ;i++){
-                checkson[i].checked = false;
-            }
-        }
-    }
+				// 	document.getElementById("check").onclick = function(){
+    //     var checked = document.getElementById("check").checked;
+    //     var checkson = document.getElementsByName("id[]");
+    //     if(checked){
+    //         for(var i = 0; i < checkson.length ;i++){
+    //             checkson[i].checked = true;
+    //         }
+    //     }else{
+    //         for(var i = 0; i < checkson.length ;i++){
+    //             checkson[i].checked = false;
+    //         }
+    //     }
+    // }
+			    function selectAll(choiceBtn){   
+			        //document.getElementsByTagName()
+				    var arr=document.getElementsByName("choice");
+				    for(var i=0;i<arr.length;i++){
+				        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+				    }
+				}
 				</script>
 				<!--DataTables css-->
 				<script src="/../static/plugins/Datatable/js/jquery.dataTables.js"></script>
 				<script src="/../static/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
+				<!--iCheck js-->
+				<script src="/../static/plugins/iCheck/icheck.min.js"></script>
 			</block>
 		</body>
 	</html>

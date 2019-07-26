@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 19/07/2019 17:28:34
+ Date: 26/07/2019 17:30:49
 */
 
 SET NAMES utf8mb4;
@@ -40,7 +40,7 @@ CREATE TABLE `on_admin`  (
 -- ----------------------------
 -- Records of on_admin
 -- ----------------------------
-INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1563521504, 0, 1563521504, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1563772839, 0, 1563772839, '127.0.0.1');
 INSERT INTO `on_admin` VALUES (2, 'justin', 'on490bc47ffe57e67f88e681c577f430e1', 0, 'justin@qq.com', 1, 1, 1557898848, 1557898848, 0, 0, NULL);
 
 -- ----------------------------
@@ -107,13 +107,13 @@ CREATE TABLE `on_permission`  (
   `create_time` int(11) UNSIGNED NOT NULL COMMENT '创建时间',
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_permission
 -- ----------------------------
 INSERT INTO `on_permission` VALUES (2, '角色管理', 'role/index', 'admin', 'role', 'index', '', 1, 0, 1, 20, 1, 1563170072, 1563170072);
-INSERT INTO `on_permission` VALUES (1, '后台首页', 'index/index', 'admin', 'index', 'index', 'side-menu__icon fa fa-desktop', 0, 0, 1, 0, 1, 1563170072, 1563170072);
+INSERT INTO `on_permission` VALUES (1, '后台首页', 'index/index', 'admin', '', '', 'side-menu__icon fa fa-desktop', 0, 0, 1, 0, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (3, '添加角色', 'role/add', 'admin', 'role', 'add', '', 2, 0, 0, 2, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (4, '创建角色', 'role/store', 'admin', 'role', 'store', '', 2, 0, 0, 2, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (5, '编辑角色', 'role/edit', 'admin', 'role', 'edit', '', 2, 0, 0, 2, 1, 1563170072, 1563170072);
@@ -132,7 +132,9 @@ INSERT INTO `on_permission` VALUES (17, '编辑管理员', 'admin/edit', 'admin'
 INSERT INTO `on_permission` VALUES (18, '修改管理员', 'admin/update', 'admin', 'admin', 'update', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (19, '删除管理员', 'admin/delete', 'admin', 'admin', 'delete', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (20, '员工管理', 'admin/admin', 'admin', '', '', '', 0, 0, 1, 0, 1, 1563170072, 1563170072);
-INSERT INTO `on_permission` VALUES (21, '测试', 'test/index', 'admin', 'test', 'index', '', 0, 0, 1, 0, 1, 1501686013, 1501686013);
+INSERT INTO `on_permission` VALUES (21, '测试', 'test/index', 'admin', 'test', 'index', '', 0, 0, 1, 0, -1, 1501686013, 1501686013);
+INSERT INTO `on_permission` VALUES (22, '首页', 'index/index', 'admin', 'index', 'index', '', 1, 0, 1, 1, 1, 1501686013, 1501686013);
+INSERT INTO `on_permission` VALUES (23, 'test', 'tess/index', 'admin', 'tess', 'index', '', 0, 0, 1, 0, 0, 1501686013, 1501686013);
 
 -- ----------------------------
 -- Table structure for on_role

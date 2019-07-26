@@ -10,7 +10,7 @@ use app\admin\model\Permission as PermissionModel;
 class Permission extends Base{
 	public function index(){
 		
-		$list=PermissionModel::paginate(10);
+		$list=PermissionModel::where('status','1' )->paginate(10);
 		foreach($list as &$k){
 			$k['parentName']=$this->getParentName($k['parent_id']);
 		}

@@ -1,4 +1,4 @@
-		<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,6 +7,9 @@
 	<block name="topCss">
 		<!--DataTables css-->
 		<link rel="stylesheet" href="__STATIC__/plugins/Datatable/css/dataTables.bootstrap4.css">
+
+		<!--iCheck css-->
+		<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
 	</block>
 </head>
 
@@ -33,12 +36,17 @@
 									<h4>管理员列表</h4>
 								</div>
 								<div class="card-body">
+
+									<div class="table-responsive">
+									<a href="{:url('admin/addadmin')}" class="btn btn-primary">add</a>
+									</div>
 									<div class="table-responsive">
 									<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 										<thead>
 											<tr>
 												<th class="row-selected">
-													<input class="checkbox check-all" type="checkbox">
+													<input class="minimal" type="checkbox"  onclick="selectAll(this)" id="checkall">
+													<label for="checkall">全选</label>
 												</th>
 												<th class="wd-15p">ID</th>
 												<th class="wd-15p">用户名</th>
@@ -54,12 +62,20 @@
 										<tbody>
 											{volist name='users' id="vo"}
 											<tr>
-												<td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+												<td>
+													<input type="checkbox" class="minimal" name="choice" value="{$vo.id}">
+												</td>
 												<td>{$vo.id}</td>
 												<td>{$vo.name}</td>
 												<td>{$vo.sex}</td>
 												<td>{$vo.email}</td>
-												<td>{$vo.status}</td>
+												<td>
+													{if condition="$vo['status'] eq  '正常'"}
+													<div class="badge badge-success">{$vo.status}</div>
+													{else/}
+													<div class="badge badge-warning">{$vo.status}</div>
+													{/if}
+												</td>
 												<td>{$vo.create_time}</td>
 												<td>
 													{if condition="$vo['last_login_time'] eq 0"}
@@ -69,7 +85,19 @@
 													{/if}
 												</td>
 												<td>{$vo.last_login_ip}</td>
-												<td></td>
+												<td>
+													{if condition="$vo['status'] neq  '正常'"}
+													<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">开启</button>
+													{else/}
+													<button class="btn btn-sm btn-warning badge" data-target="#user-form-modal" data-toggle="modal" type="button">禁用</button>
+													{/if}
+													<div class="btn-group align-top">
+														<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">Edit</button>
+													</div>
+													<div class="btn-group align-top">
+														<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i></button>
+													</div>
+												</td>
 											
 											</tr>
 											{/volist}
@@ -86,19 +114,28 @@
 
 				</section>
 			</div>
-			<script>
-				$(function(e) {
-					$('#example').DataTable();
-				} );
-			</script>
+			
 		</block>
 	</div>
 </div>
+<script>
+	function selectAll(choiceBtn){
+                
+        //document.getElementsByTagName()
+	    var arr=document.getElementsByName("choice");
+		    for(var i=0;i<arr.length;i++){
+		        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+		    }
+	    }
+</script>
 {include file="public:js"}
 <block name="js">
 	<!--DataTables css-->
 	<script src="__STATIC__/plugins/Datatable/js/jquery.dataTables.js"></script>
 	<script src="__STATIC__/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
+
+	<!--iCheck js-->
+	<script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
 </block>
 </body>
 </html>

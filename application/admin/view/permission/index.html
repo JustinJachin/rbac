@@ -7,6 +7,9 @@
 			<block name="topCss">
 				<!--DataTables css-->
 				<link rel="stylesheet" href="__STATIC__/plugins/Datatable/css/dataTables.bootstrap4.css">
+
+				<!--iCheck css-->
+				<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
 			</block>
 		</head>
 
@@ -33,24 +36,21 @@
 												<h4>权限列表</h4>
 											</div>
 											<div class="card-body">
-												<a href="#" class="btn btn-primary">添加</a>
+												<a href="#" class="btn btn-primary">add</a>
 												<div class="table-responsive">
 													<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 														<thead>
 															<tr>
 																<th class="row-selected">
-																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" name="" id="check">
-																		<label for="" class="custom-control-label"></label>
-																	</div>
-																	<!-- <input class="checkbox check-all" type="checkbox"> -->
+																	<input class="minimal" type="checkbox"  onclick="selectAll(this)" id="checkall">
+																	<label for="checkall">全选</label>
 																</th>
 																<th class="wd-15p">ID</th>
 																<th class="wd-15p">描述</th>
 																<th class="wd-15p">名字</th>
 																<th class="wd-20p">模型</th>
 																<th class="wd-15p">图标</th>
-																<th class="wd-10p">是否被禁用</th>
+															
 																<th class="wd-10p">是否是导航栏</th>
 																<th class="wd-25p">上级描述</th>
 																<th class="wd-25p">创建时间</th>
@@ -62,28 +62,14 @@
 															{volist name='permission' id="vo"}
 															<tr>
 																<td>
-																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" name="id[]" id="{$vo.id}">
-																		<label for="{$vo.id}" class="custom-control-label"></label>
-																	</div>
-																	<!-- <input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/> -->
+																	<input type="checkbox" class="minimal" name="choice" value="{$vo.id}">
 																</td>
 																<td>{$vo.id}</td>
 																<td>{$vo.title}</td>
 																<td>{$vo.name}</td>
 																<td>{$vo.model}</td>
 																<td><i class="{$vo.icon}"></i></td>
-																<td>
-																	{if condition="$vo['status'] eq  '正常'"}
-																	<div class="badge badge-success">{$vo.status}</div>
-																	{/if}
-																	{if condition="$vo['status'] eq  '禁用'"}
-																	<div class="badge badge-warning">{$vo.status}</div>
-																	{/if}
-																	{if condition="$vo['status'] eq  '删除'"}
-																	<div class="badge badge-danger">{$vo.status}</div>
-																	{/if}
-																</td>
+																
 																<td>{$vo.display_menu}</td>
 																<td>
 																	{$vo.parentName}
@@ -91,14 +77,12 @@
 																<td>{$vo.create_time}</td>
 																<td>{$vo.update_time}</td>
 																<td>
-																	{if condition="$vo['status'] neq  '正常'"}
-																	<a href="#" class="btn btn-primary">启用</a>
-																	{else/}
-																	<a href="#" class="btn btn-warning">禁用</a>
-																	{/if}
-																	
-																	<a href="#" class="btn btn-info m-b-5 m-t-5">编辑</a>
-																	<a href="#" class="btn btn-danger m-b-5 m-t-5">删除</a>
+																	<div class="btn-group align-top">
+																		<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">Edit</button>
+																	</div>
+																	<div class="btn-group align-top">
+																		<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i></button>
+																	</div>
 																</td>
 															
 															</tr>
@@ -127,23 +111,32 @@
 			{include file="public:js"}
 			<block name="js">
 				<script>
-					document.getElementById("check").onclick = function(){
-        var checked = document.getElementById("check").checked;
-        var checkson = document.getElementsByName("id[]");
-        if(checked){
-            for(var i = 0; i < checkson.length ;i++){
-                checkson[i].checked = true;
-            }
-        }else{
-            for(var i = 0; i < checkson.length ;i++){
-                checkson[i].checked = false;
-            }
-        }
-    }
+				// 	document.getElementById("check").onclick = function(){
+    //     var checked = document.getElementById("check").checked;
+    //     var checkson = document.getElementsByName("id[]");
+    //     if(checked){
+    //         for(var i = 0; i < checkson.length ;i++){
+    //             checkson[i].checked = true;
+    //         }
+    //     }else{
+    //         for(var i = 0; i < checkson.length ;i++){
+    //             checkson[i].checked = false;
+    //         }
+    //     }
+    // }
+			    function selectAll(choiceBtn){   
+			        //document.getElementsByTagName()
+				    var arr=document.getElementsByName("choice");
+				    for(var i=0;i<arr.length;i++){
+				        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+				    }
+				}
 				</script>
 				<!--DataTables css-->
 				<script src="__STATIC__/plugins/Datatable/js/jquery.dataTables.js"></script>
 				<script src="__STATIC__/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
+				<!--iCheck js-->
+				<script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
 			</block>
 		</body>
 	</html>
