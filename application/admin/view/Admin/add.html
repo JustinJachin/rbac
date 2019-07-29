@@ -38,11 +38,11 @@
 										<h4>添加管理员</h4>
 									</div>
 									<div class="card-body">
-										<form id="form" class="form-horizontal" method="post">
+										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">用户名<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
 												<div class="col-md-4">
-													<input id="username" type="text" class="form-control" placeholder="user name" name="username" >
+													<input id="username" type="text" class="form-control" placeholder="user name" name="name" >
 												</div>
 											</div>
 											<div class="form-group row">
@@ -59,7 +59,7 @@
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label" for="example-email">邮  箱<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
 												<div class="col-md-9">
-													<input type="email" id="example-email" name="example-email" class="form-control" placeholder="xxx@xx.com"  name="email">
+													<input type="email" id="email" name="email" class="form-control" placeholder="xxx@xx.com"  name="email">
 												</div>
 											</div>
 											<div class="form-group row">
@@ -71,7 +71,7 @@
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">确认密码<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
 												<div class="col-md-9">
-													<input type="password" class="form-control"  name="passwordTwo">
+													<input type="password" class="form-control"  name="password_confirm">
 													<!-- required -->
 												</div>
 											</div>
@@ -83,6 +83,7 @@
 											</div>
 											
 										</form>
+										<iframe id="addfile_iframe" src="" name="addfile" style="display: none;" frameborder="0"></iframe>
 									</div>
 								</div>
 							</div>
@@ -102,6 +103,9 @@
 <block name="js">
 	<script type="text/javascript">
 		$("#form").submit(function(){
+			var contact = $("input[name='name']").val();
+			var title = $("input[name='email']").val();
+			var errmessage = $("select[name='sex']").val();
 			var uname=$("#username").val();
 			 
 			var formData = $("#form").serialize();
@@ -113,15 +117,22 @@
 				data:formData,
 				dataType:'json',
 				success:function(data){
-					console.log(data);
-					debugger;
+					if(data.status==1){
+						window.location.href="index";
+					}
+					// else{
+					// 	window.location.href='addadmin';
+					// }
+					alert(data.msg);
+					
 				},
 				error:function(msg){
 					
-					alert(3);
-					debugger;
+					alert('系统错误，请联系管理员！');
+					
 				}
 			})
+		
 		});
 	</script>
 </block>

@@ -1,4 +1,4 @@
-<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564110269;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1563327285;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564390463;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1563327285;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,7 +151,7 @@
 								<div class="card-body">
 
 									<div class="table-responsive">
-									<a href="<?php echo url('admin/addadmin'); ?>" class="btn btn-primary">add</a>
+									<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary">add</a>
 									</div>
 									<div class="table-responsive">
 									<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >

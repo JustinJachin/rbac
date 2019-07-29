@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 26/07/2019 17:30:49
+ Date: 29/07/2019 16:57:35
 */
 
 SET NAMES utf8mb4;
@@ -35,13 +35,18 @@ CREATE TABLE `on_admin`  (
   `last_login_time` int(11) NULL DEFAULT NULL COMMENT '上次登录时间',
   `last_login_ip` varchar(34) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上次登录ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_admin
 -- ----------------------------
-INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1563772839, 0, 1563772839, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1564390185, 0, 1564390185, '127.0.0.1');
 INSERT INTO `on_admin` VALUES (2, 'justin', 'on490bc47ffe57e67f88e681c577f430e1', 0, 'justin@qq.com', 1, 1, 1557898848, 1557898848, 0, 0, NULL);
+INSERT INTO `on_admin` VALUES (3, '123', 'on1cb4c505dd4158e26b1cbc94b95ac25a', 1, '123@1.com', 1, 1, 1564381936, 1564381936, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (4, '123', 'on1cb4c505dd4158e26b1cbc94b95ac25a', 1, '123@1.com', 1, 1, 1564381937, 1564381937, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (5, '1234', 'on8e68eef37c520ef025ea6b2d072d0814', 1, '123@qq.com', 1, 1, 1564382272, 1564382272, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (6, 'dddd', 'on47288b0def8776d233329db248e37188', 2, '1234@qq.com', 1, 1, 1564382312, 1564382312, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (7, 'dddd2', 'on47288b0def8776d233329db248e37188', 2, '12342@qq.com', 1, 1, 1564382434, 1564382434, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for on_admin_role
@@ -166,6 +171,12 @@ CREATE TABLE `on_role_permission`  (
   `access_id` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '对应access表的id',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限角色表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限角色表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of on_role_permission
+-- ----------------------------
+INSERT INTO `on_role_permission` VALUES (4, 1, '1，22', 0);
+INSERT INTO `on_role_permission` VALUES (3, 2, '1，14，15，16，17，18，19，20，22', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

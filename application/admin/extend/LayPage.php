@@ -1,8 +1,16 @@
 <?php
+// +----------------------------------------------------------------------
+// | Author: jachin <jachin@qq.com> <https://github.com/JustinJachin/rbac>
+// +----------------------------------------------------------------------
+
 namespace app\admin\extend;
  
 use think\Paginator;
  
+/**
+ * 分页
+ * @author jachin <jachin@qq.com>
+ */
 class LayPage extends Paginator
 {
     //首页
@@ -50,6 +58,7 @@ class LayPage extends Paginator
     /**
      * 页码按钮
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getLinks()
     {
@@ -99,6 +108,7 @@ class LayPage extends Paginator
     /**
      * 渲染分页html
      * @return mixed
+     * @author jachin  2019-07-29
      */
     public function render()
     {
@@ -132,6 +142,7 @@ class LayPage extends Paginator
      * @param  string $url
      * @param  int    $page
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getAvailablePageWrapper($url, $page)
     {
@@ -143,6 +154,7 @@ class LayPage extends Paginator
      *
      * @param  string $text
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getDisabledTextWrapper($text)
     {
@@ -154,6 +166,7 @@ class LayPage extends Paginator
      *
      * @param  string $text
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getActivePageWrapper($text)
     {
@@ -164,6 +177,7 @@ class LayPage extends Paginator
      * 生成省略号按钮
      *
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getDots()
     {
@@ -175,6 +189,7 @@ class LayPage extends Paginator
      *
      * @param  array $urls
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getUrlLinks(array $urls)
     {
@@ -193,6 +208,7 @@ class LayPage extends Paginator
      * @param  string $url
      * @param  int    $page
      * @return string
+     * @author jachin  2019-07-29
      */
     protected function getPageLinkWrapper($url, $page)
     {
@@ -205,6 +221,7 @@ class LayPage extends Paginator
  
     /**
      * 分页样式
+     * @author jachin  2019-07-29
      */
     protected function css(){
         return '  <style type="text/css">

@@ -1,15 +1,29 @@
 <?php
+
+// +----------------------------------------------------------------------
+// | Author: jachin <jachin@qq.com> <https://github.com/JustinJachin/rbac>
+// +----------------------------------------------------------------------
+
 namespace app\admin\controller;
 use app\admin\controller\Base;
 use think\facade\Request;
+
+/**
+ * 后台首页控制器
+ * @author jachin <jachin@qq.com>
+ */
 class Index extends Base
 {
+    /**
+     * @description 后台首页
+     * @author jachin  2019-07-29
+     */
     public function index()
     {
-
-        // echo trim(substr(Request::path(),strpos(Request::path(),'/')),'/');exit;
+        //获取天气信息返回数据是json格式
         $weather=$this->getUrl("https://www.tianqiapi.com/api/?version=v1");
         $weatherData=array();
+        //重组数组,将有用的数据提取出来
         foreach($weather as $k=>$v){
             if($k=='city'){
                 $city=$v;
@@ -35,35 +49,22 @@ class Index extends Base
         $this->assign('vocity',$city);
         return view('index');
     }
-
-    // private function getIP(){
-    //     static $realip;
-    //     if(isset($_SERVER)){
-    //         if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
-    //             $realip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-    //         }else if(isset($_SERVER['HTTP_CLIENT_IP'])){
-    //             $realip=$_SERVER['HTTP_CLIENT_IP'];
-    //         }else{
-    //             $realip=$_SERVER['REMOTE_ADDR'];
-    //         }
-    //     }else{
-    //         if(getenv('HTTP_X_FORWARDED_FOR')){
-    //             $realip=getenv('HTTP_X_FORWARDED_FOR');
-    //         }else if(getenv('HTTP_CLIENT_IP')){
-    //             $realip=getenv('HTTP_CLIENT_IP');
-    //         }else{
-    //             $realip = getenv("REMOTE_ADDR");
-    //         }
-    //     }
-    //     return $realip;
-    // }
+    
+     /**
+     * @description  获取天气
+     * @param  string $data url
+     * @return string json格式数据
+     * @author jachin  2019-07-29
+     */
     private function getUrl($data){
+        //组成数组
         $arrContextOptions=array(
             "ssl"=>array(
                 "verify_peer"=>false,
                 "verify_peer_name"=>false,
             ),
         );
+        //将数据传入file_get_contents函数中
         $city=file_get_contents($data, false, stream_context_create($arrContextOptions));
         return json_decode($city,true);
     }

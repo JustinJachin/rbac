@@ -1,49 +1,88 @@
 <?php
+// +----------------------------------------------------------------------
+// | Author: jachin <jachin@qq.com> <https://github.com/JustinJachin/rbac>
+// +----------------------------------------------------------------------
+
 namespace app\admin\controller;
+
 use app\admin\controller\Base;
 use app\admin\model\Admin as AdminModel;
 use think\Request;
-class Admin extends Base {
+use app\admin\validate\Admin as AdminValidate;
+
+
+/**
+ * 管理员控制器
+ * @author jachin <jachin@qq.com>
+ */
+
+class Admin extends Base 
+{
+	/**
+     * @description 管理员列表页
+     * @author jachin  2019-07-29
+     */
 	public function index(){
-		$admin =AdminModel::select();
-		$list=AdminModel::where('status',1)->paginate(10);
+
+		$list=AdminModel::where('status',1)->paginate(10);//每页查询10条数据
+
 		$page=$list->render();
+
 		$this->assign('users',$list);
+
 		$this->assign('page',$page);
+
 		return view('index');
 	}
-	public function addadmin(){
-		// if(Request){
-		// 	$data=array(
-		// 		'status'=>1,
-		// 		'msg'=>'注册成功'
-		// 	);
-		// 	return json_decode($data);
-		// }else{
-		// 	return view('add');
-		// }
-		return view('add');
-	}
-	// public function add($username='',$sex='',$email='',$password='',$passwordTwo=''){
-	// 	// halt($request->post());
-	// 	// $data=request()->post();
-	// 	// var_dump($data);exit;
-	// 	echo $username.' sex'.$sex.' email:'.$email.'  password:'.$password;
-	// 	$data=array(
-	// 		'status'=>1,
-	// 		'msg'=>'注册成功'
-	// 	);
-	// 	return json($data);
-	// }
+	/**
+     * @description 管理员添加页面以及处理
+     * @author jachin  2019-07-29
+     */
 	public function add(){
-		// halt($request->post());
-		$data=input('post.username');
-		var_dump($data);
-		// $data=array(
-		// 	'status'=>1,
-		// 	'msg'=>'注册成功'
-		// );
-		// var_dump($data);exit;
-		return json($data);
+
+		//判断页面是否有数据提交
+
+		if(Request()->isPost()){
+			//初始化$res
+			$status=array(
+				'status'=>0,
+				'msg'=>'添加失败'
+			);
+			//获取前台提交的数据
+			$data=input('post.');
+			
+			$adminValidate=new AdminValidate();
+			//验证数据是否合法
+			$result=$adminValidate->check($data);
+			if(!$result){
+				$status=array(
+					'status'=>0,
+					'msg'=>$adminValidate->getError()
+				);
+			}else{
+				$data['password']='on'.md5('on'.md5($data['password']));//密码加密
+				unset($data['password_confirm']);//剔除重复密码
+				$data['create_time']=time();
+				$data['update_time']=time();
+				$res=AdminModel::create($data);//加入数据库
+				if($res){
+					$status=array(
+						'status'=>1,
+						'msg'=>'添加成功'
+					);
+				}
+			}
+			//返回json格式数据
+			return json($status);
+
+		}else{
+			//页面展示
+			return view('add');
+		}
+		
 	}
+
+	// public function add(){
+		
+	// }
 }

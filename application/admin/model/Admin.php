@@ -1,25 +1,51 @@
 <?php
 
+// +----------------------------------------------------------------------
+// | Author: jachin <jachin@qq.com> <https://github.com/JustinJachin/rbac>
+// +----------------------------------------------------------------------
 
 namespace app\admin\model;
 
 
 use think\Model;
 use think\Session;
+use think\facade\Validate;
 
+/**
+ * 管理员模型
+ * @author jachin <jachin@qq.com>
+ */
 class Admin extends Model
 {
-    // protected $table = 'on_admin';
+   
+    /**
+     * @description  获取器获取状态，重新赋值
+     * @param  int    $value
+     * @return string 
+     * @author jachin  2019-07-29
+     */
     public function getStatusAttr($value){
       $status=[-1=>'删除',0=>'禁用',1=>'正常'];
       return $status[$value];
     }
     
+    /**
+     * @description  获取器获取性别，重新赋值
+     * @param  int    $value
+     * @return string 
+     * @author jachin  2019-07-29
+     */
     public function getSexAttr($value){
       $sex=[0=>'女',1=>'男',2=>'保密'];
       return $sex[$value];
     }
 
+    /**
+     * @description  获取器获取时间，重新赋值
+     * @param  int    $value
+     * @return string 
+     * @author jachin  2019-07-29
+     */
     public function getLast_login_timeAttr($value){
       if($value)
         $last_login_time=date('Y-m-s h:i:s',$value);
@@ -28,23 +54,34 @@ class Admin extends Model
       return $last_login_time;
     }
 
-    public function getLast_login_ipAttr($value){
-      echo $value;
+    /**
+     * @description  登录验证
+     * @param  string $name 用户名 string $pwd 密码 
+     * @return bool 正确返回1错误返回0
+     * @author jachin  2019-07-29
+     */
+    public function check($name,$pwd){
+      //查找登录邮箱
+      if(Validate::isEmail($name)){
+        $user=Admin::where('email',$name)->find();
+      }else{
+        $user=Admin::where('name',$name)->find();
+      }
+      if($user){
+         if('on'.md5('on'.md5($pwd))===$user['password']){
+            \session('uid',$user['id']);
+            \session('admin_name',$user['name']);
+             return 1;
+         }
+      }
+      return 0;
     }
 
-    
-    public function check($name,$pwd){
-       $email=Admin::where('email',$name)->find();
-       $user=Admin::where('name',$name)->find();
-       if($user||$email){
-           if('on'.md5('on'.md5($pwd))===$user['password']){
-              \session('uid',$user['id']);
-              \session('admin_name',$user['name']);
-               return 1;
-           }
-       }
-       return 0;
-    }
+    /**
+     * @description  更新登录信息
+     * @param  string $ip ip地址
+     * @author jachin  2019-07-29
+     */
     public function updateLogin($ip){
       $data=array(
         'last_login_time' => time(),

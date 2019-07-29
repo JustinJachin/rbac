@@ -1,5 +1,7 @@
 <?php
-
+// +----------------------------------------------------------------------
+// | Author: jachin <jachin@qq.com> <https://github.com/JustinJachin/rbac>
+// +----------------------------------------------------------------------
 
 namespace app\admin\controller;
 
@@ -9,10 +11,19 @@ use think\Controller;
 use app\admin\validate\LoginValidate;
 use think\Request;
 use app\admin\model\Admin as AdminModel;
+
+/**
+ * 后台登录控制器
+ * @author jachin <jachin@qq.com>
+ */
 class Login extends Controller
 {
+    /**
+     * @description  后台首页
+     * @author jachin  2019-07-29
+     */
     public function index(){
-
+        
         $captcha=new Captcha();
         if(request()->isPost()){
             $data=input('post.');
@@ -27,25 +38,40 @@ class Login extends Controller
                 return $this->error('邮箱或者密码错误 ，重新填写正在跳转.....','','',2);
             }
         }
-//        return view('login');//与$this->fetch()方法相同
+        //return view('login');//与$this->fetch()方法相同
         return $this->fetch('login');
     }
+
+    /**
+     * @description  验证码
+     * @author jachin  2019-07-29
+     */
     public function  verify(){
         ob_clean();
         $captcha = new Captcha();
         return $captcha->entry();
     }
 
-    
+    /**
+     * @description  退出登录
+     * @author jachin  2019-07-29
+     */
     public function logout(){
+        //获取ip地址
         $ip=$this->getIP();
         $admin=new AdminModel;
+        //将ip地址写入数据库
         $admin->updateLogin($ip);
+        //清空session
         session(null);
         $this->redirect('index/login');
     }
 
-
+    /**
+     * @description  获取IP地址
+     * @return string IP地址
+     * @author jachin  2019-07-29
+     */
     public function getIP(){
         static $realIP;
         if(isset($_SERVER)){
