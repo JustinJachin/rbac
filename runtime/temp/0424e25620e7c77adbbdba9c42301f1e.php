@@ -1,4 +1,4 @@
-<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564390463;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1563327285;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564469771;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,10 +61,7 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="ion ion-search"></i></a></li>
         </ul>
-        <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
-        </div>
+        
     </form>
     <ul class="navbar-nav navbar-right">
         <li class="dropdown">
@@ -146,13 +143,38 @@
 						<div class="col-lg-12">
 							<div class="card">
 								<div class="card-header">
+									<form class="float-right">
+											<div class="input-group">
+												<input type="text" class="form-control" placeholder="Search">
+												<div class="input-group-btn">
+													<button class="btn btn-primary"><i class="ion ion-search"></i></button>
+												</div>
+											</div>
+										</form>	
 									<h4>管理员列表</h4>
+								</div>
+								<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
+									<div class="float-left" style="margin-right: 10px;">
+										<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary">添加管理员</a> 
+									</div>
+									<div class="float-left">
+										<a href="<?php echo url('admin/add'); ?>" class="btn btn-danger" >批量删除</a> 
+									</div>
+									<div class="float-right col-lg-4">
+										
+									</div> 
+									
 								</div>
 								<div class="card-body">
 
-									<div class="table-responsive">
-									<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary">add</a>
+									<div class="table-responsive" >
+										
+										<!-- <div class="search-element " style="float: left;">
+											<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+											<button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
+										</div> -->
 									</div>
+									
 									<div class="table-responsive">
 									<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 										<thead>
@@ -200,15 +222,17 @@
 												<td><?php echo htmlentities($vo['last_login_ip']); ?></td>
 												<td>
 													<?php if($vo['status'] !=  '正常'): ?>
-													<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">开启</button>
+													<a href="<?php echo url('admin/store?method=start&&id='.$vo['id']); ?>" class="btn btn-sm btn-info  m-b-5 m-t-5 ajax-get">开启</a>
 													<?php else: ?>
-													<button class="btn btn-sm btn-warning badge" data-target="#user-form-modal" data-toggle="modal" type="button">禁用</button>
+													
+													<a href="<?php echo url('admin/store?method=stop&&id='.$vo['id']); ?>" class="btn btn-sm btn-warning m-b-5 m-t-5 ajax-get">禁用</a>
 													<?php endif; ?>
 													<div class="btn-group align-top">
-														<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">Edit</button>
+														<a href="#" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑</a>
 													</div>
 													<div class="btn-group align-top">
-														<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i></button>
+														<a href="<?php echo url('admin/delete?id='.$vo['id']); ?>" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></a>
+
 													</div>
 												</td>
 											

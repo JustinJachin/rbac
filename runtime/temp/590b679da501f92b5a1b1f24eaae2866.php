@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564390480;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1563327285;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564470133;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -62,10 +62,7 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="ion ion-search"></i></a></li>
         </ul>
-        <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
-        </div>
+        
     </form>
     <ul class="navbar-nav navbar-right">
         <li class="dropdown">
@@ -139,7 +136,8 @@
 				<div class="app-content">
 					<section class="section">
                     	<ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<?php echo url('admin/index'); ?>">管理员</a></li>
+                    		<li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
+                            <li class="breadcrumb-item"><a href="<?php echo url('admin/index'); ?>">管理员页面</a></li>
                             <li class="breadcrumb-item active" aria-current="page">管理员添加</li>
                         </ol>
 
@@ -153,13 +151,13 @@
 									<div class="card-body">
 										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">用户名<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
+												<label class="col-md-2 col-form-label">用户名<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
 												<div class="col-md-4">
 													<input id="username" type="text" class="form-control" placeholder="user name" name="name" >
 												</div>
 											</div>
 											<div class="form-group row">
-													<label class="col-md-2 col-form-label">性 别<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
+													<label class="col-md-2 col-form-label">性 别<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
 													<div class="col-md-2">
 														<select class="form-control select2 w-100"  name="sex">
 														<option value="1" selected="selected">男</option>
@@ -170,29 +168,29 @@
 													
 												</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label" for="example-email">邮  箱<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
+												<label class="col-md-2 col-form-label" for="example-email">邮  箱<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
 												<div class="col-md-9">
 													<input type="email" id="email" name="email" class="form-control" placeholder="xxx@xx.com"  name="email">
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">密 码<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
+												<label class="col-md-2 col-form-label">密 码<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
 												<div class="col-md-9">
 													<input type="password" class="form-control"  name="password">
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">确认密码<span style="color:rgb(255,182,193); font-size: 10px;">（必填选项）</span></label>
+												<label class="col-md-2 col-form-label">确认密码<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
 												<div class="col-md-9">
 													<input type="password" class="form-control"  name="password_confirm">
 													<!-- required -->
 												</div>
 											</div>
-											<div class="form-group row">
-												<div class="col-md-4"></div>
-												<button type="submit" class="btn btn-info">确 定</button>
-												<div class="col-md-1"></div>
-												<button type="submit" class="btn btn-primary" onclick="javascript:history.back(-1);return false;">返 回</button>
+											<div class="form-group mb-0 mt-2 row justify-content-end">
+												<div class="col-md-9">
+													<button type="submit" class="btn btn-info">确 定</button>
+													<button type="submit" class="btn btn-primary" onclick="javascript:history.back(-1);return false;">返 回</button>
+												</div>
 											</div>
 											
 										</form>

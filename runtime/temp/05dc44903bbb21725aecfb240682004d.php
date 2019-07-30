@@ -1,4 +1,4 @@
-<?php /*a:1:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\login\login.html";i:1564105382;}*/ ?>
+<?php /*a:1:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\login\login.html";i:1564468052;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -31,17 +31,17 @@
 											<h3>登  录</h3>
 											<div class="mail">
 												<input type="" name="email">
-												<label>Mail or Username</label>
+												<label>用户名/邮箱</label>
 											</div>
 											<div class="passwd">
 												<input type="password" name="password">
-												<label>Password</label>
+												<label>密码</label>
 											</div>
 											<div class="mail">
 												<input type="text" name="code" style="width: 100px;margin-right: 200px">
 <!--                                                <img src="<?php echo captcha_src(); ?>" onclick="this.src='<?php echo captcha_src(); ?>?'+Math.random()" style="margin-left: 100px;margin-top: -60px"/>-->
                                                 <img src="<?php echo url('admin/login/verify'); ?>" onclick="changeCode(this)" style="margin-left: 100px;margin-top: -60px"/>
-												<label>captcha</label>
+												<label>验证码</label>
 											</div>
 											<div class="submit">
 												<input class="btn btn-primary btn-block" value="Login" type="submit">

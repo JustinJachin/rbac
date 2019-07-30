@@ -32,11 +32,22 @@ class Login extends Controller
             }
             $admin=new AdminModel;
             $res=$admin->check($data['email'],$data['password']);
-            if($res){
-                return $this->redirect('index/index');
-            }else{
-                return $this->error('邮箱或者密码错误 ，重新填写正在跳转.....','','',2);
+            switch($res){
+                case 0:
+                    $this->redirect('index/index');
+                    break;
+                case 1:
+                    $this->error('邮箱或者密码错误 ，重新填写正在跳转.....','','',2);
+                    break;
+                case 2:
+                    $this->error('该用户被禁用或删除','','',2);
+                    break;
+                case 3:
+                    $this->error('该用户不存在','','',2);
+                    break;
+                default :$this->error('系统问题，请联系管理员','','',2);
             }
+            
         }
         //return view('login');//与$this->fetch()方法相同
         return $this->fetch('login');

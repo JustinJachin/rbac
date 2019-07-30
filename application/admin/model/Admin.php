@@ -25,7 +25,7 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function getStatusAttr($value){
-      $status=[-1=>'删除',0=>'禁用',1=>'正常'];
+      $status=[2=>'删除',0=>'禁用',1=>'正常'];
       return $status[$value];
     }
     
@@ -67,14 +67,22 @@ class Admin extends Model
       }else{
         $user=Admin::where('name',$name)->find();
       }
+      if(empty($user)){
+        return 3;
+      }
+      if($user['status']!='正常'){
+        return 2;
+      }
       if($user){
          if('on'.md5('on'.md5($pwd))===$user['password']){
             \session('uid',$user['id']);
             \session('admin_name',$user['name']);
-             return 1;
+             return 0;
+         }else{
+          return 1;
          }
       }
-      return 0;
+      
     }
 
     /**
