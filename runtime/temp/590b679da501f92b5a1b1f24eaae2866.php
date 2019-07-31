@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564470133;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564540346;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564537220;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -32,7 +32,9 @@
 <!--Full calendar css-->
 <link rel="stylesheet" href="/../static/plugins/fullcalendar/stylesheet1.css">
 
-
+<!--Toastr css-->
+<link rel="stylesheet" href="/../static/plugins/toastr/build/toastr.css">
+<link rel="stylesheet" href="/../static/plugins/toaster/garessi-notif.css">
 
 
 
@@ -144,11 +146,11 @@
 						<div class="row">
 							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
 							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
-								<div class="card">
+								<div class="card ">
 									<div class="card-header">
 										<h4>添加管理员</h4>
 									</div>
-									<div class="card-body">
+									<div class="card-body cards">
 										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">用户名<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
@@ -248,16 +250,19 @@
 <!--Scripts js-->
 <script src="/../static/js/scripts.js"></script>
 
-
+<!--Toastr js-->
+<script src="/../static/plugins/toastr/build/toastr.min.js"></script>
+<script src="/../static/plugins/toaster/garessi-notif.js"></script>
 <block name="js">
 	<script type="text/javascript">
 		$("#form").submit(function(){
-			var contact = $("input[name='name']").val();
-			var title = $("input[name='email']").val();
-			var errmessage = $("select[name='sex']").val();
-			var uname=$("#username").val();
+			// var contact = $("input[name='name']").val();
+			// var title = $("input[name='email']").val();
+			// var errmessage = $("select[name='sex']").val();
+			// var uname=$("#username").val();
 			 
 			var formData = $("#form").serialize();
+		
 			
         //serialize() 方法通过序列化表单值，创建 URL 编码文本
 			$.ajax({
@@ -267,17 +272,17 @@
 				dataType:'json',
 				success:function(data){
 					if(data.status==1){
-						window.location.href="index";
+						toastr.success('', data.msg);
+						$(".cards").load(location.href+" .cards");
+						// setTimeout("location.reload()",1000);
+						// window.location.href="index";card
+					}else{
+						toastr.error('', data.msg);
 					}
-					// else{
-					// 	window.location.href='addadmin';
-					// }
-					alert(data.msg);
-					
 				},
 				error:function(msg){
 					
-					alert('系统错误，请联系管理员！');
+					toastr.error('请联系管理员', '系统错误');
 					
 				}
 			})

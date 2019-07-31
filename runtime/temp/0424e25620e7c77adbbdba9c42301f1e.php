@@ -1,4 +1,4 @@
-<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564469771;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564538973;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564537220;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +31,9 @@
 <!--Full calendar css-->
 <link rel="stylesheet" href="/../static/plugins/fullcalendar/stylesheet1.css">
 
-
+<!--Toastr css-->
+<link rel="stylesheet" href="/../static/plugins/toastr/build/toastr.css">
+<link rel="stylesheet" href="/../static/plugins/toaster/garessi-notif.css">
 
 
 
@@ -43,6 +45,7 @@
 
 		<!--iCheck css-->
 		<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
+		
 	</block>
 </head>
 
@@ -155,10 +158,10 @@
 								</div>
 								<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 									<div class="float-left" style="margin-right: 10px;">
-										<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary">添加管理员</a> 
+										<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary" >添加管理员</a> 
 									</div>
 									<div class="float-left">
-										<a href="<?php echo url('admin/add'); ?>" class="btn btn-danger" >批量删除</a> 
+										<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
 									</div>
 									<div class="float-right col-lg-4">
 										
@@ -166,15 +169,6 @@
 									
 								</div>
 								<div class="card-body">
-
-									<div class="table-responsive" >
-										
-										<!-- <div class="search-element " style="float: left;">
-											<input class="form-control" type="search" placeholder="Search" aria-label="Search">
-											<button class="btn btn-primary" type="submit"><i class="ion ion-search"></i></button>
-										</div> -->
-									</div>
-									
 									<div class="table-responsive">
 									<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 										<thead>
@@ -198,7 +192,7 @@
 											<?php if(is_array($users) || $users instanceof \think\Collection || $users instanceof \think\Paginator): $i = 0; $__LIST__ = $users;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 											<tr>
 												<td>
-													<input type="checkbox" class="minimal" name="choice" value="<?php echo htmlentities($vo['id']); ?>">
+													<input type="checkbox" class="minimal" name="choice[]" value="<?php echo htmlentities($vo['id']); ?>">
 												</td>
 												<td><?php echo htmlentities($vo['id']); ?></td>
 												<td><?php echo htmlentities($vo['name']); ?></td>
@@ -221,18 +215,18 @@
 												</td>
 												<td><?php echo htmlentities($vo['last_login_ip']); ?></td>
 												<td>
-													<?php if($vo['status'] !=  '正常'): ?>
-													<a href="<?php echo url('admin/store?method=start&&id='.$vo['id']); ?>" class="btn btn-sm btn-info  m-b-5 m-t-5 ajax-get">开启</a>
-													<?php else: ?>
-													
-													<a href="<?php echo url('admin/store?method=stop&&id='.$vo['id']); ?>" class="btn btn-sm btn-warning m-b-5 m-t-5 ajax-get">禁用</a>
-													<?php endif; ?>
+													<div class="btn-group align-top ">
+														<?php if($vo['status'] !=  '正常'): ?>
+														<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'start','store')" class="btn btn-sm btn-info  m-b-5 m-t-5" >启用</button>
+														<?php else: ?>
+														<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'stop','store')" class="btn btn-sm btn-warning  m-b-5 m-t-5" >禁用</button>
+														<?php endif; ?>
+													</div>
 													<div class="btn-group align-top">
 														<a href="#" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑</a>
 													</div>
 													<div class="btn-group align-top">
-														<a href="<?php echo url('admin/delete?id='.$vo['id']); ?>" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></a>
-
+														<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
 													</div>
 												</td>
 											
@@ -257,13 +251,47 @@
 </div>
 <script>
 	function selectAll(choiceBtn){
-                
-        //document.getElementsByTagName()
-	    var arr=document.getElementsByName("choice");
-		    for(var i=0;i<arr.length;i++){
-		        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
-		    }
+	    var arr=document.getElementsByName("choice[]");
+	    for(var i=0;i<arr.length;i++){
+	        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
 	    }
+    }
+    function btn(id,method,action){
+    	var url="<?php echo url('admin/"+action+"'); ?>";
+    	var data={'method':method,'id':id};
+    	AjaxGet(url,data);
+    }
+ 
+    function moreDel(){
+    	var obj=document.getElementsByName('choice[]');
+    	check_val=[];
+    	for(k in obj){
+    		if(obj[k].checked){
+    			check_val.push(obj[k].value);
+    		}
+    	}
+    	$.ajax({
+    		type:'post',
+    		url:"<?php echo url('admin/deletes'); ?>",
+    		data:{check_val},
+    		dataType:'json',
+			success:function(data){
+				if(data.status==1){
+					$(".table").load(location.href+" .table");
+					toastr.success('', data.msg);
+				}else{
+					toastr.error('', data.msg);
+				}
+				
+			},
+			error:function(msg){
+				
+				alert('系统错误，请联系管理员！');
+				
+			}
+    	})
+    };
+
 </script>
 <!--Jquery.min js-->
 <script src="/../static/js/jquery.min.js"></script>
@@ -303,14 +331,19 @@
 <!--Scripts js-->
 <script src="/../static/js/scripts.js"></script>
 
-
+<!--Toastr js-->
+<script src="/../static/plugins/toastr/build/toastr.min.js"></script>
+<script src="/../static/plugins/toaster/garessi-notif.js"></script>
 <block name="js">
 	<!--DataTables css-->
 	<script src="/../static/plugins/Datatable/js/jquery.dataTables.js"></script>
 	<script src="/../static/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
 
+	
+
 	<!--iCheck js-->
 	<script src="/../static/plugins/iCheck/icheck.min.js"></script>
+	<script src="/../static/js/commont.js"></script>
 </block>
 </body>
 </html>

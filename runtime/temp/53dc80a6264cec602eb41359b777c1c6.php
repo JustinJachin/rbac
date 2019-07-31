@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564468812;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564471333;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -143,24 +143,25 @@
 									<div class="col-lg-12">
 										<div class="card">
 											<div class="card-header">
+												<form class="float-right">
+													<div class="input-group">
+														<input type="text" class="form-control" placeholder="Search" value="{<?php echo htmlentities(app('request')->param('keyword')); ?>}">
+														<div class="input-group-btn">
+															<button class="btn btn-primary"><i class="ion ion-search"></i></button>
+														</div>
+													</div>
+												</form>	
 												<h4>权限列表</h4>
 											</div>
 											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
-												<div class="col-lg-1 float-left">
-													<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary" >添加管理员</a> 
+												<div class="float-left" style="margin-right: 10px;">
+													<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary">添加权限</a> 
 												</div>
-												<div class="col-lg-1  float-left">
+												<div class="float-left">
 													<a href="<?php echo url('admin/add'); ?>" class="btn btn-danger" >批量删除</a> 
 												</div>
 												<div class="float-right col-lg-4">
-													<form class="float-right">
-														<div class="input-group">
-															<input type="text" class="form-control" placeholder="Search" value="{<?php echo htmlentities(app('request')->param('keyword')); ?>}">
-															<div class="input-group-btn">
-																<button class="btn btn-primary"><i class="ion ion-search"></i></button>
-															</div>
-														</div>
-													</form>	
+													
 												</div> 
 												
 											</div>

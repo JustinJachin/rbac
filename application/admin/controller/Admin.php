@@ -39,13 +39,51 @@ class Admin extends Base
      * @description 管理员禁用与启用     ------需要优化
      * @author jachin  2019-07-30
      */
+	public function deletes(Request $request){
+		$data['status']=0;
+		$ids=$request->param('check_val');
+		foreach($ids as &$k){
+			$k=intval($k);
+			$msg=$this->is_admin_oneself($k);
+		}
+		if($msg){
+			$data['msg']=$msg;
+			return json($data);
+		}
+		$res=true;
+		foreach($ids as &$k){
+			$admin=AdminModel::where('id',$k)->find();
+			$admin->status=2;
+			$result=$admin->save();
+			if(!$result){
+				$res=false;
+			}
+		}
+		if($res){
+			$data['status'] = 1;
+			$data['msg']    = '删除成功';
+		}else{
+			$data['msg']    = '删除失败';
+		}
+		return json($data);
+
+	}
+
+	/**
+     * @description 管理员禁用与启用
+     * @author jachin  2019-07-30
+     */
 
 	public function store(Request $request){
-       
+       	$data['status']=0;
         $id= intval($request->param('id'));
         $method=$request->param('method');
 
-        $this->is_admin_oneself($id);
+        $msg=$this->is_admin_oneself($id);
+        if($msg){
+        	$data['msg']=$msg;
+        	return json($data);
+        }
 
 		$admin=AdminModel::where('id',$id)->find();
 		if($method==='start'){
@@ -60,40 +98,43 @@ class Admin extends Base
 			}else{
 				$msg='禁用成功';
 			}
-			$this->success($msg,'admin/index');
-			// $data=array(
-			// 	'status'=>1,
-			// 	'msg'   =>'修改成功'
-			// );
+			$data=array(
+				'status' => 1,
+				'msg'    => $msg
+			);
 		}else{
 			if($method==='start'){
-				$msg='启用失败';
+				$msg = '启用失败';
 			}else{
-				$msg='禁用失败';
+				$msg = '禁用失败';
 			}
-			$this->error($msg,'admin/index');
-			// $data=array(
-			// 	'status'=>0,
-			// 	'msg'   =>'修改失败'
-			// );
+			$data['msg'] = $msg;
 		}
-		// return json($data);
+		return json($data);
 	}
 	/**
      * @description 管理员添加页面以及处理
      * @author jachin  2019-07-29
      */
 	public function delete(Request $request){
+		$data['status']=0;
 		$id=intval($request->param('id'));
-		$this->is_admin_oneself($id);
-		$admin=AdminModel::where('id',$id)->find();
-		$admin->status=2;
-		$res=$admin->save();
-		if($res){
-			$this->success('删除成功','admin/index');
-		}else{
-			$this->error('删除失败','admin/index');
-		}
+		$msg=$this->is_admin_oneself($id);
+        if($msg){
+        	$data['msg']=$msg;
+        }else{
+        	$admin=AdminModel::where('id',$id)->find();
+			$admin->status=2;
+			$res=$admin->save();
+			if($res){
+				$data['status'] = 1;
+				$data['msg']    = '删除成功';
+				
+			}else{
+				$data['msg']    = '删除失败';
+			}
+        }
+		return json($data);
 	}
 	/**
      * @description 查看该账号是否为超级管理员帐号或者是否为自己账号
@@ -101,12 +142,14 @@ class Admin extends Base
      * @author jachin  2019-07-29
      */
 	public function is_admin_oneself($id){
+		$data='';
 		if($id===1){
-        	$this->error('该账号是超级管理员，无法对其操作','admin/index');
+        	$data='该账号是超级管理员，无法对其操作';
         }
         if($id===session('uid')){
-        	$this->error('无法对自己账号操作','admin/index');
+        	$data='无法对自己账号操作';
         }
+        return $data;
 	}
 	/**
      * @description 管理员添加页面以及处理
