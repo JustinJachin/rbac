@@ -72,7 +72,7 @@ class Base extends Controller
                 $id_method=model('Permission')->getPermission($method);
                 // var_dump(in_array(2,$access_id));exit;
                 if(!in_array($id_method,$access_id)){
-                    $this->error('你无权访问！请联系管理员','index/index');
+                    $this->error('你无权访问！请联系管理员');
                 }
             }
             

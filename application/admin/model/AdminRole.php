@@ -21,14 +21,16 @@ class AdminRole extends Model
      * @author jachin  2019-07-29
      */
     public function getRole($userId){
-      	$role_id=db('AdminRole')->where('uid',$userId)->field('role_id')->select();
+      	$role_id=db('AdminRole')->where('uid',$userId)->field('role_id')->find();
+        // var_dump($role_id);exit;
       	if(empty($role_id)){
             return false;
         }	
+        $role_id=explode('，', $role_id['role_id']);
         $access_id='1，22';
       	foreach($role_id as $k){
       		// var_dump($k);
-      		$res=db('RolePermission')->where('role_id',$k['role_id'])->field('access_id')->find();
+      		$res=db('RolePermission')->where('role_id',$k)->field('access_id')->find();
           if($res){
             $access_id=$res['access_id'].'，'.$access_id;
           }

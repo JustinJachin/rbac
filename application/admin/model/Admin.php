@@ -18,6 +18,16 @@ use think\facade\Validate;
 class Admin extends Model
 {
    
+
+    /**
+     * @description  获取器获取状态，重新赋值
+     * @param  int    $value
+     * @return string 
+     * @author jachin  2019-07-29
+     */
+    public function scopeStatus($query){
+      $query->where('status','<',2);
+    }
     /**
      * @description  获取器获取状态，重新赋值
      * @param  int    $value

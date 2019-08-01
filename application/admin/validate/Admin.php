@@ -41,4 +41,13 @@ class Admin extends Validate{
 		'email.email'=>'邮箱格式错误',
 		'eamil.unique'=>'邮箱已注册',
 	];
+	 protected $scene = [
+        'editPass'  =>  ['password.regex'],
+        'add'  =>  ['name','password','sex','email'],
+        'personName'=>['name.unique','name.max'],
+        'personEmail'=>['email.email','email.unique'],
+        'personSex'=>['sex'],
+        'personPassword'=>['password,confirm','password.regex'],
+
+    ];
 }

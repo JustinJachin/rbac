@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564540346;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564537220;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564636289;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -73,11 +73,11 @@
                 <div class="d-sm-none d-lg-inline-block"><?php echo htmlentities(app('session')->get('admin_name')); ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="profile.html" class="dropdown-item has-icon">
-                    <i class="ion ion-android-person"></i> Profile
+                <a href="<?php echo url('admin/edit'); ?>" class="dropdown-item has-icon">
+                    <i class="ion ion-android-person"></i> 个人中心
                 </a>
                 <a href="<?php echo url('login/logout'); ?>" class="dropdown-item has-icon">
-                    <i class="ion-ios-redo"></i> Logout
+                    <i class="ion-ios-redo"></i> 退出登录
                 </a>
             </div>
         </li>
@@ -159,16 +159,15 @@
 												</div>
 											</div>
 											<div class="form-group row">
-													<label class="col-md-2 col-form-label">性 别<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
-													<div class="col-md-2">
-														<select class="form-control select2 w-100"  name="sex">
-														<option value="1" selected="selected">男</option>
-														<option value="0">女</option>
-														<option value="2">保密</option>
-													</select>
-													</div>
-													
+												<label class="col-md-2 col-form-label">性 别<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
+												<div class="col-md-2">
+													<select class="form-control select2 w-100"  name="sex">
+													<option value="1" selected="selected">男</option>
+													<option value="0">女</option>
+													<option value="2">保密</option>
+												</select>
 												</div>
+											</div>
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label" for="example-email">邮  箱<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
 												<div class="col-md-9">
@@ -190,8 +189,8 @@
 											</div>
 											<div class="form-group mb-0 mt-2 row justify-content-end">
 												<div class="col-md-9">
-													<button type="submit" class="btn btn-info">确 定</button>
-													<button type="submit" class="btn btn-primary" onclick="javascript:history.back(-1);return false;">返 回</button>
+													<button type="submit" class="btn btn-primary">提 交</button>
+													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
 												</div>
 											</div>
 											
@@ -253,18 +252,12 @@
 <!--Toastr js-->
 <script src="/../static/plugins/toastr/build/toastr.min.js"></script>
 <script src="/../static/plugins/toaster/garessi-notif.js"></script>
+<!--公用函数 js-->	
+<script src="/../static/js/commont.js"></script>
 <block name="js">
 	<script type="text/javascript">
 		$("#form").submit(function(){
-			// var contact = $("input[name='name']").val();
-			// var title = $("input[name='email']").val();
-			// var errmessage = $("select[name='sex']").val();
-			// var uname=$("#username").val();
-			 
-			var formData = $("#form").serialize();
-		
-			
-        //serialize() 方法通过序列化表单值，创建 URL 编码文本
+			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
 			$.ajax({
 				type:'post',
 				url:"<?php echo url('/admin/admin/add'); ?>",
@@ -274,8 +267,8 @@
 					if(data.status==1){
 						toastr.success('', data.msg);
 						$(".cards").load(location.href+" .cards");
-						// setTimeout("location.reload()",1000);
-						// window.location.href="index";card
+						// setTimeout("location.reload()",1000);//设置延迟时间执行
+						// window.location.href="index";
 					}else{
 						toastr.error('', data.msg);
 					}

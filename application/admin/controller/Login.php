@@ -75,7 +75,7 @@ class Login extends Controller
         $admin->updateLogin($ip);
         //清空session
         session(null);
-        $this->redirect('index/login');
+        $this->redirect('login/index');
     }
 
     /**

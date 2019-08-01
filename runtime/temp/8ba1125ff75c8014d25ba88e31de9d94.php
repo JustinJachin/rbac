@@ -1,4 +1,4 @@
-<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\index\index.html";i:1564107578;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564109934;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564466253;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564107508;}*/ ?>
+<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\index\index.html";i:1564107578;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +31,9 @@
 <!--Full calendar css-->
 <link rel="stylesheet" href="/../static/plugins/fullcalendar/stylesheet1.css">
 
-
+<!--Toastr css-->
+<link rel="stylesheet" href="/../static/plugins/toastr/build/toastr.css">
+<link rel="stylesheet" href="/../static/plugins/toaster/garessi-notif.css">
 
 
 
@@ -69,11 +71,11 @@
                 <div class="d-sm-none d-lg-inline-block"><?php echo htmlentities(app('session')->get('admin_name')); ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="profile.html" class="dropdown-item has-icon">
-                    <i class="ion ion-android-person"></i> Profile
+                <a href="<?php echo url('admin/edit'); ?>" class="dropdown-item has-icon">
+                    <i class="ion ion-android-person"></i> 个人中心
                 </a>
                 <a href="<?php echo url('login/logout'); ?>" class="dropdown-item has-icon">
-                    <i class="ion-ios-redo"></i> Logout
+                    <i class="ion-ios-redo"></i> 退出登录
                 </a>
             </div>
         </li>
@@ -353,7 +355,11 @@
 <!--Scripts js-->
 <script src="/../static/js/scripts.js"></script>
 
-
+<!--Toastr js-->
+<script src="/../static/plugins/toastr/build/toastr.min.js"></script>
+<script src="/../static/plugins/toaster/garessi-notif.js"></script>
+<!--公用函数 js-->	
+<script src="/../static/js/commont.js"></script>
 <block name="js">
 
 <!--Dashboard js-->

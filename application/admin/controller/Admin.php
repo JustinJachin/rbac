@@ -9,7 +9,8 @@ use app\admin\controller\Base;
 use app\admin\model\Admin as AdminModel;
 use think\Request;
 use app\admin\validate\Admin as AdminValidate;
-
+use app\admin\model\Role;
+use app\admin\model\AdminRole;
 
 /**
  * 管理员控制器
@@ -23,37 +24,244 @@ class Admin extends Base
      * @author jachin  2019-07-29
      */
 	public function index(){
+		
+		$keyword=input('get.keyword');
+		$type=input('get.types');
 
-		$list=AdminModel::where('status','<',2)->order('id')->paginate(10);//每页查询10条数据
+		$pageParam    = ['query' =>[]];
+
+		if($keyword){
+			$pageParam['query']['keyword'] = $keyword;
+			$pageParam['query']['types'] = $type;
+		}
+		if($type){
+			$map=[
+				['status','<',2],
+				['email','like',"%{$keyword}%"],
+			];
+		}else{
+			$map=[
+				['status','<',2],
+				['name','like',"%{$keyword}%"],
+			];
+		}
+		
+
+		$list=AdminModel::where($map)->order('id')->paginate(10,false,$pageParam);//每页查询10条数据
 
 		$page=$list->render();
-
 		$this->assign('users',$list);
 
-		// $this->assign('page',$page);
+		$this->assign('page',$page);
+		$this->assign('keyword',$keyword);
+		$this->assign('types',$type);
 
-		return view('index',compact('page'));
+		return view('index');
+	}
+
+	/**
+     * @description 管理员禁用与启用
+     * @author jachin  2019-07-30
+     */
+	public function addRole(Request $request){
+		if(Request()->isPost()){
+			$role=input('post.');
+			$id=$role['id'];
+			unset($role['id']);
+			$data=implode('，',$role);
+			$adminRole=AdminRole::where('uid',$id)->find();
+			if($adminRole){
+				$adminRole->role_id=$data;
+				$res=$adminRole->save();
+			}else{
+				$map=array(
+					'uid'=>$id,
+					'role_id'=>$data,
+					'create_time'=>time(),
+				);
+				$res=AdminRole::create($map);
+			}
+			if($res){
+				$status=array(
+					'status'=>1,
+					'msg'=>'权限分配成功'
+				);
+			}else{
+				$status=array(
+					'status'=>0,
+					'msg'=>'权限分配失败'
+				);
+			}
+			return json($status);
+		}else{
+			$id=$request->param('id');
+			$data=array();
+			$role=Role::field("id,name,description")->select();
+			$admin_role=AdminRole::where('uid',$id)->field('role_id')->find();
+			$data=explode('，',$admin_role['role_id']);
+			$count = count($role);
+			foreach ($role as $key => $value) {
+				if($key%4===0){
+					$value['lineFeed']=1;
+				}else{
+					$value['lineFeed']=0;
+				}
+				if($key%4==3||$key==$count-1){
+					$value['lineEnd']=1;
+				}else{
+					$value['lineEnd']=0;
+				}
+				if(in_array($value['id'], $data)){
+					$value['flat']=1;
+				}else{
+					$value['flat']=0;
+				}
+			}
+			$this->assign('id',$id);
+			$this->assign('role',$role);
+			return view('editRole');
+		}
+	}
+
+
+	/**
+     * @description 个人信息修改
+     * @author jachin  2019-07-30
+     */
+	public function edit(Request $request){
+		if(Request()->isPost()){
+			$data['status']=0;
+			$user=input('post.');
+			switch($user['sex']){
+				case '0':$sexs='女';break;
+				case '1':$sexs='男';break;
+				case '2':$sexs='保密';break;
+			};
+			$res=array();
+			$admin=AdminModel::where('id',session('uid'))->find();
+			$adminValidate=new AdminValidate();
+			if($admin['name']!=$user['name']){
+				$name=$adminValidate->scene('personName')->check($user);
+				if(!$name){
+					$data['msg']=$adminValidate->getError();
+					return json($data);
+				}
+				$res['name']=$user['name'];
+			}
+			if($admin['sex']!=$sexs){
+				echo 1;
+				$sex=$adminValidate->scene('personSex')->check($user);
+				if(!$sex){
+					$data['msg']=$adminValidate->getError();
+					return json($data);
+				}
+				$res['sex']=$user['sex'];
+			}
+			if($admin['email']!=$user['email']){
+				$email=$adminValidate->scene('personEmail')->check($user);
+				if(!$email){
+					$data['msg']=$adminValidate->getError();
+					return json($data);
+				}
+				$res['email']=$user['email'];
+			}
+			if($user['password']){
+				
+				$password=$adminValidate->scene('personPassword')->check($user);
+				if(!$password){
+					$data['msg']=$adminValidate->getError();
+					return json($data);
+				}
+				$res['password']='on'.md5('on'.md5($user['password']));   ;
+			}
+			if(empty($res)){
+				$data['msg']='您未填写任何信息，如需修改，请填写信息提交即可';
+				return json($data);
+			}
+			$result=AdminModel::where('id',session('uid'))->update($res);
+			if($result){
+				$data=array(
+					'status'=>1,
+					'msg'=>'修改成功'
+				);
+			}else{
+				$data['msg']='修改失败';
+			}
+			return json($data);
+		}else{
+			$id=session('uid');
+			$user=AdminModel::where('id',$id)->find();
+			$this->assign('user',$user);
+			return view('personEdit');
+		}
+	}
+	/**
+     * @description 管理员修改密码
+     * @author jachin  2019-07-30
+     */
+	public function editPass(Request $request){
+		if(Request()->isPost()){
+			$data['status']=0;
+			$password=input('post.password');
+			$id=input('post.id');
+			$pwd=array(
+				'password'=>$password,
+			);
+			if(empty($password)){
+				$data['msg']='密码为空';
+				return json($data);
+			}
+			$adminValidate=new AdminValidate();
+			//验证数据是否合法
+			$result=$adminValidate->scene('editPass')->check($pwd);
+			if(!$result){
+				$data['msg']=$adminValidate->getError();
+			}else{
+				$admin=AdminModel::where('id',$id)->find();
+				$admin->password='on'.md5('on'.md5($password));//密码加密
+				$admin->update_time=time();//密码加密
+				$res=$admin->save();
+				if($res){
+					$data=array(
+						'status'=>1,
+						'msg'=>'修改成功'
+					);
+				}else{
+					$data['msg']='修改失败';
+				}
+			}
+			return json($data);
+
+		}else{
+			$id=$request->param('id');
+			$data=AdminModel::where('id',$id)->field('id,name')->find();
+			$this->assign('user',$data);
+			return view('edit');
+		}
+		
 	}
 	
 	/**
-     * @description 管理员禁用与启用     ------需要优化
+     * @description 管理员禁用与启用
      * @author jachin  2019-07-30
      */
 	public function deletes(Request $request){
 		$data['status']=0;
 		$ids=$request->param('check_val');
+
 		foreach($ids as &$k){
 			$k=intval($k);
 			$msg=$this->is_admin_oneself($k);
-		}
-		if($msg){
-			$data['msg']=$msg;
-			return json($data);
+			if($msg){
+				$data['msg']=$msg;
+				return json($data);
+			}
 		}
 		$res=true;
 		foreach($ids as &$k){
 			$admin=AdminModel::where('id',$k)->find();
 			$admin->status=2;
+			$admin->delete_time=time();
 			$result=$admin->save();
 			if(!$result){
 				$res=false;
@@ -73,7 +281,6 @@ class Admin extends Base
      * @description 管理员禁用与启用
      * @author jachin  2019-07-30
      */
-
 	public function store(Request $request){
        	$data['status']=0;
         $id= intval($request->param('id'));
@@ -125,6 +332,7 @@ class Admin extends Base
         }else{
         	$admin=AdminModel::where('id',$id)->find();
 			$admin->status=2;
+			$admin->delete_time=time();
 			$res=$admin->save();
 			if($res){
 				$data['status'] = 1;
