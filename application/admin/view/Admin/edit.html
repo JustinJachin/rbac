@@ -39,7 +39,7 @@
 										<h4>修改密码</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
+										<form id="form" class="form-horizontal" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row text-center">
 												<input type="hidden" name="id" value="{$user.id}">
 												<label class="col-md-2 col-form-label text-center">用户名</label>
@@ -59,7 +59,7 @@
 											<div class="form-group mb-0 mt-2 row justify-content-end">
 												<div class="col-md-12 text-center">
 													<button type="submit" class="btn btn-primary">提 交</button>
-													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
+													<a href="{:url('admin/index')}" class="btn btn-outline-info">返 回</a> 
 												</div>
 											</div>
 											

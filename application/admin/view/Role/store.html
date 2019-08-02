@@ -36,31 +36,29 @@
 										<h4>角色分配</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal" onsubmit="return false" method="post" enctype="multipart/form-data"  target="addfile">
-											<input type="hidden" name="id" value="{$id}">
-											{volist name="role" id="vo"}
-											{if  condition="$vo['lineFeed'] eq 1"}
+										<!-- <form id="form" class="form-horizontal" onsubmit="return false" method="post" enctype="multipart/form-data"  target="addfile"> -->
+										<form id="form" class="form-horizontal"  method="post" enctype="multipart/form-data"  target="addfile">
+
+											
+											
 											<div class="form-group row">
-											{/if}
-											{if  condition="$vo['flat'] eq 1"}
+											
 												<div class="col-md-3 text-center">
 													<label>
-														<input type="checkbox" class="flat-purple col-form-label" name="{$vo.id}" value="{$vo.id}" checked>
-													{$vo.description}
+														<input type="checkbox" class="flat-purple col-form-label" name="" value="" checked>
+														1
 													</label>
 												</div>
-											{else/}
+											
 												<div class="col-md-3 text-center">
 													<label>
-														<input type="checkbox" class="flat-purple col-form-label"  name="{$vo.id}" value="{$vo.id}">
-													{$vo.description}
+														<input type="checkbox" class="flat-purple col-form-label"  name="" value="">
+													2
 													</label>
 												</div>
-											{/if}
-											{if  condition="$vo['lineEnd'] eq 1"}
+											
 											</div>
-											{/if}
-											{/volist}
+											
 										
 											<div class="form-group mb-0 mt-2 row justify-content-end ">
 												<div class="col-md-12 text-center">

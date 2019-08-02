@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564640893;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
+<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564712240;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -174,8 +174,9 @@
 														<thead>
 															<tr class="text-center">
 																<th class="row-selected">
-																	<input class="minimal" type="checkbox"  onclick="selectAll(this)" id="checkall">
-																	<label for="checkall">全选</label>
+																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																		<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">全选/全不选</label>
+																	</div>
 																</th>
 																<th class="wd-15p">ID</th>
 																<th class="wd-15p">描述</th>
@@ -194,7 +195,10 @@
 															<?php if(is_array($permission) || $permission instanceof \think\Collection || $permission instanceof \think\Paginator): $i = 0; $__LIST__ = $permission;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 															<tr class="text-center">
 																<td>
-																	<input type="checkbox" class="minimal" name="choice" value="<?php echo htmlentities($vo['id']); ?>">
+																	
+																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																		<input class="custom-control-input" name="choice" id="choice<?php echo htmlentities($vo['id']); ?>" value="<?php echo htmlentities($vo['id']); ?>" type="checkbox"> <label class="custom-control-label" for="choice<?php echo htmlentities($vo['id']); ?>"></label>
+																	</div>
 																</td>
 																<td><?php echo htmlentities($vo['id']); ?></td>
 																<td><?php echo htmlentities($vo['title']); ?></td>
@@ -232,11 +236,7 @@
 
 							</section>
 						</div>
-						<!-- <script>
-							$(function(e) {
-								$('#example').DataTable();
-							} );
-						</script> -->
+						
 					</block>
 				</div>
 			</div>
@@ -285,26 +285,13 @@
 <script src="/../static/js/commont.js"></script>
 			<block name="js">
 				<script>
-				// 	document.getElementById("check").onclick = function(){
-    //     var checked = document.getElementById("check").checked;
-    //     var checkson = document.getElementsByName("id[]");
-    //     if(checked){
-    //         for(var i = 0; i < checkson.length ;i++){
-    //             checkson[i].checked = true;
-    //         }
-    //     }else{
-    //         for(var i = 0; i < checkson.length ;i++){
-    //             checkson[i].checked = false;
-    //         }
-    //     }
-    // }
-			    function selectAll(choiceBtn){   
-			        //document.getElementsByTagName()
-				    var arr=document.getElementsByName("choice");
-				    for(var i=0;i<arr.length;i++){
-				        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
-				    }
-				}
+				    function selectAll(choiceBtn){   
+				        
+					    var arr=document.getElementsByName("choice");
+					    for(var i=0;i<arr.length;i++){
+					        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+					    }
+					}
 				</script>
 				<!--DataTables css-->
 				<script src="/../static/plugins/Datatable/js/jquery.dataTables.js"></script>

@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 31/07/2019 10:40:30
+ Date: 01/08/2019 14:30:49
 */
 
 SET NAMES utf8mb4;
@@ -40,31 +40,31 @@ CREATE TABLE `on_admin`  (
 -- ----------------------------
 -- Records of on_admin
 -- ----------------------------
-INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1564536477, 0, 1564536477, '127.0.0.1');
-INSERT INTO `on_admin` VALUES (2, 'justin', 'on490bc47ffe57e67f88e681c577f430e1', 0, 'justin@qq.com', 1, 1, 1557898848, 1564536464, 0, 1564467074, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1564639327, 1564558418, 1564639327, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (2, 'justin', 'on6559c2b7caad120d5d85b85bd1b88561', 1, 'justin1@qq.com', 1, 1, 1557898848, 1564640684, 1564558418, 1564640684, '127.0.0.1');
 INSERT INTO `on_admin` VALUES (32, 'mooke', 'on47288b0def8776d233329db248e37188', 0, 'mooke@qq.com', 1, 1, 1564539804, 1564539804, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (10, 'niki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '5@qq.com', 1, 0, 1564470214, 1564537668, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (9, 'yuki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, '3@qq.com', 1, 1, 1564469023, 1564537666, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (8, 'jack', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '2@qq.com', 1, 1, 1564468966, 1564537664, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (13, 'jeannie', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'qq@qq.com', 1, 0, 1564470563, 1564537680, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (11, 'banks', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '6@qq.com', 1, 0, 1564470433, 1564537031, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (12, 'willy', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '7@qq.com', 1, 1, 1564470455, 1564537683, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (14, 'lily', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'we@qq.com', 1, 0, 1564470601, 1564537679, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (15, 'anna', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'ef@qq.com', 1, 0, 1564470641, 1564537676, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (10, 'niki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '5@qq.com', 1, 1, 1564470214, 1564558418, 1564558418, NULL, NULL);
+INSERT INTO `on_admin` VALUES (9, 'yuki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, '3@qq.com', 1, 1, 1564469023, 1564558418, 1564558418, NULL, NULL);
+INSERT INTO `on_admin` VALUES (8, 'jack', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '2@qq.com', 1, 2, 1564468966, 1564558670, 1564558670, NULL, NULL);
+INSERT INTO `on_admin` VALUES (13, 'jeannie', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'qq@qq.com', 1, 1, 1564470563, 1564558418, 1564558418, NULL, NULL);
+INSERT INTO `on_admin` VALUES (11, 'banks', 'onc1053fbf10e6253b3f41e18307543bd6', 1, '6@qq.com', 1, 1, 1564470433, 1564563430, 1564558418, NULL, NULL);
+INSERT INTO `on_admin` VALUES (12, 'willy', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '7@qq.com', 1, 0, 1564470455, 1564559786, 1564558418, NULL, NULL);
+INSERT INTO `on_admin` VALUES (14, 'lily', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'we@qq.com', 1, 1, 1564470601, 1564558418, 1564558418, NULL, NULL);
+INSERT INTO `on_admin` VALUES (15, 'anna', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'ef@qq.com', 1, 1, 1564470641, 1564558418, 1564558418, NULL, NULL);
 INSERT INTO `on_admin` VALUES (16, 'ella', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'ella@qq.com', 1, 1, 1564470669, 1564470669, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (17, 'ava', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'ava@qq.com', 1, 1, 1564470688, 1564470688, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (18, 'emma', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'emma@qq.com', 1, 1, 1564470723, 1564470723, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (19, 'john', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'john@qq.com', 1, 1, 1564470765, 1564470765, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (20, 'jordan', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'jordan@qq.com', 1, 1, 1564470791, 1564470791, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (21, 'aiden', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'aiden@qq.com', 1, 1, 1564470810, 1564470810, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (34, 'youhn', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'youhn@qq.com', 1, 1, 1564539899, 1564539899, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (33, 'mookee', 'on47288b0def8776d233329db248e37188', 0, 'mookee@qq.com', 1, 1, 1564539834, 1564539834, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (34, 'youhn', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'youhn@qq.com', 1, 2, 1564539899, 1564549971, 1564549971, NULL, NULL);
+INSERT INTO `on_admin` VALUES (33, 'mookee', 'on47288b0def8776d233329db248e37188', 0, 'mookee@qq.com', 1, 2, 1564539834, 1564550003, 1564550003, NULL, NULL);
 INSERT INTO `on_admin` VALUES (28, 'juck', 'on47288b0def8776d233329db248e37188', 1, 'juck@qq.com', 1, 1, 1564539465, 1564539465, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (29, 'molera', 'on47288b0def8776d233329db248e37188', 1, 'molera@qq.com', 1, 1, 1564539496, 1564539496, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (30, 'jacka', 'on47288b0def8776d233329db248e37188', 1, 'jacka@qq.com', 1, 1, 1564539565, 1564539565, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (31, 'julye', 'on47288b0def8776d233329db248e37188', 0, 'julye@163.com', 1, 1, 1564539718, 1564539718, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (44, '1233', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '1223@qq.com', 1, 1, 1564540426, 1564540426, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (43, '123', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '123@qq.com', 1, 1, 1564540402, 1564540402, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (44, '1233', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '1223@qq.com', 1, 2, 1564540426, 1564549866, 1564549866, NULL, NULL);
+INSERT INTO `on_admin` VALUES (43, '123', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '123@qq.com', 1, 2, 1564540402, 1564549927, 1564549927, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for on_admin_role
@@ -73,16 +73,15 @@ DROP TABLE IF EXISTS `on_admin_role`;
 CREATE TABLE `on_admin_role`  (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `uid` int(11) UNSIGNED NOT NULL COMMENT '对应user表ID',
-  `role_id` int(11) UNSIGNED NOT NULL COMMENT '对应role表id',
+  `role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '对应role表id',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户与角色表' ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户与角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_admin_role
 -- ----------------------------
-INSERT INTO `on_admin_role` VALUES (1, 2, 1, 1563170072);
-INSERT INTO `on_admin_role` VALUES (2, 2, 2, 1563170072);
+INSERT INTO `on_admin_role` VALUES (1, 2, '1，2，5，6，7', 1563170072);
 
 -- ----------------------------
 -- Table structure for on_menu
@@ -130,7 +129,7 @@ CREATE TABLE `on_permission`  (
   `create_time` int(11) UNSIGNED NOT NULL COMMENT '创建时间',
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_permission
@@ -151,13 +150,15 @@ INSERT INTO `on_permission` VALUES (13, '删除权限', 'permission/delete', 'ad
 INSERT INTO `on_permission` VALUES (14, '管理员管理', 'admin/index', 'admin', 'admin', 'index', '', 1, 0, 1, 20, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (15, '添加管理员', 'admin/add', 'admin', 'admin', 'add', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (16, '管理员状态管理', 'admin/store', 'admin', 'admin', 'store', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
-INSERT INTO `on_permission` VALUES (17, '编辑管理员', 'admin/edit', 'admin', 'admin', 'edit', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
+INSERT INTO `on_permission` VALUES (17, '编辑管理员', 'admin/editPass', 'admin', 'admin', 'editPass', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (18, '批量删除', 'admin/deletes', 'admin', 'admin', 'deletes', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (19, '删除管理员', 'admin/delete', 'admin', 'admin', 'delete', '', 2, 0, 0, 14, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (20, '员工管理', 'admin/admin', 'admin', '', '', '', 0, 0, 1, 0, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (21, '测试', 'test/index', 'admin', 'test', 'index', '', 0, 0, 1, 0, -1, 1501686013, 1501686013);
 INSERT INTO `on_permission` VALUES (22, '首页', 'index/index', 'admin', 'index', 'index', '', 1, 0, 1, 1, 1, 1501686013, 1501686013);
 INSERT INTO `on_permission` VALUES (23, 'test', 'tess/index', 'admin', 'tess', 'index', '', 0, 0, 1, 0, 0, 1501686013, 1501686013);
+INSERT INTO `on_permission` VALUES (24, '个人中心', 'admin/edit', 'admin', 'admin', 'edit', '', 2, 0, 0, 14, 1, 1501686013, 1501686013);
+INSERT INTO `on_permission` VALUES (25, '分配角色', 'admin/addRole', 'admin', 'admin', 'addRole', '', 2, 0, 0, 14, 1, 1501686013, 1501686013);
 
 -- ----------------------------
 -- Table structure for on_role
@@ -171,13 +172,18 @@ CREATE TABLE `on_role`  (
   `create_time` int(11) UNSIGNED NOT NULL COMMENT '创建时间',
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_role
 -- ----------------------------
 INSERT INTO `on_role` VALUES (1, 'admin', '管理员', 1, 1563170072, 1563170072);
 INSERT INTO `on_role` VALUES (2, 'test', '测试', 1, 1563170072, 1563170072);
+INSERT INTO `on_role` VALUES (3, 'test1', '测试1', 1, 1563170072, 1563170072);
+INSERT INTO `on_role` VALUES (4, 'test2', '测试2', 1, 1563170072, 1563170072);
+INSERT INTO `on_role` VALUES (5, 'test3', '测试3', 1, 1563170072, 1563170072);
+INSERT INTO `on_role` VALUES (6, 'test4', '测试4', 1, 1563170072, 1563170072);
+INSERT INTO `on_role` VALUES (7, 'test5', '测试5', 1, 1563170072, 1563170072);
 
 -- ----------------------------
 -- Table structure for on_role_permission
@@ -195,6 +201,6 @@ CREATE TABLE `on_role_permission`  (
 -- Records of on_role_permission
 -- ----------------------------
 INSERT INTO `on_role_permission` VALUES (4, 1, '1，22', 0);
-INSERT INTO `on_role_permission` VALUES (3, 2, '1，14，15，16，17，18，19，20，22', 0);
+INSERT INTO `on_role_permission` VALUES (3, 2, '1，14，15，16，18，19，20，22，24，25', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -139,6 +139,7 @@ class Admin extends Base
 			};
 			$res=array();
 			$admin=AdminModel::where('id',session('uid'))->find();
+			
 			$adminValidate=new AdminValidate();
 			if($admin['name']!=$user['name']){
 				$name=$adminValidate->scene('personName')->check($user);
@@ -149,7 +150,7 @@ class Admin extends Base
 				$res['name']=$user['name'];
 			}
 			if($admin['sex']!=$sexs){
-				echo 1;
+				
 				$sex=$adminValidate->scene('personSex')->check($user);
 				if(!$sex){
 					$data['msg']=$adminValidate->getError();
@@ -174,6 +175,7 @@ class Admin extends Base
 				}
 				$res['password']='on'.md5('on'.md5($user['password']));   ;
 			}
+			
 			if(empty($res)){
 				$data['msg']='您未填写任何信息，如需修改，请填写信息提交即可';
 				return json($data);
@@ -248,7 +250,11 @@ class Admin extends Base
 	public function deletes(Request $request){
 		$data['status']=0;
 		$ids=$request->param('check_val');
-
+		var_dump($ids);exit;
+		if(!$ids){
+			$data['msg']='你未选择任何选项，请选择后再提交！';
+			return json($data);
+		}
 		foreach($ids as &$k){
 			$k=intval($k);
 			$msg=$this->is_admin_oneself($k);
@@ -326,6 +332,10 @@ class Admin extends Base
 	public function delete(Request $request){
 		$data['status']=0;
 		$id=intval($request->param('id'));
+		if(empty($id)){
+			$data['msg']='您重新选择';
+			return json($status);
+		}
 		$msg=$this->is_admin_oneself($id);
         if($msg){
         	$data['msg']=$msg;
@@ -387,8 +397,6 @@ class Admin extends Base
 			}else{
 				$data['password']='on'.md5('on'.md5($data['password']));//密码加密
 				unset($data['password_confirm']);//剔除重复密码
-				$data['create_time']=time();
-				$data['update_time']=time();
 				$res=AdminModel::create($data);//加入数据库
 				if($res){
 					$status=array(

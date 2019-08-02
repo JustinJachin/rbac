@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\personEdit.html";i:1564732485;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\role\edit.html";i:1564735374;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -139,8 +139,8 @@
 					<section class="section">
                     	<ol class="breadcrumb">
                     		<li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo url('admin/index'); ?>">管理员页面</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">编辑信息</li>
+                            <li class="breadcrumb-item"><a href="<?php echo url('role/index'); ?>">角色页面</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">角色编辑</li>
                         </ol>
 
 						<div class="row">
@@ -148,66 +148,29 @@
 							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
 								<div class="card ">
 									<div class="card-header">
-										<h4>修改个人信息</h4>
+										<h4>角色编辑</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal"  onsubmit="return false" enctype="multipart/form-data"  target="addfile">
+										<form id="form" class="form-horizontal" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">ID</label>
+												<label class="col-md-2 col-form-label">名 字</label>
 												<div class="col-md-4">
-													<input type="text" class="form-control" disabled="disabled" name="id" value="<?php echo htmlentities($user['id']); ?>">
+													<input id="id" type="hidden" class="form-control" name="id" value="<?php echo htmlentities($role['id']); ?>" >
+													<input id="username" type="text" class="form-control" name="name" value="<?php echo htmlentities($role['name']); ?>" >
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">用户名</label>
+												<label class="col-md-2 col-form-label" for="example-email">描 述</label>
 												<div class="col-md-4">
-													<input id="username" type="text" class="form-control"  name="name" value="<?php echo htmlentities($user['name']); ?>">
+													<input type="text" id="description" name="description" class="form-control" value="<?php echo htmlentities($role['description']); ?>">
 												</div>
 											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">性 别</label>
-												<div class="col-md-2">
-													<select class="form-control select2 w-100"  name="sex">
-													<?php if($user['sex'] == '女'): ?>
-													<option value="0" selected="selected">女</option>
-													<option value="1">男</option>
-													<option value="2">保密</option>
-													<?php endif; if($user['sex'] == '男'): ?>
-													<option value="0">女</option>
-													<option value="1" selected="selected">男</option>
-													<option value="2">保密</option>
-													<?php endif; if($user['sex'] == '保密'): ?>
-													<option value="0">女</option>
-													<option value="1">男</option>
-													<option value="2" selected="selected">保密</option>
-													<?php endif; ?>
-												</select>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label" for="example-email">邮  箱</label>
-												<div class="col-md-9">
-													<input type="email" id="email" name="email" class="form-control"   name="email" value="<?php echo htmlentities($user['email']); ?>">
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">密 码</label>
-												<div class="col-md-9">
-													<input type="password" class="form-control"  name="password">
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">确认密码</label>
-												<div class="col-md-9">
-													<input type="password" class="form-control"  name="password_confirm">
-													<!-- required -->
-												</div>
-											</div>
-										
+											
 											<div class="form-group mb-0 mt-2 row justify-content-end">
 												<div class="col-md-12 text-center">
-													<button type="submit" class="btn btn-primary">更新信息</button>
-													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
+													<button type="submit" class="btn btn-primary">提 交</button>
+													<a href="<?php echo url('role/index'); ?>" class="btn btn-outline-info">返 回</a> 
+													<!-- <button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button> -->
 												</div>
 											</div>
 											
@@ -273,29 +236,20 @@
 <script src="/../static/js/commont.js"></script>
 <block name="js">
 	<script type="text/javascript">
-		// var commitStatus=false;
-		// function dosubmit(){
-		// 	if(commitStatus==false){
-		// 		commitStatus=true;
-		// 		return true
-		// 	}else{
-		// 		return false;
-		// 	}
-		// }
 		$("#form").submit(function(){
 			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
-
 			$.ajax({
 				type:'post',
-				url:"<?php echo url('/admin/admin/edit'); ?>",
+				url:"<?php echo url('/admin/role/edit'); ?>",
 				data:formData,
 				dataType:'json',
-				async: false,
 				success:function(data){
 					if(data.status==1){
 						toastr.success('', data.msg);
-						$(".cards").load(location.href+" .cards");
-						// setTimeout("window.history.back(-1)",1000);//设置延迟时间执行
+						// $(".cards").load(location.href+" .cards");
+						setTimeout("history.back(-1)",1000);//设置延迟时间执行
+						// window.location.href="role/index";
+						
 					}else{
 						toastr.error('', data.msg);
 					}

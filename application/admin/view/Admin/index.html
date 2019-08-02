@@ -79,8 +79,9 @@
 												<thead>
 													<tr class="text-center">
 														<th class="row-selected">
-															<input class="minimal" type="checkbox"  onclick="selectAll(this)" id="checkall">
-															<label for="checkall">全选</label>
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">全选/全不选</label>
+															</div>
 														</th>
 														<th class="wd-15p">ID</th>
 														<th class="wd-15p">用户名</th>
@@ -97,7 +98,9 @@
 													{volist name='users' id="vo"}
 													<tr class="text-center">
 														<td>
-															<input type="checkbox" class="minimal" name="choice[]" value="{$vo.id}">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choice" id="choice{$vo.id}" value="{$vo.id}" type="checkbox"> <label class="custom-control-label" for="choice{$vo.id}"></label>
+															</div>
 														</td>
 														<td>{$vo.id}</td>
 														<td>{$vo.name}</td>
@@ -128,10 +131,10 @@
 																{/if}
 															</div>
 															<div class="btn-group align-top">
-																<a href="{:url('admin/addRole?id='.$vo['id'])}" class="btn btn-sm btn-info m-b-5 m-t-5">添加角色</a>
+																<a href="{:url('admin/addRole?id='.$vo['id'])}" class="btn btn-sm btn-info m-b-5 m-t-5">角色分配</a>
 															</div>
 															<div class="btn-group align-top">
-																<a href="{:url('admin/editPass?id='.$vo['id'])}" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑</a>
+																<a href="{:url('admin/editPass?id='.$vo['id'])}" class="btn btn-sm btn-primary m-b-5 m-t-5">修改密码</a>
 															</div>
 															<div class="btn-group align-top">
 																<button onclick="btn({$vo.id},'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
@@ -159,7 +162,7 @@
 		</div>
 		<script>
 			function selectAll(choiceBtn){
-			    var arr=document.getElementsByName("choice[]");
+			    var arr=document.getElementsByName("choice");
 			    for(var i=0;i<arr.length;i++){
 			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
 			    }
@@ -171,7 +174,7 @@
 		    }
 		 
 		    function moreDel(){
-		    	var obj=document.getElementsByName('choice[]');
+		    	var obj=document.getElementsByName('choice');
 		    	check_val=[];
 		    	for(k in obj){
 		    		if(obj[k].checked){

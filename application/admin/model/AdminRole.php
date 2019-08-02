@@ -8,6 +8,7 @@ namespace app\admin\model;
 
 use think\Model;
 use think\Session;
+use app\admin\model\Permission;
 /**
  * 管理员-角色模型
  * @author jachin <jachin@qq.com>
@@ -26,21 +27,40 @@ class AdminRole extends Model
       	if(empty($role_id)){
             return false;
         }	
+
         $role_id=explode('，', $role_id['role_id']);
         $access_id='1，22';
       	foreach($role_id as $k){
-      		// var_dump($k);
-      		$res=db('RolePermission')->where('role_id',$k)->field('access_id')->find();
-          if($res){
-            $access_id=$res['access_id'].'，'.$access_id;
+          //查看用户所拥有的角色是否被删除
+      		$roleStatus=db('Role')->where('id',$k)->field('status')->find();
+          if($roleStatus['status']==1){
+            
+            $res=db('RolePermission')->where('role_id',$k)->field('access_id')->find();
+
+            if($res){
+              $access_id=$res['access_id'].'，'.$access_id;
+            }
+
           }
       		
-      		
       	} 
-        // var_dump($access_id);exit;
+
       	$result=explode('，',$access_id);
       	
       	$result=array_values(array_filter(array_unique($result)));
+        //查看权限是否被删除
+        foreach ($result as $key=>$value ) {
+          $map=array(
+              'id' => $value,
+              'status'  => 1
+            );
+          $perssion=Permission::where($map)->field('id')->find();
+          
+          if(!$perssion){
+            unset($result[$key]);
+          }
+        }
+
       	if(empty($result)){
       		return false;
       	}

@@ -26,29 +26,22 @@
 							<section class="section">
 								<ol class="breadcrumb">
 							        <li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
-							        <li class="breadcrumb-item active" aria-current="page">权限页面</li>
+							        <li class="breadcrumb-item active" aria-current="page">角色页面</li>
 							    </ol>
 
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="card">
 											<div class="card-header">
-												<form class="float-right">
-													<div class="input-group">
-														<input type="text" class="form-control" placeholder="Search" value="">
-														<div class="input-group-btn">
-															<button class="btn btn-primary"><i class="ion ion-search"></i></button>
-														</div>
-													</div>
-												</form>	
-												<h4>权限列表</h4>
+												
+												<h4>角色列表</h4>
 											</div>
 											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 												<div class="float-left" style="margin-right: 10px;">
-													<a href="{:url('admin/add')}" class="btn btn-primary">添加权限</a> 
+													<a href="{:url('role/add')}" class="btn btn-primary">添加角色</a> 
 												</div>
 												<div class="float-left">
-													<a href="{:url('admin/add')}" class="btn btn-danger" >批量删除</a> 
+													<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
 												</div>
 												<div class="float-right col-lg-4">
 													
@@ -61,7 +54,7 @@
 													<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 														<thead>
 															<tr class="text-center">
-																<th class="row-selected">
+																<th class="wd-5p ">
 																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
 																		<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">全选/全不选</label>
 																	</div>
@@ -69,43 +62,33 @@
 																<th class="wd-15p">ID</th>
 																<th class="wd-15p">描述</th>
 																<th class="wd-15p">名字</th>
-																<th class="wd-20p">模型</th>
-																<th class="wd-15p">图标</th>
-															
-																<th class="wd-10p">是否是导航栏</th>
-																<th class="wd-25p">上级描述</th>
 																<th class="wd-25p">创建时间</th>
 																<th class="wd-25p">更新时间</th>
 																<th class="wd-25p">操作</th>
 															</tr>
 														</thead>
 														<tbody>
-															{volist name='permission' id="vo"}
+															{volist name='role' id="vo"}
 															<tr class="text-center">
 																<td>
-																	
 																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
 																		<input class="custom-control-input" name="choice" id="choice{$vo.id}" value="{$vo.id}" type="checkbox"> <label class="custom-control-label" for="choice{$vo.id}"></label>
 																	</div>
 																</td>
 																<td>{$vo.id}</td>
-																<td>{$vo.title}</td>
+																<td>{$vo.description}</td>
 																<td>{$vo.name}</td>
-																<td>{$vo.model}</td>
-																<td><i class="{$vo.icon}"></i></td>
-																
-																<td>{$vo.display_menu}</td>
-																<td>
-																	{$vo.parentName}
-																</td>
 																<td>{$vo.create_time}</td>
 																<td>{$vo.update_time}</td>
 																<td>
 																	<div class="btn-group align-top">
-																		<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">Edit</button>
+																		<a href="{:url('role/store?id='.$vo['id'])}" class="btn btn-sm btn-info m-b-5 m-t-5">权限分配</a>
 																	</div>
 																	<div class="btn-group align-top">
-																		<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i></button>
+																		<a href="{:url('role/edit?id='.$vo['id'])}" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑角色</a>
+																	</div>
+																	<div class="btn-group align-top">
+																		<button onclick="btn({$vo.id},'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
 																	</div>
 																</td>
 															
@@ -131,13 +114,47 @@
 			{include file="public:js"}
 			<block name="js">
 				<script>
-				    function selectAll(choiceBtn){   
-				        
+				    function selectAll(choiceBtn){    
 					    var arr=document.getElementsByName("choice");
 					    for(var i=0;i<arr.length;i++){
 					        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
 					    }
 					}
+					function btn(id,method,action){
+				    	var url="{:url('role/"+action+"')}";
+				    	var data={'method':method,'id':id};
+				    	AjaxGet(url,data);
+				    }
+				 
+				    function moreDel(){
+				    	var obj=document.getElementsByName('choice');
+				    	check_val=[];
+				    	for(k in obj){
+				    		if(obj[k].checked){
+				    			check_val.push(obj[k].value);
+				    		}
+				    	}
+				    	$.ajax({
+				    		type:'post',
+				    		url:"{:url('role/deletes')}",
+				    		data:{check_val},
+				    		dataType:'json',
+							success:function(data){
+								if(data.status==1){
+									$(".table").load(location.href+" .table");
+									toastr.success('', data.msg);
+								}else{
+									toastr.error('', data.msg);
+								}
+								
+							},
+							error:function(msg){
+								
+								alert('系统错误，请联系管理员！');
+								
+							}
+				    	})
+				    };
 				</script>
 				<!--DataTables css-->
 				<script src="__STATIC__/plugins/Datatable/js/jquery.dataTables.js"></script>

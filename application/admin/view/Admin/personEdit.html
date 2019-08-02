@@ -39,7 +39,7 @@
 										<h4>修改个人信息</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
+										<form id="form" class="form-horizontal"  onsubmit="return false" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">ID</label>
 												<div class="col-md-4">
@@ -121,13 +121,24 @@
 {include file="public:js"}
 <block name="js">
 	<script type="text/javascript">
+		// var commitStatus=false;
+		// function dosubmit(){
+		// 	if(commitStatus==false){
+		// 		commitStatus=true;
+		// 		return true
+		// 	}else{
+		// 		return false;
+		// 	}
+		// }
 		$("#form").submit(function(){
 			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
+
 			$.ajax({
 				type:'post',
 				url:"{:url('/admin/admin/edit')}",
 				data:formData,
 				dataType:'json',
+				async: false,
 				success:function(data){
 					if(data.status==1){
 						toastr.success('', data.msg);
