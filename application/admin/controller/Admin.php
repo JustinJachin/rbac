@@ -84,12 +84,12 @@ class Admin extends Base
 			if($res){
 				$status=array(
 					'status'=>1,
-					'msg'=>'权限分配成功'
+					'msg'=>'给该账号成功授予了角色'
 				);
 			}else{
 				$status=array(
 					'status'=>0,
-					'msg'=>'权限分配失败'
+					'msg'=>'给该账号授予了角色失败'
 				);
 			}
 			return json($status);
@@ -244,13 +244,13 @@ class Admin extends Base
 	}
 	
 	/**
-     * @description 管理员禁用与启用
+     * @description 管理员批量删除
      * @author jachin  2019-07-30
      */
 	public function deletes(Request $request){
 		$data['status']=0;
 		$ids=$request->param('check_val');
-		var_dump($ids);exit;
+		// var_dump($ids);exit;
 		if(!$ids){
 			$data['msg']='你未选择任何选项，请选择后再提交！';
 			return json($data);
@@ -263,16 +263,12 @@ class Admin extends Base
 				return json($data);
 			}
 		}
-		$res=true;
-		foreach($ids as &$k){
-			$admin=AdminModel::where('id',$k)->find();
-			$admin->status=2;
-			$admin->delete_time=time();
-			$result=$admin->save();
-			if(!$result){
-				$res=false;
-			}
+		$map=array();
+		foreach ($ids as $key => $value) {
+			$map[$key]=['id'=>$value,'status'=>2];
 		}
+		$admin=new AdminModel();
+		$res=$admin->saveAll($map);
 		if($res){
 			$data['status'] = 1;
 			$data['msg']    = '删除成功';
@@ -326,7 +322,7 @@ class Admin extends Base
 		return json($data);
 	}
 	/**
-     * @description 管理员添加页面以及处理
+     * @description 管理员删除
      * @author jachin  2019-07-29
      */
 	public function delete(Request $request){

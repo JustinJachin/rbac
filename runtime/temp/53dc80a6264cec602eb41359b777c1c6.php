@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1564712240;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
+<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1565147832;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -157,10 +157,10 @@
 											</div>
 											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 												<div class="float-left" style="margin-right: 10px;">
-													<a href="<?php echo url('admin/add'); ?>" class="btn btn-primary">添加权限</a> 
+													<a href="<?php echo url('permission/add'); ?>" class="btn btn-primary">添加角色</a> 
 												</div>
 												<div class="float-left">
-													<a href="<?php echo url('admin/add'); ?>" class="btn btn-danger" >批量删除</a> 
+													<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
 												</div>
 												<div class="float-right col-lg-4">
 													
@@ -214,10 +214,10 @@
 																<td><?php echo htmlentities($vo['update_time']); ?></td>
 																<td>
 																	<div class="btn-group align-top">
-																		<button class="btn btn-sm btn-primary badge" data-target="#user-form-modal" data-toggle="modal" type="button">Edit</button>
+																		<a href="<?php echo url('permission/edit?id='.$vo['id']); ?>" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑权限</a>
 																	</div>
 																	<div class="btn-group align-top">
-																		<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i></button>
+																		<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
 																	</div>
 																</td>
 															
@@ -292,6 +292,41 @@
 					        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
 					    }
 					}
+					function btn(id,method,action){
+				    	var url="<?php echo url('permission/"+action+"'); ?>";
+				    	var data={'method':method,'id':id};
+				    	AjaxGet(url,data);
+				    }
+				 
+				    function moreDel(){
+				    	var obj=document.getElementsByName('choice');
+				    	check_val=[];
+				    	for(k in obj){
+				    		if(obj[k].checked){
+				    			check_val.push(obj[k].value);
+				    		}
+				    	}
+				    	$.ajax({
+				    		type:'post',
+				    		url:"<?php echo url('permission/deletes'); ?>",
+				    		data:{check_val},
+				    		dataType:'json',
+							success:function(data){
+								if(data.status==1){
+									$(".table").load(location.href+" .table");
+									toastr.success('', data.msg);
+								}else{
+									toastr.error('', data.msg);
+								}
+								
+							},
+							error:function(msg){
+								
+								alert('系统错误，请联系管理员！');
+								
+							}
+				    	})
+				    };
 				</script>
 				<!--DataTables css-->
 				<script src="/../static/plugins/Datatable/js/jquery.dataTables.js"></script>

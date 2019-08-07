@@ -60,8 +60,7 @@ class Base extends Controller
         if($adminId!=1){
 
             $access_id=model('AdminRole')->getRole($adminId);
-                // var_dump($access_id);exit;
-            
+
             if(!$access_id){
                $this->error('你无权访问！请联系管理员','login/index');
             }else{
@@ -70,7 +69,7 @@ class Base extends Controller
 
                 //查询该控制器方法在权限表中的id
                 $id_method=model('Permission')->getPermission($method);
-                // var_dump(in_array(2,$access_id));exit;
+
                 if(!in_array($id_method,$access_id)){
                     $this->error('你无权访问！请联系管理员');
                 }

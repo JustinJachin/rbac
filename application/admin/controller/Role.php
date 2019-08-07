@@ -8,6 +8,8 @@ namespace app\admin\controller;
 use app\admin\controller\Base;
 use app\admin\model\Role as RoleModel;
 use Think\Request;
+use app\admin\model\Permission;
+use app\admin\model\RolePermission;
 use app\admin\validate\Role as RoleValidate;
 /**
  * 角色控制器
@@ -56,6 +58,7 @@ class Role extends Base{
 			return json($status);
 
 		}else{
+
 			return view();
 		}	
 	}
@@ -119,10 +122,50 @@ class Role extends Base{
      * @description 权限分配
      * @author jachin  2019-07-29
      */
-	public function store(){
-		
+	public function store(Request $request){
+		if(Request()->isPost()){
+			$data=input('post.');
+			if(!$data){
+				$status=array(
+					'status'=>0,
+					'msg'=>'您的选择为空！'
+				);
+				return json($status);
+			}
 
-		return view();
+			$roleper=RolePermission::where('role_id',$data['id'])->find();
+			if(!$roleper){
+				$status=array(
+					'status'=>0,
+					'msg'=>'暂未找到你要修改的数据'
+				);
+				return json($status);
+			}
+			$roleper->access_id=$data['data'];
+			$res=$roleper->save();
+			if($res){
+				$status=array(
+					'status'=>1,
+					'msg'=>'授权成功'
+				);
+
+			}else{
+				$status=array(
+					'status'=>0,
+					'msg'=>'授权失败'
+				);
+			}
+			return json($status);
+		}else{
+			$id=$request->param('id');
+			$this->assign('id',$id);
+			$permission=new Permission();
+			$data=$permission->getRoleInPer($id);
+			// var_dump($data);exit;
+			$this->assign('access',$data);
+			return view();
+		}
+		
 	}
 	/**
      * @description 角色删除
@@ -162,15 +205,12 @@ class Role extends Base{
 			$status['msg']='请选择您要删除的选项！';
 			return json($status);
 		}
-		$flag=true;
+		$map=array();
 		foreach ($ids as $key => $value) {
-			$role=RoleModel::where('id',$value)->find();
-			$role->status=0;
-			$res=$role->save();
-			if(!$res){
-				$flag=false;
-			}
+			$map[$key]=['id'=>$value,'status'=>0];
 		}
+		$role=new RoleModel();
+		$flag=$role->saveAll($map);
 		if($flag){
 			$status=array(
 				'status'=>1,

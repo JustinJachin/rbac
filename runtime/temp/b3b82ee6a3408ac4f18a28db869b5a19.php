@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\add.html";i:1564730458;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\add.html";i:1565169810;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -44,7 +44,8 @@
 			<!--Morris css-->
 			<link rel="stylesheet" href="/../static/plugins/morris/morris.css">
 			<!--Select2 css-->
-		<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
+			<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
+			<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
 		</block>
 
 	</head>
@@ -139,8 +140,8 @@
 					<section class="section">
                     	<ol class="breadcrumb">
                     		<li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo url('admin/index'); ?>">管理员页面</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">管理员添加</li>
+                            <li class="breadcrumb-item"><a href="<?php echo url('permission/index'); ?>">权限页面</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">权限添加</li>
                         </ol>
 
 						<div class="row">
@@ -148,49 +149,62 @@
 							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
 								<div class="card ">
 									<div class="card-header">
-										<h4>添加管理员</h4>
+										<h4>添加权限</h4>
 									</div>
 									<div class="card-body cards">
 										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">用户名<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
+												<label class="col-md-2 col-form-label">标 题</label>
 												<div class="col-md-4">
-													<input id="username" type="text" class="form-control" placeholder="user name" name="name" >
+													<input id="username" type="text" class="form-control" placeholder="后台首页" name="title" >
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">性 别<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
+												<label class="col-md-2 col-form-label">路 由</label>
+												<div class="col-md-4">
+													<input id="username" type="text" class="form-control" placeholder="admin/index" name="name" >
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">模 块</label>
 												<div class="col-md-2">
-													<select class="form-control select2 w-100"  name="sex">
-													<option value="1" selected="selected">男</option>
-													<option value="0">女</option>
-													<option value="2">保密</option>
+													<select class="form-control select2 w-100"  name="model">
+													<?php if(is_array($module) || $module instanceof \think\Collection || $module instanceof \think\Paginator): $i = 0; $__LIST__ = $module;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$module): $mod = ($i % 2 );++$i;?>
+													<option value="<?php echo htmlentities($module['id']); ?>"><?php echo htmlentities($module['name']); ?></option>
+													<?php endforeach; endif; else: echo "" ;endif; ?>
 												</select>
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label" for="example-email">邮  箱<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
-												<div class="col-md-9">
-													<input type="email" id="email" name="email" class="form-control" placeholder="xxx@xx.com"  name="email">
+												<label class="col-md-2 col-form-label" for="">图标</label>
+												<div class="col-md-5">
+													<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal3">选择图标</button>
+												</div>
+
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">上级菜单</label>
+												<div class="col-md-2">
+													<select class="form-control select2 w-100"  name="parent_id">
+													<option value="0" selected="selected">顶级菜单</option>
+													<option value="0">index</option>
+												</select>
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">密 码<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
-												<div class="col-md-9">
-													<input type="password" class="form-control"  name="password">
+												<label class="col-md-2 col-form-label">是否为导航</label>
+												<div class="col-md-2">
+													<select class="form-control select2 w-100"  name="display_menu">
+													<option value="0" selected="selected">否</option>
+													<option value="1">是</option>
+												</select>
 												</div>
 											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">确认密码<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
-												<div class="col-md-9">
-													<input type="password" class="form-control"  name="password_confirm">
-													<!-- required -->
-												</div>
-											</div>
+											
 											<div class="form-group mb-0 mt-2 row justify-content-end">
 												<div class="col-md-12 text-center">
 													<button type="submit" class="btn btn-primary">提 交</button>
-													<a href="<?php echo url('admin/index'); ?>" class="btn btn-outline-info">返 回</a> 
+													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
 												</div>
 											</div>
 											
@@ -209,6 +223,35 @@
 
 				</block>
 			
+			</div>
+		</div>
+
+
+		<!-- Message Modal -->
+		<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"  aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="example-Modal3">选择图标</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="formGet">
+							<div class="form-group">
+								<?php if(is_array($icon) || $icon instanceof \think\Collection || $icon instanceof \think\Paginator): $i = 0; $__LIST__ = $icon;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$icon): $mod = ($i % 2 );++$i;?>
+								<label>
+									<input type="checkbox" class="flat-purple" value="<?php echo htmlentities($icon['name']); ?>">&nbsp; <i class="icon <?php echo htmlentities($icon['name']); ?>" data-toggle="tooltip" title="<?php echo htmlentities($icon['name']); ?>"></i>&nbsp;&nbsp;
+								</label>
+								<?php endforeach; endif; else: echo "" ;endif; ?>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
 			</div>
 		</div>
 <!--Jquery.min js-->
@@ -282,6 +325,31 @@
 		
 		});
 	</script>
+	<!--Select2 js-->
+	<script src="/../static/plugins/select2/select2.full.js"></script>
+
+	<!--Inputmask js-->
+	<script src="/../static/plugins/inputmask/jquery.inputmask.js"></script>
+
+	<!--Moment js-->
+	<script src="/../static/plugins/moment/moment.min.js"></script>
+
+	<!--Bootstrap-daterangepicker js-->
+	<script src="/../static/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<!--Bootstrap-datepicker js-->
+	<script src="/../static/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+	<!--iCheck js-->
+	<script src="/../static/plugins/iCheck/icheck.min.js"></script>
+
+	<!--Bootstrap-colorpicker js-->
+	<script src="/../static/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+	<!--Bootstrap-timepicker js-->
+	<script src="/../static/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+	<!--forms js-->
+	<script src="/../static/js/forms.js"></script>
 </block>
 </body>
 </html>

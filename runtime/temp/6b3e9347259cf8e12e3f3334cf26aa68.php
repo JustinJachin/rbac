@@ -1,4 +1,4 @@
-<?php /*a:5:{s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\editRole.html";i:1564640627;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
+<?php /*a:5:{s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\editRole.html";i:1564737145;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -148,7 +148,7 @@
 										<h4>角色分配</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
+										<form id="form" class="form-horizontal" onsubmit="return false" method="post" enctype="multipart/form-data"  target="addfile">
 											<input type="hidden" name="id" value="<?php echo htmlentities($id); ?>">
 											<?php if(is_array($role) || $role instanceof \think\Collection || $role instanceof \think\Paginator): $i = 0; $__LIST__ = $role;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['lineFeed'] == 1): ?>
 											<div class="form-group row">
@@ -174,7 +174,7 @@
 											<div class="form-group mb-0 mt-2 row justify-content-end ">
 												<div class="col-md-12 text-center">
 													<button type="submit" class="btn btn-primary">提 交</button>
-													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
+													<a href="<?php echo url('admin/index'); ?>" class="btn btn-outline-info">返 回</a> 
 												</div>
 											</div>
 											
