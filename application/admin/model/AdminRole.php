@@ -21,45 +21,49 @@ class AdminRole extends Model
      * @return string 返回名字
      * @author jachin  2019-07-29
      */
-    public function getRole($userId){
-      	$role_id=db('AdminRole')->where('uid',$userId)->field('role_id')->find();
-        
-      	if(empty($role_id)){
-            return false;
-        }	
+    public function getRole($userId,$module_id){
+      $map=[
+        'uid'=>$userId,
+        'module_id'=>$module_id,
+      ];
+    	$role_id=db('AdminRole')->where($map)->field('role_id')->find();
+      
+    	if(empty($role_id)){
+          return false;
+      }	
 
-       $access_id='1,22';
-       //查看用户所拥有的角色是否被删除
-        $roleStatus=db('Role')->where('id',$role_id['role_id'])->field('status')->find();
-        if($roleStatus['status']==1){
-            
-            $res=db('RolePermission')->where('role_id',$role_id['role_id'])->field('access_id')->find();
-
-            if($res){
-              $access_id=$res['access_id'].','.$access_id;
-            }
-
-        }
-
-      	$result=explode(',',$access_id);
-      	// var_dump($result);exit;
-      	$result=array_values(array_filter(array_unique($result)));
-        //查看权限是否被删除
-        foreach ($result as $key=>$value ) {
-          $map=array(
-              'id' => $value,
-              'status'  => 1
-            );
-          $perssion=Permission::where($map)->field('id')->find();
+     $access_id='1,22';
+     //查看用户所拥有的角色是否被删除
+      $roleStatus=db('Role')->where('id',$role_id['role_id'])->field('status')->find();
+      if($roleStatus['status']==1){
           
-          if(!$perssion){
-            unset($result[$key]);
-          }
-        }
+          $res=db('RolePermission')->where('role_id',$role_id['role_id'])->field('access_id')->find();
 
-      	if(empty($result)){
-      		return false;
-      	}
-      	return $result;
+          if($res){
+            $access_id=$res['access_id'].','.$access_id;
+          }
+
+      }
+
+    	$result=explode(',',$access_id);
+    	// var_dump($result);exit;
+    	$result=array_values(array_filter(array_unique($result)));
+      //查看权限是否被删除
+      foreach ($result as $key=>$value ) {
+        $map=array(
+            'id' => $value,
+            'status'  => 1
+          );
+        $perssion=Permission::where($map)->field('id')->find();
+        
+        if(!$perssion){
+          unset($result[$key]);
+        }
+      }
+
+    	if(empty($result)){
+    		return false;
+    	}
+    	return $result;
     }
 }

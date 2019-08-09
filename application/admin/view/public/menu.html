@@ -15,7 +15,7 @@
         {if condition="$menu['star'] eq true"}
         <li class="slide active">
             <a class="side-menu__item active"  data-toggle="slide" href="{:url($menu.name)}">
-                <i class="{$menu.icon}"></i>
+                <i class="side-menu__icon fa {$menu.icons.name}"></i> 
                 <span class="side-menu__label">{$menu.title}</span>
                 {neq name="menu['children']" value="1"}
                 <i class="angle fa fa-angle-right"></i>
@@ -35,7 +35,7 @@
         {else/}
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="{:url($menu.name)}">
-                <i class="{$menu.icon}"></i>
+                <i class="side-menu__icon fa {$menu.icons.name}"></i> 
                 <span class="side-menu__label">{$menu.title}</span>
                 {neq name="menu['children']" value="1"}
                 <i class="angle fa fa-angle-right"></i>

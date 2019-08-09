@@ -1,4 +1,4 @@
-<?php /*a:5:{s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\add.html";i:1565169810;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\add.html";i:1565318771;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -100,7 +100,7 @@
         <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;if($menu['star'] == true): ?>
         <li class="slide active">
             <a class="side-menu__item active"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -119,7 +119,7 @@
         <?php else: ?>
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -152,7 +152,7 @@
 										<h4>添加权限</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data"  target="addfile">
+										<form id="form" class="form-horizontal" method="post" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">标 题</label>
 												<div class="col-md-4">
@@ -168,7 +168,7 @@
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">模 块</label>
 												<div class="col-md-2">
-													<select class="form-control select2 w-100"  name="model">
+													<select class="form-control select2 w-100"  name="module_id">
 													<?php if(is_array($module) || $module instanceof \think\Collection || $module instanceof \think\Paginator): $i = 0; $__LIST__ = $module;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$module): $mod = ($i % 2 );++$i;?>
 													<option value="<?php echo htmlentities($module['id']); ?>"><?php echo htmlentities($module['name']); ?></option>
 													<?php endforeach; endif; else: echo "" ;endif; ?>
@@ -186,8 +186,15 @@
 												<label class="col-md-2 col-form-label">上级菜单</label>
 												<div class="col-md-2">
 													<select class="form-control select2 w-100"  name="parent_id">
-													<option value="0" selected="selected">顶级菜单</option>
-													<option value="0">index</option>
+													<option value="0" >顶级菜单</option>
+													<?php if(is_array($permission) || $permission instanceof \think\Collection || $permission instanceof \think\Paginator): $i = 0; $__LIST__ = $permission;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+													<option value="<?php echo htmlentities($vo['id']); ?>}"><?php echo htmlentities($vo['title']); ?></option>
+													<?php if($vo['children'] != ''): if(is_array($vo['children']) || $vo['children'] instanceof \think\Collection || $vo['children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $vo['children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cvo): $mod = ($i % 2 );++$i;?>
+													<option value="<?php echo htmlentities($cvo['id']); ?>}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└<?php echo htmlentities($cvo['title']); ?></option>
+													<?php endforeach; endif; else: echo "" ;endif; ?>
+													<?php endif; ?>
+													
+													<?php endforeach; endif; else: echo "" ;endif; ?>
 												</select>
 												</div>
 											</div>
@@ -238,12 +245,14 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form id="formGet">
+						<form id="formGet" method="post" onsubmit="return false">
 							<div class="form-group">
 								<?php if(is_array($icon) || $icon instanceof \think\Collection || $icon instanceof \think\Paginator): $i = 0; $__LIST__ = $icon;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$icon): $mod = ($i % 2 );++$i;?>
-								<label>
-									<input type="checkbox" class="flat-purple" value="<?php echo htmlentities($icon['name']); ?>">&nbsp; <i class="icon <?php echo htmlentities($icon['name']); ?>" data-toggle="tooltip" title="<?php echo htmlentities($icon['name']); ?>"></i>&nbsp;&nbsp;
-								</label>
+								<label class="col-md-1">
+									
+									<i class="fa <?php echo htmlentities($icon['name']); ?>" data-toggle="tooltip" title="<?php echo htmlentities($icon['name']); ?>"></i>
+									<input type="radio" name="icon_id" class="flat-purple" value="<?php echo htmlentities($icon['id']); ?>">
+								</label> 
 								<?php endforeach; endif; else: echo "" ;endif; ?>
 							</div>
 						</form>
@@ -300,17 +309,17 @@
 <block name="js">
 	<script type="text/javascript">
 		$("#form").submit(function(){
-			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
+			var formData = $("#form").serialize()+"&"+$("#formGet").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
 			$.ajax({
 				type:'post',
-				url:"<?php echo url('/admin/admin/add'); ?>",
+				url:"<?php echo url('/admin/permission/add'); ?>",
 				data:formData,
 				dataType:'json',
 				success:function(data){
 					if(data.status==1){
 						toastr.success('', data.msg);
-						$(".cards").load(location.href+" .cards");
-						// setTimeout("location.reload()",1000);//设置延迟时间执行
+						// $(".cards").load(location.href+" .cards");
+						setTimeout("location.reload()",1000);//设置延迟时间执行
 						// window.location.href="index";
 					}else{
 						toastr.error('', data.msg);

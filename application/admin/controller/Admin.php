@@ -11,7 +11,7 @@ use think\Request;
 use app\admin\validate\Admin as AdminValidate;
 use app\admin\model\Role;
 use app\admin\model\AdminRole;
-
+use app\admin\model\Icon;
 /**
  * 管理员控制器
  * @author jachin <jachin@qq.com>
@@ -248,6 +248,27 @@ class Admin extends Base
      * @author jachin  2019-07-30
      */
 	public function deletes(Request $request){
+		
+		/*$str = file_get_contents('E:\phpStudy\PHPTutorial\WWW\tp5rbac\public\Kharna_Admin\icons-fontawesome.html');
+
+		$reg1='/data-toggle=\"tooltip\" title=\"(.*?)\".*?>(.*?)<\/li>/i';//匹配所有A标签
+
+		preg_match_all($reg1,$str,$aarray);
+		// print_r($aarray[1]);
+		$arr=[];
+		foreach ($aarray[1] as $key => $value) {
+			
+			$arr[]=[
+				// 'id'=>$i,
+				'name'=>$value,
+				'create_time'=>time(),
+			];
+			
+		}
+		// var_dump($arr);exit;
+		$icon=new Icon();
+		$res=$icon->saveAll($arr);
+		exit;*/
 		$data['status']=0;
 		$ids=$request->param('check_val');
 		// var_dump($ids);exit;

@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\role\edit.html";i:1564735374;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:79:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\edit.html";i:1565318995;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -44,7 +44,8 @@
 			<!--Morris css-->
 			<link rel="stylesheet" href="/../static/plugins/morris/morris.css">
 			<!--Select2 css-->
-		<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
+			<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
+			<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
 		</block>
 
 	</head>
@@ -99,7 +100,7 @@
         <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;if($menu['star'] == true): ?>
         <li class="slide active">
             <a class="side-menu__item active"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -118,7 +119,7 @@
         <?php else: ?>
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -139,8 +140,8 @@
 					<section class="section">
                     	<ol class="breadcrumb">
                     		<li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo url('role/index'); ?>">角色页面</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">角色编辑</li>
+                            <li class="breadcrumb-item"><a href="<?php echo url('permission/index'); ?>">权限页面</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">修改权限</li>
                         </ol>
 
 						<div class="row">
@@ -148,29 +149,87 @@
 							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
 								<div class="card ">
 									<div class="card-header">
-										<h4>角色编辑</h4>
+										<h4>修改权限</h4>
 									</div>
 									<div class="card-body cards">
-										<form id="form" class="form-horizontal" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
+										<form id="form" class="form-horizontal" method="post" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label">名 字</label>
+												<input type="hidden" name="id" value="<?php echo htmlentities($map['id']); ?>">
+												<label class="col-md-2 col-form-label">标 题</label>
 												<div class="col-md-4">
-													<input id="id" type="hidden" class="form-control" name="id" value="<?php echo htmlentities($role['id']); ?>" >
-													<input id="username" type="text" class="form-control" name="name" value="<?php echo htmlentities($role['name']); ?>" >
+													<input id="username" type="text" class="form-control" placeholder="后台首页" name="title" value="<?php echo htmlentities($map['title']); ?>" >
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-2 col-form-label" for="example-email">描 述</label>
+												<label class="col-md-2 col-form-label">路 由</label>
 												<div class="col-md-4">
-													<input type="text" id="description" name="description" class="form-control" value="<?php echo htmlentities($role['description']); ?>">
+													<input id="username" type="text" class="form-control" placeholder="admin/index" name="name" value="<?php echo htmlentities($map['name']); ?>" >
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">模 块</label>
+												<div class="col-md-2">
+													<select class="form-control select2 w-100"  name="module_id">
+													<?php if(is_array($module) || $module instanceof \think\Collection || $module instanceof \think\Paginator): $i = 0; $__LIST__ = $module;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$module): $mod = ($i % 2 );++$i;if($module['id'] == $map['module_id']): ?>
+													<option value="<?php echo htmlentities($module['id']); ?>"  selected="selected"><?php echo htmlentities($module['name']); ?></option>
+													<?php else: ?>
+													<option value="<?php echo htmlentities($module['id']); ?>"><?php echo htmlentities($module['name']); ?></option>
+													<?php endif; ?>
+													<?php endforeach; endif; else: echo "" ;endif; ?>
+												</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" for="">图标</label>
+												<div class="col-md-5">
+													<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal3">选择图标</button>
+												</div>
+
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">上级菜单</label>
+												<div class="col-md-2">
+													<select class="form-control select2 w-100"  name="parent_id">
+														
+														<?php if($map['parent_id'] == '0'): ?>
+														<option value="0" selected="selected">顶级菜单</option>
+														<?php else: ?>
+														<option value="0">顶级菜单</option>
+														<?php endif; if(is_array($permission) || $permission instanceof \think\Collection || $permission instanceof \think\Paginator): $i = 0; $__LIST__ = $permission;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;if($vo['id'] == $map['parent_id']): ?>
+														<option value="<?php echo htmlentities($vo['id']); ?>" selected="selected"><?php echo htmlentities($vo['title']); ?></option>
+														<?php else: ?>
+														<option value="<?php echo htmlentities($vo['id']); ?>"><?php echo htmlentities($vo['title']); ?></option>
+														<?php endif; if($vo['children'] != ''): if(is_array($vo['children']) || $vo['children'] instanceof \think\Collection || $vo['children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $vo['children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cvo): $mod = ($i % 2 );++$i;if($cvo['id'] == $map['parent_id']): ?>
+														<option value="<?php echo htmlentities($cvo['id']); ?>" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└<?php echo htmlentities($cvo['title']); ?></option>
+														<?php else: ?>
+														<option value="<?php echo htmlentities($cvo['id']); ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└<?php echo htmlentities($cvo['title']); ?></option>
+														<?php endif; ?>
+														<?php endforeach; endif; else: echo "" ;endif; ?>
+														<?php endif; ?>
+														
+														<?php endforeach; endif; else: echo "" ;endif; ?>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">是否为导航</label>
+												<div class="col-md-2">
+													<select class="form-control select2 w-100"  name="display_menu">
+														<?php if($map['display_menu'] == '0'): ?>
+														<option value="0" selected="selected">否</option>
+														<option value="1">是</option>
+														<?php else: ?>
+														<option value="0" >否</option>
+														<option value="1" selected="selected">是</option>
+														<?php endif; ?>
+													</select>
 												</div>
 											</div>
 											
 											<div class="form-group mb-0 mt-2 row justify-content-end">
 												<div class="col-md-12 text-center">
 													<button type="submit" class="btn btn-primary">提 交</button>
-													<a href="<?php echo url('role/index'); ?>" class="btn btn-outline-info">返 回</a> 
-													<!-- <button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button> -->
+													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
 												</div>
 											</div>
 											
@@ -189,6 +248,41 @@
 
 				</block>
 			
+			</div>
+		</div>
+
+
+		<!-- Message Modal -->
+		<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"  aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="example-Modal3">选择图标</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="formGet" method="post" onsubmit="return false">
+							<div class="form-group">
+								<?php if(is_array($icon) || $icon instanceof \think\Collection || $icon instanceof \think\Paginator): $i = 0; $__LIST__ = $icon;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$icon): $mod = ($i % 2 );++$i;?>
+								<label class="col-md-1">
+									
+									<i class="fa <?php echo htmlentities($icon['name']); ?>" data-toggle="tooltip" title="<?php echo htmlentities($icon['name']); ?>"></i>
+									<?php if($map['icon_id'] == $icon['id']): ?>
+									<input type="radio" name="icon_id" class="flat-purple" value="<?php echo htmlentities($icon['id']); ?>" checked>
+									<?php else: ?>
+									<input type="radio" name="icon_id" class="flat-purple" value="<?php echo htmlentities($icon['id']); ?>">
+									<?php endif; ?>
+								</label> 
+								<?php endforeach; endif; else: echo "" ;endif; ?>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
 			</div>
 		</div>
 <!--Jquery.min js-->
@@ -237,19 +331,23 @@
 <block name="js">
 	<script type="text/javascript">
 		$("#form").submit(function(){
-			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
+			var icon=$("#formGet").serialize()
+			if(Object.keys(icon).length==0){
+				icon="icon_id=";
+			}
+			var formData = $("#form").serialize()+"&"+icon;//serialize() 方法通过序列化表单值，创建 URL 编码文本
+				
 			$.ajax({
 				type:'post',
-				url:"<?php echo url('/admin/role/edit'); ?>",
+				url:"<?php echo url('/admin/permission/edit'); ?>",
 				data:formData,
 				dataType:'json',
 				success:function(data){
 					if(data.status==1){
 						toastr.success('', data.msg);
 						// $(".cards").load(location.href+" .cards");
-						setTimeout("history.back(-1)",1000);//设置延迟时间执行
-						// window.location.href="role/index";
-						
+						setTimeout("location.reload()",600);//设置延迟时间执行
+						// window.location.href="index";
 					}else{
 						toastr.error('', data.msg);
 					}
@@ -263,6 +361,31 @@
 		
 		});
 	</script>
+	<!--Select2 js-->
+	<script src="/../static/plugins/select2/select2.full.js"></script>
+
+	<!--Inputmask js-->
+	<script src="/../static/plugins/inputmask/jquery.inputmask.js"></script>
+
+	<!--Moment js-->
+	<script src="/../static/plugins/moment/moment.min.js"></script>
+
+	<!--Bootstrap-daterangepicker js-->
+	<script src="/../static/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<!--Bootstrap-datepicker js-->
+	<script src="/../static/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+	<!--iCheck js-->
+	<script src="/../static/plugins/iCheck/icheck.min.js"></script>
+
+	<!--Bootstrap-colorpicker js-->
+	<script src="/../static/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+	<!--Bootstrap-timepicker js-->
+	<script src="/../static/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+	<!--forms js-->
+	<script src="/../static/js/forms.js"></script>
 </block>
 </body>
 </html>

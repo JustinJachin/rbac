@@ -10,6 +10,7 @@ use think\Model;
 use think\Session;
 use app\admin\model\RolePermission;
 use think\facade\Request;
+use app\admin\model\Module;
 /**
  * 权限模型
  * @author jachin <jachin@qq.com>
@@ -17,7 +18,22 @@ use think\facade\Request;
 
 class Permission extends Model
 {
-
+    /**
+     * @description  关联icon表 icon（1）-permission（n） 一对多关系
+     * @return array 返回查询到的数据
+     * @author jachin  2019-08-08
+     */
+    public function icons(){
+      return $this->belongsTo('Icon');
+    }
+    /**
+     * @description  关联module表 module（1）-permission（n） 一对多关系
+     * @return array 返回查询到的数据
+     * @author jachin  2019-08-08
+     */
+    public function modules(){
+      return $this->belongsTo('Module');
+    }
     /**
      * @description  获取目录
      * @return string 返回名字
@@ -27,7 +43,13 @@ class Permission extends Model
       $rolePer=RolePermission::where('role_id',$id)->field('access_id')->find();
       $rolepers=explode(',',$rolePer['access_id']);
       // var_dump($rolepers);exit;
-      $permission=$this::where('status',1)->field('id,title,parent_id')->select();
+      $module=new Module();
+      $module_id=$module->getModuleId();
+       $data=[
+        'status'=>1,
+        'module_id'=>$module_id,
+      ];
+      $permission=$this::where($data)->field('id,title,parent_id')->select();
       foreach ($permission as $k=>$v) {
         if(in_array($v['id'], $rolepers)){
           $v['flag']=1;
@@ -79,17 +101,28 @@ class Permission extends Model
     	$controller = Request::controller();
     	$action = Request::action();
       //拼接方法名和控制器名
+      
     	$method=strtolower($controller.'/'.$action);
-      $data=['parent_id'=>0,'status'=>1,'display_menu'=>1];
+      $module=new Module();
+      $module_id=$module->getModuleId();
+
+      $data=[
+        'parent_id'=>0,
+        'status'=>1,
+        'display_menu'=>1,
+        'module_id'=>$module_id,
+      ];
       //查询
-      $result=$this::where($data)->field('id,title,name,icon')->select();
+      $result=$this::with('icons')->where($data)->select();
+      // var_dump($result);exit;
       foreach($result as &$v){
       	$v['star']=false;
       	if($method===$v['name']){
       		$v['star']=true;
       	}
       	$date=['parent_id'=>$v['id'],'status'=>1,'display_menu'=>1];
-      	$res=db('permission')->where($date)->field('id,title,name')->select();
+        $res=$this::where($date)->select();
+      	// $res=db('permission')->where($date)->field('id,title,name')->select();
       	foreach($res as &$value){
       		$value['star']=false;
       		if($method===$value['name']){
@@ -101,7 +134,7 @@ class Permission extends Model
       	else
       		$v['children']=1;
       }
-
+      
       return $result;
     }
     /**

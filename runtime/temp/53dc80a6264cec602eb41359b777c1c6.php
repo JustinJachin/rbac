@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1565147832;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1565318248;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -98,7 +98,7 @@
         <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;if($menu['star'] == true): ?>
         <li class="slide active">
             <a class="side-menu__item active"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -117,7 +117,7 @@
         <?php else: ?>
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -145,14 +145,14 @@
 									<div class="col-lg-12">
 										<div class="card">
 											<div class="card-header">
-												<form class="float-right">
+												<!-- <form class="float-right">
 													<div class="input-group">
 														<input type="text" class="form-control" placeholder="Search" value="">
 														<div class="input-group-btn">
 															<button class="btn btn-primary"><i class="ion ion-search"></i></button>
 														</div>
 													</div>
-												</form>	
+												</form>	 -->
 												<h4>权限列表</h4>
 											</div>
 											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
@@ -200,11 +200,12 @@
 																		<input class="custom-control-input" name="choice" id="choice<?php echo htmlentities($vo['id']); ?>" value="<?php echo htmlentities($vo['id']); ?>" type="checkbox"> <label class="custom-control-label" for="choice<?php echo htmlentities($vo['id']); ?>"></label>
 																	</div>
 																</td>
+
 																<td><?php echo htmlentities($vo['id']); ?></td>
 																<td><?php echo htmlentities($vo['title']); ?></td>
 																<td><?php echo htmlentities($vo['name']); ?></td>
-																<td><?php echo htmlentities($vo['model']); ?></td>
-																<td><i class="<?php echo htmlentities($vo['icon']); ?>"></i></td>
+																<td><?php echo htmlentities($vo['modules']['name']); ?></td>
+																<td><i class="fa <?php echo htmlentities($vo['icons']['name']); ?>"></i></td>
 																
 																<td><?php echo htmlentities($vo['display_menu']); ?></td>
 																<td>

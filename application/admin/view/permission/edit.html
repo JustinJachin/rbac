@@ -29,7 +29,7 @@
                     	<ol class="breadcrumb">
                     		<li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
                             <li class="breadcrumb-item"><a href="{:url('permission/index')}">权限页面</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">权限添加</li>
+                            <li class="breadcrumb-item active" aria-current="page">修改权限</li>
                         </ol>
 
 						<div class="row">
@@ -37,20 +37,21 @@
 							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
 								<div class="card ">
 									<div class="card-header">
-										<h4>添加权限</h4>
+										<h4>修改权限</h4>
 									</div>
 									<div class="card-body cards">
 										<form id="form" class="form-horizontal" method="post" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
 											<div class="form-group row">
+												<input type="hidden" name="id" value="{$map.id}">
 												<label class="col-md-2 col-form-label">标 题</label>
 												<div class="col-md-4">
-													<input id="username" type="text" class="form-control" placeholder="后台首页" name="title" >
+													<input id="username" type="text" class="form-control" placeholder="后台首页" name="title" value="{$map.title}" >
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">路 由</label>
 												<div class="col-md-4">
-													<input id="username" type="text" class="form-control" placeholder="admin/index" name="name" >
+													<input id="username" type="text" class="form-control" placeholder="admin/index" name="name" value="{$map.name}" >
 												</div>
 											</div>
 											<div class="form-group row">
@@ -58,7 +59,11 @@
 												<div class="col-md-2">
 													<select class="form-control select2 w-100"  name="module_id">
 													{volist name="module" id="module"}
+													{if condition="$module['id'] eq $map['module_id']"}
+													<option value="{$module.id}"  selected="selected">{$module.name}</option>
+													{else/}
 													<option value="{$module.id}">{$module.name}</option>
+													{/if}
 													{/volist}
 												</select>
 												</div>
@@ -74,26 +79,44 @@
 												<label class="col-md-2 col-form-label">上级菜单</label>
 												<div class="col-md-2">
 													<select class="form-control select2 w-100"  name="parent_id">
-													<option value="0" >顶级菜单</option>
-													{volist name="permission" id="vo"}
-													<option value="{$vo.id}}">{$vo.title}</option>
-													{if condition="$vo['children'] neq '' "}
-													{volist name="vo.children" id="cvo"}
-													<option value="{$cvo.id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└{$cvo.title}</option>
-													{/volist}
-													{/if}
-													
-													{/volist}
-												</select>
+														
+														{if condition="$map['parent_id'] eq '0'"}
+														<option value="0" selected="selected">顶级菜单</option>
+														{else/}
+														<option value="0">顶级菜单</option>
+														{/if}
+														{volist name="permission" id="vo"}
+														{if condition="$vo['id'] eq $map['parent_id']"}
+														<option value="{$vo.id}" selected="selected">{$vo.title}</option>
+														{else/}
+														<option value="{$vo.id}">{$vo.title}</option>
+														{/if}
+														{if condition="$vo['children'] neq '' "}
+														{volist name="vo.children" id="cvo"}
+														{if condition="$cvo['id'] eq $map['parent_id']"}
+														<option value="{$cvo.id}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└{$cvo.title}</option>
+														{else/}
+														<option value="{$cvo.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└{$cvo.title}</option>
+														{/if}
+														{/volist}
+														{/if}
+														
+														{/volist}
+													</select>
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-md-2 col-form-label">是否为导航</label>
 												<div class="col-md-2">
 													<select class="form-control select2 w-100"  name="display_menu">
-													<option value="0" selected="selected">否</option>
-													<option value="1">是</option>
-												</select>
+														{if condition="$map['display_menu'] eq '0'"}
+														<option value="0" selected="selected">否</option>
+														<option value="1">是</option>
+														{else/}
+														<option value="0" >否</option>
+														<option value="1" selected="selected">是</option>
+														{/if}
+													</select>
 												</div>
 											</div>
 											
@@ -140,7 +163,11 @@
 								<label class="col-md-1">
 									
 									<i class="fa {$icon.name}" data-toggle="tooltip" title="{$icon.name}"></i>
+									{if condition="$map['icon_id'] eq $icon.id"}
+									<input type="radio" name="icon_id" class="flat-purple" value="{$icon.id}" checked>
+									{else/}
 									<input type="radio" name="icon_id" class="flat-purple" value="{$icon.id}">
+									{/if}
 								</label> 
 								{/volist}
 							</div>
@@ -156,17 +183,22 @@
 <block name="js">
 	<script type="text/javascript">
 		$("#form").submit(function(){
-			var formData = $("#form").serialize()+"&"+$("#formGet").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
+			var icon=$("#formGet").serialize()
+			if(Object.keys(icon).length==0){
+				icon="icon_id=";
+			}
+			var formData = $("#form").serialize()+"&"+icon;//serialize() 方法通过序列化表单值，创建 URL 编码文本
+				
 			$.ajax({
 				type:'post',
-				url:"{:url('/admin/permission/add')}",
+				url:"{:url('/admin/permission/edit')}",
 				data:formData,
 				dataType:'json',
 				success:function(data){
 					if(data.status==1){
 						toastr.success('', data.msg);
 						// $(".cards").load(location.href+" .cards");
-						setTimeout("location.reload()",1000);//设置延迟时间执行
+						setTimeout("location.reload()",600);//设置延迟时间执行
 						// window.location.href="index";
 					}else{
 						toastr.error('', data.msg);

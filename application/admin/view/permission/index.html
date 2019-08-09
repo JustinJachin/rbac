@@ -33,14 +33,14 @@
 									<div class="col-lg-12">
 										<div class="card">
 											<div class="card-header">
-												<form class="float-right">
+												<!-- <form class="float-right">
 													<div class="input-group">
 														<input type="text" class="form-control" placeholder="Search" value="">
 														<div class="input-group-btn">
 															<button class="btn btn-primary"><i class="ion ion-search"></i></button>
 														</div>
 													</div>
-												</form>	
+												</form>	 -->
 												<h4>权限列表</h4>
 											</div>
 											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
@@ -88,11 +88,12 @@
 																		<input class="custom-control-input" name="choice" id="choice{$vo.id}" value="{$vo.id}" type="checkbox"> <label class="custom-control-label" for="choice{$vo.id}"></label>
 																	</div>
 																</td>
+
 																<td>{$vo.id}</td>
 																<td>{$vo.title}</td>
 																<td>{$vo.name}</td>
-																<td>{$vo.model}</td>
-																<td><i class="{$vo.icon}"></i></td>
+																<td>{$vo.modules.name}</td>
+																<td><i class="fa {$vo.icons.name}"></i></td>
 																
 																<td>{$vo.display_menu}</td>
 																<td>

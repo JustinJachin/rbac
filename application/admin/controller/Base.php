@@ -8,7 +8,7 @@ namespace app\admin\controller;
 use app\admin\model\Permission;
 use think\Controller;
 use think\facade\Request;
-
+use app\admin\model\Module;
 /**
  * 后台基类控制器
  * @author jachin <jachin@qq.com>
@@ -52,14 +52,16 @@ class Base extends Controller
     public function getRole(){
 
         $adminId=session('uid');
-
+        $module=new Module();
+        $module_id=$module->getModuleId();
         $status=0;
+       
         //判断session是否存有用户信息
         empty($adminId) && $this->error('你无权访问！请联系管理员','login/index');
 
         if($adminId!=1){
 
-            $access_id=model('AdminRole')->getRole($adminId);
+            $access_id=model('AdminRole')->getRole($adminId,$module_id);
 
             if(!$access_id){
                $this->error('你无权访问！请联系管理员','login/index');

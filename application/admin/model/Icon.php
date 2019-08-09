@@ -17,8 +17,14 @@ use think\facade\Validate;
  */
 class Icon extends Model
 {
-   
-
+    /**
+     * @description  关联permission表 icon（1）-permission（n）一对多关系
+     * @return array 返回查询到的数据
+     * @author jachin  2019-08-08
+     */
+	public function permission(){
+		return $this->hasMany('Permission','icon');
+	}
     
 
 }

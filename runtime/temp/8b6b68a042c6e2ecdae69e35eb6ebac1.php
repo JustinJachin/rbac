@@ -1,8 +1,7 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\personEdit.html";i:1564732485;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1564629253;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\log\index.html";i:1565327233;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title><?php echo htmlentities((isset($title) && ($title !== '')?$title:'后台管理系统')); ?></title>
@@ -41,12 +40,14 @@
 <!--&lt;!&ndash;morris css&ndash;&gt;-->
 <!--<link rel="stylesheet" href="/../static/plugins/morris/morris.css">-->
 		<block name="topCss">
-			<!--Morris css-->
-			<link rel="stylesheet" href="/../static/plugins/morris/morris.css">
-			<!--Select2 css-->
-		<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
-		</block>
+			<!--DataTables css-->
+			<link rel="stylesheet" href="/../static/plugins/Datatable/css/dataTables.bootstrap4.css">
 
+			<!--iCheck css-->
+			<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
+
+			
+		</block>
 	</head>
 
 	<body class="app ">
@@ -99,7 +100,7 @@
         <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;if($menu['star'] == true): ?>
         <li class="slide active">
             <a class="side-menu__item active"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -118,7 +119,7 @@
         <?php else: ?>
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -135,100 +136,149 @@
     </ul>
 </aside>
 				<block name="bodsy">
-				<div class="app-content">
-					<section class="section">
-                    	<ol class="breadcrumb">
-                    		<li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo url('admin/index'); ?>">管理员页面</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">编辑信息</li>
-                        </ol>
+					<div class="app-content">
+						<section class="section">
+							<ol class="breadcrumb">
+						        <li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
+						        <li class="breadcrumb-item active" aria-current="page">日志页面</li>
+						    </ol>
 
-						<div class="row">
-							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
-							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
-								<div class="card ">
-									<div class="card-header">
-										<h4>修改个人信息</h4>
-									</div>
-									<div class="card-body cards">
-										<form id="form" class="form-horizontal"  onsubmit="return false" enctype="multipart/form-data"  target="addfile">
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">ID</label>
-												<div class="col-md-4">
-													<input type="text" class="form-control" disabled="disabled" name="id" value="<?php echo htmlentities($user['id']); ?>">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="card">
+										<div class="card-header">
+											<form class="float-right" method="get">
+												<div class="input-group">
+													
+													<input type="text" class="form-control" name="keyword" style="width: 160px;" placeholder="search" value="{}">
+													
+													<div class="input-group-btn">
+														<button class="btn btn-primary" ><i class="ion ion-search"></i></button>
+													</div>
 												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">用户名</label>
-												<div class="col-md-4">
-													<input id="username" type="text" class="form-control"  name="name" value="<?php echo htmlentities($user['name']); ?>">
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">性 别</label>
-												<div class="col-md-2">
-													<select class="form-control select2 w-100"  name="sex">
-													<?php if($user['sex'] == '女'): ?>
-													<option value="0" selected="selected">女</option>
-													<option value="1">男</option>
-													<option value="2">保密</option>
-													<?php endif; if($user['sex'] == '男'): ?>
-													<option value="0">女</option>
-													<option value="1" selected="selected">男</option>
-													<option value="2">保密</option>
-													<?php endif; if($user['sex'] == '保密'): ?>
-													<option value="0">女</option>
-													<option value="1">男</option>
-													<option value="2" selected="selected">保密</option>
-													<?php endif; ?>
-												</select>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label" for="example-email">邮  箱</label>
-												<div class="col-md-9">
-													<input type="email" id="email" name="email" class="form-control"   name="email" value="<?php echo htmlentities($user['email']); ?>">
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">密 码</label>
-												<div class="col-md-9">
-													<input type="password" class="form-control"  name="password">
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-md-2 col-form-label">确认密码</label>
-												<div class="col-md-9">
-													<input type="password" class="form-control"  name="password_confirm">
-													<!-- required -->
-												</div>
-											</div>
-										
-											<div class="form-group mb-0 mt-2 row justify-content-end">
-												<div class="col-md-12 text-center">
-													<button type="submit" class="btn btn-primary">更新信息</button>
-													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
-												</div>
-											</div>
+											</form>	
+											<h4>日志列表</h4>
+										</div>
+										<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 											
-										</form>
-										<iframe id="addfile_iframe" src="" name="addfile" style="display: none;" frameborder="0"></iframe>
+											<div class="float-left">
+												<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
+											</div>
+											<div class="float-right col-lg-4">
+												
+											</div> 
+											
+										</div>
+										<div class="card-body">
+											<div class="table-responsive">
+											<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
+												<thead>
+													<tr class="text-center">
+														<th class="row-selected">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">全选/全不选</label>
+															</div>
+														</th>
+														<th class="wd-15p">ID</th>
+														<th class="wd-15p">用户名</th>
+														<th class="wd-15p">性别</th>
+														<th class="wd-20p">邮箱</th>
+														<th class="wd-15p">是否禁用</th>
+														<th class="wd-10p">创建时间</th>
+														<th class="wd-25p">上次登录时间</th>
+														<th class="wd-25p">上次登录IP地址</th>
+														<th class="wd-25p">操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													
+													<tr class="text-center">
+														<td>
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choice" id="choice" value="" type="checkbox"> <label class="custom-control-label" for="choice"></label>
+															</div>
+														</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td>
+															
+														</td>
+														<td>{}</td>
+														<td>
+															
+														</td>
+														<td>{}</td>
+														<td>
+															
+															
+														</td>
+													
+													</tr>
+													
+												</tbody>
+											</table>
+										</div>
+										<div id="page" class="page">
+												
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
-							
-						</div>
 
-						
-					</section>
-				</div>
-
+						</section>
+					</div>
+					
 				</block>
-			
 			</div>
 		</div>
-<!--Jquery.min js-->
+		<script>
+			function selectAll(choiceBtn){
+			    var arr=document.getElementsByName("choice");
+			    for(var i=0;i<arr.length;i++){
+			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+			    }
+		    }
+		    function btn(id,method,action){
+		    	var url="<?php echo url('admin/"+action+"'); ?>";
+		    	var data={'method':method,'id':id};
+		    	AjaxGet(url,data);
+		    }
+		 
+		    function moreDel(){
+		    	var obj=document.getElementsByName('choice');
+		    	check_val=[];
+		    	for(k in obj){
+		    		if(obj[k].checked){
+		    			check_val.push(obj[k].value);
+		    		}
+		    	}
+		    	$.ajax({
+		    		type:'post',
+		    		url:"<?php echo url('admin/deletes'); ?>",
+		    		data:{check_val},
+		    		dataType:'json',
+					success:function(data){
+						if(data.status==1){
+							$(".table").load(location.href+" .table");
+							toastr.success('', data.msg);
+						}else{
+							toastr.error('', data.msg);
+						}
+						
+					},
+					error:function(msg){
+						
+						alert('系统错误，请联系管理员！');
+						
+					}
+		    	})
+		    };
+
+		</script>
+		<!--Jquery.min js-->
 <script src="/../static/js/jquery.min.js"></script>
 
 <!--popper js-->
@@ -271,44 +321,38 @@
 <script src="/../static/plugins/toaster/garessi-notif.js"></script>
 <!--公用函数 js-->	
 <script src="/../static/js/commont.js"></script>
-<block name="js">
-	<script type="text/javascript">
-		// var commitStatus=false;
-		// function dosubmit(){
-		// 	if(commitStatus==false){
-		// 		commitStatus=true;
-		// 		return true
-		// 	}else{
-		// 		return false;
-		// 	}
-		// }
-		$("#form").submit(function(){
-			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
+		<block name="js">
+			<!--DataTables css-->
+			<script src="/../static/plugins/Datatable/js/jquery.dataTables.js"></script>
+			<script src="/../static/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
 
-			$.ajax({
-				type:'post',
-				url:"<?php echo url('/admin/admin/edit'); ?>",
-				data:formData,
-				dataType:'json',
-				async: false,
-				success:function(data){
-					if(data.status==1){
-						toastr.success('', data.msg);
-						$(".cards").load(location.href+" .cards");
-						// setTimeout("window.history.back(-1)",1000);//设置延迟时间执行
-					}else{
-						toastr.error('', data.msg);
-					}
-				},
-				error:function(msg){
-					
-					toastr.error('请联系管理员', '系统错误');
-					
-				}
-			})
-		
-		});
-	</script>
-</block>
-</body>
+			<!--Select2 js-->
+			<script src="/../static/plugins/select2/select2.full.js"></script>
+
+			<!--Inputmask js-->
+			<script src="/../static/plugins/inputmask/jquery.inputmask.js"></script>
+
+			<!--Moment js-->
+			<script src="/../static/plugins/moment/moment.min.js"></script>
+
+			<!--Bootstrap-daterangepicker js-->
+			<script src="/../static/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+			<!--Bootstrap-datepicker js-->
+			<script src="/../static/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+			<!--Bootstrap-colorpicker js-->
+			<script src="/../static/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+			<!--Bootstrap-timepicker js-->
+			<script src="/../static/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+
+			<!--iCheck js-->
+			<script src="/../static/plugins/iCheck/icheck.min.js"></script>
+
+			<!--forms js-->
+			<script src="/../static/js/forms.js"></script>
+
+		</block>
+	</body>
 </html>

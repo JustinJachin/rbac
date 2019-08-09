@@ -1,4 +1,4 @@
-<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564713972;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1563954144;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564713972;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -100,7 +100,7 @@
         <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;if($menu['star'] == true): ?>
         <li class="slide active">
             <a class="side-menu__item active"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
@@ -119,7 +119,7 @@
         <?php else: ?>
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="<?php echo url($menu['name']); ?>">
-                <i class="<?php echo htmlentities($menu['icon']); ?>"></i>
+                <i class="side-menu__icon fa <?php echo htmlentities($menu['icons']['name']); ?>"></i> 
                 <span class="side-menu__label"><?php echo htmlentities($menu['title']); ?></span>
                 <?php if($menu['children'] != '1'): ?>
                 <i class="angle fa fa-angle-right"></i>
