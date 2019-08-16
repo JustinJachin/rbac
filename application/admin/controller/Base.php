@@ -46,7 +46,7 @@ class Base extends Controller
         $this->assign('menu',$res);
     }
     /**
-     * @description 获得权限
+     * @description 检测权限
      * @author jachin  2019-07-29
      */
     public function getRole(){

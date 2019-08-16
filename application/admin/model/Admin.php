@@ -17,8 +17,16 @@ use think\facade\Validate;
  */
 class Admin extends Model
 {
-   
+   /**
+     * @description  关联log表 admin（1）-log（n） 一对多关系
+     * @return array 返回查询到的数据
+     * @author jachin  2019-08-16
+     */
+    public function log(){
 
+      return $this->hasMany('Log');
+
+    }
     /**
      * @description  获取器获取状态，重新赋值
      * @param  int    $value
@@ -26,7 +34,9 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function scopeStatus($query){
+
       $query->where('status','<',2);
+
     }
     /**
      * @description  获取器获取状态，重新赋值
@@ -35,8 +45,11 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function getStatusAttr($value){
+
       $status=[2=>'删除',0=>'禁用',1=>'正常'];
+
       return $status[$value];
+
     }
     
     /**
@@ -46,8 +59,11 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function getSexAttr($value){
+
       $sex=[0=>'女',1=>'男',2=>'保密'];
+
       return $sex[$value];
+
     }
 
     /**
@@ -57,11 +73,17 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function getLast_login_timeAttr($value){
+
       if($value)
+
         $last_login_time=date('Y-m-s h:i:s',$value);
+
       else
+
         $last_login_time='暂无登录';
+
       return $last_login_time;
+
     }
 
     /**
@@ -73,23 +95,39 @@ class Admin extends Model
     public function check($name,$pwd){
       //查找登录邮箱
       if(Validate::isEmail($name)){
+
         $user=Admin::where('email',$name)->find();
+
       }else{
+
         $user=Admin::where('name',$name)->find();
+
       }
+
       if(empty($user)){
+
         return 3;
+
       }
       if($user['status']!='正常'){
+
         return 2;
+
       }
       if($user){
+
          if('on'.md5('on'.md5($pwd))===$user['password']){
+
             \session('uid',$user['id']);
+
             \session('admin_name',$user['name']);
+
              return 0;
+
          }else{
+
           return 1;
+
          }
       }
       
@@ -101,11 +139,17 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function updateLogin($ip){
+
       $data=array(
+
         'last_login_time' => time(),
+
         'last_login_ip'   => $ip,
+
       );
+
       $userId=session('uid');
+      
       Admin::save($data,['id'=>$userId]);
     }
 

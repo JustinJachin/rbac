@@ -65,7 +65,8 @@ class Permission extends Base{
 		}else{
 			$map=[
 				'display_menu'=>1,
-				'status'=>1
+				'status'=>1,
+				'module_id'=>1
 			];
 			$menu=PermissionModel::where($map)->field('id,title,parent_id')->select();
 

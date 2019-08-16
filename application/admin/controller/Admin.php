@@ -27,7 +27,6 @@ class Admin extends Base
 		
 		$keyword=input('get.keyword');
 		$type=input('get.types');
-
 		$pageParam    = ['query' =>[]];
 
 		if($keyword){

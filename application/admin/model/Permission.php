@@ -75,7 +75,8 @@ class Permission extends Model
                 //     unset($v['children']);             //如果子元素为空则unset()进行删除，说明已经到该分支的最后一个元素了（可选）
                 // }
                 //将记录存入新数组
-                $tree[] = $v;                         
+                $tree[] = $v;
+                // unset($arr[$v]);                       
             }
         }
         return $tree;

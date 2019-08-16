@@ -1,10 +1,11 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1565852536;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\action\add.html";i:1565853916;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<title><?php echo htmlentities((isset($title) && ($title !== '')?$title:'后台管理系统')); ?></title>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title><?php echo htmlentities((isset($title) && ($title !== '')?$title:'后台管理系统')); ?></title>
 
 <!--Favicon -->
 <link rel="icon" href="/../static/img/favicon.ico" type="image/x-icon"/>
@@ -39,22 +40,23 @@
 
 <!--&lt;!&ndash;morris css&ndash;&gt;-->
 <!--<link rel="stylesheet" href="/../static/plugins/morris/morris.css">-->
-			<block name="topCss">
-				<!--DataTables css-->
-				<link rel="stylesheet" href="/../static/plugins/Datatable/css/dataTables.bootstrap4.css">
+		<block name="topCss">
+			<!--Morris css-->
+			<link rel="stylesheet" href="/../static/plugins/morris/morris.css">
+			<!--Select2 css-->
+			<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
+			<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
+		</block>
 
-				<!--iCheck css-->
-				<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
-			</block>
-		</head>
+	</head>
 
-		<body class="app ">
+	<body class="app ">
 
-			<div id="spinner"></div>
+		<div id="spinner"></div>
 
-			<div id="app">
-				<div class="main-wrapper" >
-					<nav class="navbar navbar-expand-lg main-navbar">
+		<div id="app">
+			<div class="main-wrapper" >
+				<nav class="navbar navbar-expand-lg main-navbar">
     <a class="header-brand" href="index.html">
         <img src="/../static/img/brand/logo.png" class="header-brand-img" alt="Kharna-Admin  logo">
     </a>
@@ -82,7 +84,7 @@
         </li>
     </ul>
 </nav>
-					<aside class="app-sidebar">
+				<aside class="app-sidebar">
     <div class="app-sidebar__user">
         <div class="dropdown">
             <a class="nav-link pl-2 pr-2 leading-none d-flex" data-toggle="dropdown" href="#">
@@ -133,115 +135,71 @@
         <?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
 </aside>
-					<block name="bodsy">
-						<div class="app-content">
-							<section class="section">
-								<ol class="breadcrumb">
-							        <li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
-							        <li class="breadcrumb-item active" aria-current="page">权限页面</li>
-							    </ol>
+				<block name="bodsy">
+				<div class="app-content">
+					<section class="section">
+                    	<ol class="breadcrumb">
+                    		<li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
+                            <li class="breadcrumb-item"><a href="<?php echo url('action/index'); ?>">行为页面</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">行为添加</li>
+                        </ol>
 
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="card">
-											<div class="card-header">
-												<!-- <form class="float-right">
-													<div class="input-group">
-														<input type="text" class="form-control" placeholder="Search" value="">
-														<div class="input-group-btn">
-															<button class="btn btn-primary"><i class="ion ion-search"></i></button>
-														</div>
-													</div>
-												</form>	 -->
-												<h4>权限列表</h4>
-											</div>
-											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
-												<div class="float-left" style="margin-right: 10px;">
-													<a href="<?php echo url('permission/add'); ?>" class="btn btn-primary">添加权限</a> 
+						<div class="row">
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<h4>行为添加</h4>
+									</div>
+									<div class="card-body cards">
+										<form id="form" class="form-horizontal" method="post" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">行为标识</label>
+												<div class="col-md-4">
+													<input id="actionName" type="text" class="form-control" placeholder="" name="actionName" >
 												</div>
-												<div class="float-left">
-													<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
-												</div>
-												<div class="float-right col-lg-4">
-													
-												</div> 
-												
 											</div>
-											<div class="card-body">
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">行为名称</label>
+												<div class="col-md-4">
+													<input id="actionTitle" type="text" class="form-control" placeholder="" name="actionTitle" >
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">行为说明</label>
+												<div class="col-md-4">
+													<input id="remark" type="text" class="form-control" placeholder="" name="remark" >
+												</div>
+											</div>
 											
-												<div class="table-responsive">
-													<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
-														<thead>
-															<tr class="text-center">
-																<th class="row-selected">
-																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-																		<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">全选/全不选</label>
-																	</div>
-																</th>
-																<th class="wd-15p">ID</th>
-																<th class="wd-15p">描述</th>
-																<th class="wd-15p">名字</th>
-																<th class="wd-20p">模型</th>
-																<th class="wd-15p">图标</th>
-															
-																<th class="wd-10p">是否是导航栏</th>
-																<th class="wd-25p">上级描述</th>
-																<th class="wd-25p">创建时间</th>
-																<th class="wd-25p">更新时间</th>
-																<th class="wd-25p">操作</th>
-															</tr>
-														</thead>
-														<tbody>
-															<?php if(is_array($permission) || $permission instanceof \think\Collection || $permission instanceof \think\Paginator): $i = 0; $__LIST__ = $permission;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-															<tr class="text-center">
-																<td>
-																	
-																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-																		<input class="custom-control-input" name="choice" id="choice<?php echo htmlentities($vo['id']); ?>" value="<?php echo htmlentities($vo['id']); ?>" type="checkbox"> <label class="custom-control-label" for="choice<?php echo htmlentities($vo['id']); ?>"></label>
-																	</div>
-																</td>
-
-																<td><?php echo htmlentities($vo['id']); ?></td>
-																<td><?php echo htmlentities($vo['title']); ?></td>
-																<td><?php echo htmlentities($vo['name']); ?></td>
-																<td><?php echo htmlentities($vo['modules']['name']); ?></td>
-																<td><i class="fa <?php echo htmlentities($vo['icons']['name']); ?>"></i></td>
-																
-																<td><?php echo htmlentities($vo['display_menu']); ?></td>
-																<td>
-																	<?php echo htmlentities($vo['parentName']); ?>
-																</td>
-																<td><?php echo htmlentities($vo['create_time']); ?></td>
-																<td><?php echo htmlentities($vo['update_time']); ?></td>
-																<td>
-																	<div class="btn-group align-top">
-																		<a href="<?php echo url('permission/edit?id='.$vo['id']); ?>" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑权限</a>
-																	</div>
-																	<div class="btn-group align-top">
-																		<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
-																	</div>
-																</td>
-															
-															</tr>
-															<?php endforeach; endif; else: echo "" ;endif; ?>
-														</tbody>
-													</table>
-												</div>
-												<div id="page" class="page">
-													<?php echo $page; ?>
+											<div class="form-group mb-0 mt-2 row justify-content-end">
+												<div class="col-md-12 text-center">
+													<button type="submit" class="btn btn-primary">提 交</button>
+													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
 												</div>
 											</div>
-										</div>
+											
+										</form>
+										<iframe id="addfile_iframe" src="" name="addfile" style="display: none;" frameborder="0"></iframe>
 									</div>
 								</div>
-
-							</section>
+							</div>
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							
 						</div>
+
 						
-					</block>
+					</section>
 				</div>
+
+				</block>
+			
 			</div>
-			<!--Jquery.min js-->
+		</div>
+
+
+		
+<!--Jquery.min js-->
 <script src="/../static/js/jquery.min.js"></script>
 
 <!--popper js-->
@@ -284,56 +242,59 @@
 <script src="/../static/plugins/toaster/garessi-notif.js"></script>
 <!--公用函数 js-->	
 <script src="/../static/js/commont.js"></script>
-			<block name="js">
-				<script>
-				    function selectAll(choiceBtn){   
-				        
-					    var arr=document.getElementsByName("choice");
-					    for(var i=0;i<arr.length;i++){
-					        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
-					    }
+<block name="js">
+	<script type="text/javascript">
+		$("#form").submit(function(){
+			var formData = $("#form").serialize()//serialize() 方法通过序列化表单值，创建 URL 编码文本
+			$.ajax({
+				type:'post',
+				url:"<?php echo url('/admin/action/add'); ?>",
+				data:formData,
+				dataType:'json',
+				success:function(data){
+					if(data.status==1){
+						toastr.success('', data.msg);
+						// $(".cards").load(location.href+" .cards");
+						setTimeout("location.reload()",1000);//设置延迟时间执行
+						// window.location.href="index";
+					}else{
+						toastr.error('', data.msg);
 					}
-					function btn(id,method,action){
-				    	var url="<?php echo url('permission/"+action+"'); ?>";
-				    	var data={'method':method,'id':id};
-				    	AjaxGet(url,data);
-				    }
-				 
-				    function moreDel(){
-				    	var obj=document.getElementsByName('choice');
-				    	check_val=[];
-				    	for(k in obj){
-				    		if(obj[k].checked){
-				    			check_val.push(obj[k].value);
-				    		}
-				    	}
-				    	$.ajax({
-				    		type:'post',
-				    		url:"<?php echo url('permission/deletes'); ?>",
-				    		data:{check_val},
-				    		dataType:'json',
-							success:function(data){
-								if(data.status==1){
-									$(".table").load(location.href+" .table");
-									toastr.success('', data.msg);
-								}else{
-									toastr.error('', data.msg);
-								}
-								
-							},
-							error:function(msg){
-								
-								alert('系统错误，请联系管理员！');
-								
-							}
-				    	})
-				    };
-				</script>
-				<!--DataTables css-->
-				<script src="/../static/plugins/Datatable/js/jquery.dataTables.js"></script>
-				<script src="/../static/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
-				<!--iCheck js-->
-				<script src="/../static/plugins/iCheck/icheck.min.js"></script>
-			</block>
-		</body>
-	</html>
+				},
+				error:function(msg){
+					
+					toastr.error('请联系管理员', '系统错误');
+					
+				}
+			})
+		
+		});
+	</script>
+	<!--Select2 js-->
+	<script src="/../static/plugins/select2/select2.full.js"></script>
+
+	<!--Inputmask js-->
+	<script src="/../static/plugins/inputmask/jquery.inputmask.js"></script>
+
+	<!--Moment js-->
+	<script src="/../static/plugins/moment/moment.min.js"></script>
+
+	<!--Bootstrap-daterangepicker js-->
+	<script src="/../static/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<!--Bootstrap-datepicker js-->
+	<script src="/../static/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+	<!--iCheck js-->
+	<script src="/../static/plugins/iCheck/icheck.min.js"></script>
+
+	<!--Bootstrap-colorpicker js-->
+	<script src="/../static/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+	<!--Bootstrap-timepicker js-->
+	<script src="/../static/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+	<!--forms js-->
+	<script src="/../static/js/forms.js"></script>
+</block>
+</body>
+</html>

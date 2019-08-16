@@ -1,4 +1,4 @@
-<?php /*a:5:{s:80:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\permission\index.html";i:1565852536;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:76:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\action\index.html";i:1565860151;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -138,7 +138,7 @@
 							<section class="section">
 								<ol class="breadcrumb">
 							        <li class="breadcrumb-item"><a href="<?php echo url('index/index'); ?>">首页</a></li>
-							        <li class="breadcrumb-item active" aria-current="page">权限页面</li>
+							        <li class="breadcrumb-item active" aria-current="page">行为页面</li>
 							    </ol>
 
 								<div class="row">
@@ -153,11 +153,11 @@
 														</div>
 													</div>
 												</form>	 -->
-												<h4>权限列表</h4>
+												<h4>行为列表</h4>
 											</div>
 											<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 												<div class="float-left" style="margin-right: 10px;">
-													<a href="<?php echo url('permission/add'); ?>" class="btn btn-primary">添加权限</a> 
+													<a href="<?php echo url('action/add'); ?>" class="btn btn-primary">添加行为</a> 
 												</div>
 												<div class="float-left">
 													<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
@@ -179,43 +179,30 @@
 																	</div>
 																</th>
 																<th class="wd-15p">ID</th>
-																<th class="wd-15p">描述</th>
-																<th class="wd-15p">名字</th>
-																<th class="wd-20p">模型</th>
-																<th class="wd-15p">图标</th>
-															
-																<th class="wd-10p">是否是导航栏</th>
-																<th class="wd-25p">上级描述</th>
+																<th class="wd-15p">行为标识</th>
+																<th class="wd-15p">行为名称</th>
+																<th class="wd-20p">行为说明</th>
 																<th class="wd-25p">创建时间</th>
-																<th class="wd-25p">更新时间</th>
 																<th class="wd-25p">操作</th>
 															</tr>
 														</thead>
 														<tbody>
-															<?php if(is_array($permission) || $permission instanceof \think\Collection || $permission instanceof \think\Paginator): $i = 0; $__LIST__ = $permission;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+															<?php if(is_array($action) || $action instanceof \think\Collection || $action instanceof \think\Paginator): $i = 0; $__LIST__ = $action;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 															<tr class="text-center">
 																<td>
-																	
 																	<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
 																		<input class="custom-control-input" name="choice" id="choice<?php echo htmlentities($vo['id']); ?>" value="<?php echo htmlentities($vo['id']); ?>" type="checkbox"> <label class="custom-control-label" for="choice<?php echo htmlentities($vo['id']); ?>"></label>
 																	</div>
 																</td>
 
 																<td><?php echo htmlentities($vo['id']); ?></td>
-																<td><?php echo htmlentities($vo['title']); ?></td>
-																<td><?php echo htmlentities($vo['name']); ?></td>
-																<td><?php echo htmlentities($vo['modules']['name']); ?></td>
-																<td><i class="fa <?php echo htmlentities($vo['icons']['name']); ?>"></i></td>
-																
-																<td><?php echo htmlentities($vo['display_menu']); ?></td>
-																<td>
-																	<?php echo htmlentities($vo['parentName']); ?>
-																</td>
+																<td><?php echo htmlentities($vo['actionName']); ?></td>
+																<td><?php echo htmlentities($vo['actionTitle']); ?></td>
+																<td><?php echo htmlentities($vo['remark']); ?></td>
 																<td><?php echo htmlentities($vo['create_time']); ?></td>
-																<td><?php echo htmlentities($vo['update_time']); ?></td>
 																<td>
 																	<div class="btn-group align-top">
-																		<a href="<?php echo url('permission/edit?id='.$vo['id']); ?>" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑权限</a>
+																		<a href="<?php echo url('action/edit?id='.$vo['id']); ?>" class="btn btn-sm btn-primary m-b-5 m-t-5">编辑行为</a>
 																	</div>
 																	<div class="btn-group align-top">
 																		<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
@@ -294,7 +281,7 @@
 					    }
 					}
 					function btn(id,method,action){
-				    	var url="<?php echo url('permission/"+action+"'); ?>";
+				    	var url="<?php echo url('action/"+action+"'); ?>";
 				    	var data={'method':method,'id':id};
 				    	AjaxGet(url,data);
 				    }
@@ -309,7 +296,7 @@
 				    	}
 				    	$.ajax({
 				    		type:'post',
-				    		url:"<?php echo url('permission/deletes'); ?>",
+				    		url:"<?php echo url('action/deletes'); ?>",
 				    		data:{check_val},
 				    		dataType:'json',
 							success:function(data){

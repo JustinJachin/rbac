@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{include file="public:top"}
+		<block name="topCss">
+			<!--Morris css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/morris/morris.css">
+			<!--Select2 css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/select2/select2.css">
+			<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
+		</block>
+
+	</head>
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{include file="public:header"}
+				{include file="public:menu"}
+				<block name="bodsy">
+				<div class="app-content">
+					<section class="section">
+                    	<ol class="breadcrumb">
+                    		<li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
+                            <li class="breadcrumb-item"><a href="{:url('action/index')}">行为页面</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">行为添加</li>
+                        </ol>
+
+						<div class="row">
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<h4>行为添加</h4>
+									</div>
+									<div class="card-body cards">
+										<form id="form" class="form-horizontal" method="post" onsubmit="return false" enctype="multipart/form-data"  target="addfile">
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">行为标识</label>
+												<div class="col-md-4">
+													<input id="actionName" type="text" class="form-control" placeholder="" name="actionName" >
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">行为名称</label>
+												<div class="col-md-4">
+													<input id="actionTitle" type="text" class="form-control" placeholder="" name="actionTitle" >
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label">行为说明</label>
+												<div class="col-md-4">
+													<input id="remark" type="text" class="form-control" placeholder="" name="remark" >
+												</div>
+											</div>
+											
+											<div class="form-group mb-0 mt-2 row justify-content-end">
+												<div class="col-md-12 text-center">
+													<button type="submit" class="btn btn-primary">提 交</button>
+													<button type="submit" class="btn btn-outline-info " onclick="javascript:history.back(-1);return false;">返 回</button>
+												</div>
+											</div>
+											
+										</form>
+										<iframe id="addfile_iframe" src="" name="addfile" style="display: none;" frameborder="0"></iframe>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							
+						</div>
+
+						
+					</section>
+				</div>
+
+				</block>
+			
+			</div>
+		</div>
+
+
+		
+{include file="public:js"}
+<block name="js">
+	<script type="text/javascript">
+		$("#form").submit(function(){
+			var formData = $("#form").serialize()//serialize() 方法通过序列化表单值，创建 URL 编码文本
+			$.ajax({
+				type:'post',
+				url:"{:url('/admin/action/add')}",
+				data:formData,
+				dataType:'json',
+				success:function(data){
+					if(data.status==1){
+						toastr.success('', data.msg);
+						// $(".cards").load(location.href+" .cards");
+						setTimeout("location.reload()",1000);//设置延迟时间执行
+						// window.location.href="index";
+					}else{
+						toastr.error('', data.msg);
+					}
+				},
+				error:function(msg){
+					
+					toastr.error('请联系管理员', '系统错误');
+					
+				}
+			})
+		
+		});
+	</script>
+	<!--Select2 js-->
+	<script src="__STATIC__/plugins/select2/select2.full.js"></script>
+
+	<!--Inputmask js-->
+	<script src="__STATIC__/plugins/inputmask/jquery.inputmask.js"></script>
+
+	<!--Moment js-->
+	<script src="__STATIC__/plugins/moment/moment.min.js"></script>
+
+	<!--Bootstrap-daterangepicker js-->
+	<script src="__STATIC__/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<!--Bootstrap-datepicker js-->
+	<script src="__STATIC__/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+	<!--iCheck js-->
+	<script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
+
+	<!--Bootstrap-colorpicker js-->
+	<script src="__STATIC__/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+	<!--Bootstrap-timepicker js-->
+	<script src="__STATIC__/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+	<!--forms js-->
+	<script src="__STATIC__/js/forms.js"></script>
+</block>
+</body>
+</html>

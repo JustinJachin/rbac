@@ -209,6 +209,8 @@ class Role extends Base{
 		foreach ($ids as $key => $value) {
 			$map[$key]=['id'=>$value,'status'=>0];
 		}
+		var_dump(RoleModel::get($map));
+		exit;
 		$role=new RoleModel();
 		$flag=$role->saveAll($map);
 		if($flag){

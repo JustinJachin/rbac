@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\log\index.html";i:1565327233;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\log\index.html";i:1565939458;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -147,10 +147,10 @@
 								<div class="col-lg-12">
 									<div class="card">
 										<div class="card-header">
-											<form class="float-right" method="get">
+											<form class="float-right" method="get" action="<?php echo url('log/index'); ?>">
 												<div class="input-group">
 													
-													<input type="text" class="form-control" name="keyword" style="width: 160px;" placeholder="search" value="{}">
+													<input type="text" class="form-control" name="keyword" style="width: 160px;" placeholder="search" value="<?php echo htmlentities($keyword); ?>" >
 													
 													<div class="input-group-btn">
 														<button class="btn btn-primary" ><i class="ion ion-search"></i></button>
@@ -160,7 +160,12 @@
 											<h4>日志列表</h4>
 										</div>
 										<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
-											
+											<div class="float-left" style="margin-right: 10px;">
+												<button type="submit" class="btn btn-primary" onclick="derive()" name="derive">导出日志</button> 
+											</div>
+											<div class="float-left" style="margin-right: 10px;">
+												<button type="submit" class="btn btn-danger" onclick="clearAll()" name="clearAll">清  空</button> 
+											</div>
 											<div class="float-left">
 												<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
 											</div>
@@ -174,54 +179,94 @@
 											<table id="example" class="table table-striped table-bordered border-t0 text-nowrap w-100" >
 												<thead>
 													<tr class="text-center">
-														<th class="row-selected">
+														<th class="row-selected wd-10p">
 															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-																<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">全选/全不选</label>
+																<input  onclick="selectAll(this)" class="custom-control-input" id="checkall" type="checkbox"> <label class="custom-control-label" for="checkall">行</label>
+															</div>
+															
+														</th>
+														<th><div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input  onclick="selectAlls(this)" class="custom-control-input" id="checkalls" type="checkbox"> <label class="custom-control-label" for="checkalls">列</label>
+															</div></th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceID" value="id" type="checkbox"> <label class="custom-control-label" for="choiceID">ID</label>
 															</div>
 														</th>
-														<th class="wd-15p">ID</th>
-														<th class="wd-15p">用户名</th>
-														<th class="wd-15p">性别</th>
-														<th class="wd-20p">邮箱</th>
-														<th class="wd-15p">是否禁用</th>
-														<th class="wd-10p">创建时间</th>
-														<th class="wd-25p">上次登录时间</th>
-														<th class="wd-25p">上次登录IP地址</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceName" value="admin_id" type="checkbox"> <label class="custom-control-label" for="choiceName">用户名</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceAction" value="action_id" type="checkbox"> <label class="custom-control-label" for="choiceAction">行为</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceIP" value="IP" type="checkbox"> <label class="custom-control-label" for="choiceIP">IP</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceBrowser" value="browser" type="checkbox"> <label class="custom-control-label" for="choiceBrowser">浏览器</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceOS" value="os" type="checkbox"> <label class="custom-control-label" for="choiceOS">系统</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceModel" value="model" type="checkbox"> <label class="custom-control-label" for="choiceModel">模块</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceRemark" value="remark" type="checkbox"> <label class="custom-control-label" for="choiceRemark">备注</label>
+															</div>
+														</th>
+														<th class="wd-15p">
+															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+																<input class="custom-control-input" name="choices" id="choiceTime" value="create_time" type="checkbox"> <label class="custom-control-label" for="choiceTime">时间</label>
+															</div>
+														</th>
 														<th class="wd-25p">操作</th>
 													</tr>
 												</thead>
 												<tbody>
-													
+													<?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 													<tr class="text-center">
 														<td>
 															<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-																<input class="custom-control-input" name="choice" id="choice" value="" type="checkbox"> <label class="custom-control-label" for="choice"></label>
+																<input class="custom-control-input" name="choice" id="choice<?php echo htmlentities($vo['id']); ?>" value="<?php echo htmlentities($vo['id']); ?>" type="checkbox"> <label class="custom-control-label" for="choice<?php echo htmlentities($vo['id']); ?>"></label>
 															</div>
 														</td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
+														<td>#</td>
+														<td><?php echo htmlentities($vo['id']); ?></td>
+														<td><?php echo htmlentities($vo['admin']['name']); ?></td>
+														<td><?php echo htmlentities($vo['action']['actionTitle']); ?></td>
+														<td><?php echo htmlentities($vo['IP']); ?></td>
+														<td><?php echo htmlentities($vo['browser']); ?></td>
+														<td><?php echo htmlentities($vo['os']); ?></td>
+														<td><?php echo htmlentities($vo['model']); ?></td>
+														<td><?php echo htmlentities($vo['remark']); ?></td>
+														<td><?php echo htmlentities($vo['create_time']); ?></td>
 														<td>
-															
-														</td>
-														<td>{}</td>
-														<td>
-															
-														</td>
-														<td>{}</td>
-														<td>
-															
-															
+															<div class="btn-group align-top">
+																<button onclick="btn(<?php echo htmlentities($vo['id']); ?>,'','delete')" class="btn btn-sm btn-danger m-b-5 m-t-5 ajax-get"><i class="fa fa-trash"></i></button>
+															</div>
 														</td>
 													
 													</tr>
-													
+													<?php endforeach; endif; else: echo "" ;endif; ?>
 												</tbody>
 											</table>
 										</div>
 										<div id="page" class="page">
-												
+												<?php echo $page; ?>
 											</div>
 										</div>
 									</div>
@@ -241,8 +286,14 @@
 			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
 			    }
 		    }
+		    function selectAlls(choiceBtn){
+			    var arr=document.getElementsByName("choices");
+			    for(var i=0;i<arr.length;i++){
+			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+			    }
+		    }
 		    function btn(id,method,action){
-		    	var url="<?php echo url('admin/"+action+"'); ?>";
+		    	var url="<?php echo url('log/"+action+"'); ?>";
 		    	var data={'method':method,'id':id};
 		    	AjaxGet(url,data);
 		    }
@@ -257,7 +308,7 @@
 		    	}
 		    	$.ajax({
 		    		type:'post',
-		    		url:"<?php echo url('admin/deletes'); ?>",
+		    		url:"<?php echo url('log/deletes'); ?>",
 		    		data:{check_val},
 		    		dataType:'json',
 					success:function(data){

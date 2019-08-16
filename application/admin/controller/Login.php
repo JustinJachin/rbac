@@ -35,6 +35,7 @@ class Login extends Controller
             switch($res){
                 case 0:
                     $this->redirect('index/index');
+
                     break;
                 case 1:
                     $this->error('邮箱或者密码错误 ，重新填写正在跳转.....','','',2);
@@ -69,7 +70,7 @@ class Login extends Controller
      */
     public function logout(){
         //获取ip地址
-        $ip=$this->getIP();
+        $ip=getIP();
         $admin=new AdminModel;
         //将ip地址写入数据库
         $admin->updateLogin($ip);
@@ -78,30 +79,5 @@ class Login extends Controller
         $this->redirect('login/index');
     }
 
-    /**
-     * @description  获取IP地址
-     * @return string IP地址
-     * @author jachin  2019-07-29
-     */
-    public function getIP(){
-        static $realIP;
-        if(isset($_SERVER)){
-            if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
-                $realIP=$_SERVER['HTTP_X_FORWARDED_FOR'];
-            }else if(isset($_SERVER['HTTP_CLIENT_IP'])){
-                $realIP=$_SERVER['HTTP_CLIENT_IP'];
-            }else{
-                $realIP=$_SERVER['REMOTE_ADDR'];
-            }
-        }else{
-            if(getenv('HTTP_X_FORWARDED_FOR')){
-                $realIP=getenv('HTTP_X_FORWARDED_FOR');
-            }else if(getenv('HTTP_CLIENT_IP')){
-                $realIP=getenv('HTTP_CLIENT_IP');
-            }else{
-                $realIP=getenv('REMOTE_ADDR');
-            }
-        }
-        return $realIP;
-    }
+   
 }
