@@ -1,4 +1,4 @@
-<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\log\index.html";i:1565939458;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\log\index.html";i:1566290673;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -161,10 +161,13 @@
 										</div>
 										<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 											<div class="float-left" style="margin-right: 10px;">
-												<button type="submit" class="btn btn-primary" onclick="derive()" name="derive">导出日志</button> 
+												<a href="javascript:void(0);" class="btn btn-primary" onclick="derive()" name="derive">导出日志</a> 
 											</div>
+											
 											<div class="float-left" style="margin-right: 10px;">
-												<button type="submit" class="btn btn-danger" onclick="clearAll()" name="clearAll">清  空</button> 
+
+												<button class="btn btn-danger" data-toggle="modal" data-target="#largeModal">清  空</button>
+											
 											</div>
 											<div class="float-left">
 												<button type="submit" class="btn btn-danger" onclick="moreDel()" name="moreDel">批量删除</button> 
@@ -265,6 +268,7 @@
 												</tbody>
 											</table>
 										</div>
+										
 										<div id="page" class="page">
 												<?php echo $page; ?>
 											</div>
@@ -279,6 +283,27 @@
 				</block>
 			</div>
 		</div>
+		<!-- Large Modal -->
+		<div id="largeModal" class="modal fade">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content ">
+					<div class="modal-header pd-x-20">
+						<h6 class="modal-title" style="color: red">提 示</h6>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body pd-20">
+						<h5 class=" lh-3 mg-b-20"><a class="font-weight-bold" style="color: red">你确定要清空日志吗？</a></h5>
+						
+					</div><!-- modal-body -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger"  onclick="clearAll()">是</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal">否</button>
+					</div>
+				</div>
+			</div><!-- modal-dialog -->
+		</div><!-- modal -->
 		<script>
 			function selectAll(choiceBtn){
 			    var arr=document.getElementsByName("choice");
@@ -297,7 +322,70 @@
 		    	var data={'method':method,'id':id};
 		    	AjaxGet(url,data);
 		    }
-		 
+		    function derive(){
+		    	var obj=document.getElementsByName('choices');
+		    	var obj_id=document.getElementsByName("choice")
+		    	var data_val_id=[];
+		    	var data_val=[];
+
+		    	for(k in obj){
+		    		if(obj[k].checked){
+		    			data_val.push(obj[k].value);
+		    		}
+		    	};
+		    	for(k in obj_id){
+		    		if(obj_id[k].checked){
+		    			data_val_id.push(obj_id[k].value);
+		    		}
+		    	};
+		    	$.ajax({
+		    		type:'post',
+		    		url:"<?php echo url('log/derive'); ?>",
+		    		data:{'obj':data_val,'obj_id':data_val_id},
+		    		dataType:'json',
+					success:function(data){
+						if(data.status==1){
+		 					var $a = $("<a>");
+							$a.attr("href", data.res.file);
+							$a.attr("download", data.res.filename);
+							$("body").append($a);
+							$a[0].click();
+							$a.remove();	
+							toastr.success('', data.msg);
+						}else{
+							toastr.error('', data.msg);
+						}
+						
+
+						
+					},
+					error:function(msg){
+						
+						alert('系统错误，请联系管理员！');
+						
+					}
+		    	})
+		    }
+		 	function clearAll(){
+		 		$.ajax({
+		 			type:'post',
+		 			url:"<?php echo url('log/clear'); ?>",
+		 			data:{'type':1},
+		 			dataType:'json',
+		 			success:function(data){
+		 			
+						if(data.status==1){
+							$(".table").load(location.href+" .table");
+							toastr.success('', data.msg);
+						}else{
+							toastr.error('', data.msg);
+						}
+		 			},
+		 			error:function(msg){
+		 				alert('系统错误，请联系管理员！');
+		 			}
+		 		})
+		 	}
 		    function moreDel(){
 		    	var obj=document.getElementsByName('choice');
 		    	check_val=[];

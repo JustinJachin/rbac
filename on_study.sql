@@ -11,11 +11,34 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 09/08/2019 13:53:36
+ Date: 20/08/2019 17:03:49
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for on_action
+-- ----------------------------
+DROP TABLE IF EXISTS `on_action`;
+CREATE TABLE `on_action`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `actionName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '行为标记',
+  `actionTitle` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '行为名称',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '行为说明',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
+  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '种类',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `actionName`(`actionName`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '行为列表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of on_action
+-- ----------------------------
+INSERT INTO `on_action` VALUES (1, 'admin_login', '管理员登录', '管理员登录', 1, 1, 1563170072);
+INSERT INTO `on_action` VALUES (2, 'update', '更新内容', '更新内容', 1, 1, 1565856140);
+INSERT INTO `on_action` VALUES (3, 'user_login', '用户登录', '用户登录', 1, 1, 1565860656);
 
 -- ----------------------------
 -- Table structure for on_admin
@@ -42,7 +65,7 @@ CREATE TABLE `on_admin`  (
 -- ----------------------------
 -- Records of on_admin
 -- ----------------------------
-INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1565143629, 1564558418, 1565143629, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1566179781, 1564558418, 1566179781, '127.0.0.1');
 INSERT INTO `on_admin` VALUES (2, 'justin', 'on6559c2b7caad120d5d85b85bd1b88561', 1, 'justin1@qq.com', 1, 1, 1557898848, 1565145065, 1564558418, 1565145065, '127.0.0.1');
 INSERT INTO `on_admin` VALUES (32, 'mooke', 'on47288b0def8776d233329db248e37188', 0, 'mooke@qq.com', 1, 1, 1564539804, 1564539804, NULL, NULL, NULL);
 INSERT INTO `on_admin` VALUES (10, 'niki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '5@qq.com', 1, 1, 1564470214, 1564558418, 1564558418, NULL, NULL);
@@ -721,30 +744,34 @@ INSERT INTO `on_icon` VALUES (615, 'fa-won', 1565231486, 1, NULL);
 INSERT INTO `on_icon` VALUES (616, 'fa fa-yen', 1565231486, 1, NULL);
 
 -- ----------------------------
--- Table structure for on_menu
+-- Table structure for on_log
 -- ----------------------------
-DROP TABLE IF EXISTS `on_menu`;
-CREATE TABLE `on_menu`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名',
-  `parentId` int(11) NOT NULL COMMENT '父级菜单id',
-  `model` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '模块名',
-  `url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路径',
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0表示删除1表示未删除',
-  `createTime` int(11) NOT NULL COMMENT '创建时间',
-  `updateTime` int(11) NULL DEFAULT NULL COMMENT '更新时间',
-  `delTime` int(11) NULL DEFAULT NULL COMMENT '删除时间',
-  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+DROP TABLE IF EXISTS `on_log`;
+CREATE TABLE `on_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_id` int(11) NOT NULL COMMENT '行为id',
+  `admin_id` int(11) NOT NULL COMMENT '管理员id',
+  `IP` varchar(34) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
+  `browser` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录浏览器',
+  `os` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录系统',
+  `model` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '模块',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '说明',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of on_menu
+-- Records of on_log
 -- ----------------------------
-INSERT INTO `on_menu` VALUES (1, '管理员管理', 0, 'admin', NULL, 1, 1559632581, NULL, NULL, 'side-menu__icon fa fa-desktop');
-INSERT INTO `on_menu` VALUES (2, '角色管理', 1, 'admin', NULL, 1, 1559632581, NULL, NULL, NULL);
-INSERT INTO `on_menu` VALUES (3, '权限管理', 1, 'admin', NULL, 1, 1559632581, NULL, NULL, NULL);
-INSERT INTO `on_menu` VALUES (4, '管理员管理', 1, 'admin', NULL, 1, 1559632581, NULL, NULL, NULL);
+INSERT INTO `on_log` VALUES (1, 1, 1, '127.0.0.1', 'chrome-74', 'Windows 7', 'admin', '登录成功', 1, 1563170072);
+INSERT INTO `on_log` VALUES (2, 1, 2, '127.0.0.1', 'chrome-63', 'Windows 7', 'index', '登录成功', 1, 1563170072);
+INSERT INTO `on_log` VALUES (3, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1563170072);
+INSERT INTO `on_log` VALUES (4, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1563170072);
+INSERT INTO `on_log` VALUES (5, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566179360);
+INSERT INTO `on_log` VALUES (6, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录失败账号或者密码错误', 1, 1566179801);
+INSERT INTO `on_log` VALUES (7, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566179830);
+INSERT INTO `on_log` VALUES (8, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566261102);
 
 -- ----------------------------
 -- Table structure for on_module
@@ -783,13 +810,13 @@ CREATE TABLE `on_permission`  (
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `model`(`module_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_permission
 -- ----------------------------
 INSERT INTO `on_permission` VALUES (2, '角色管理', 'role/index', 1, 'role', 'index', NULL, 1, 0, 1, 20, 1, 1563170072, 1563170072);
-INSERT INTO `on_permission` VALUES (1, '后台首页', 'index/index', 1, '', '', 84, 0, 0, 1, 0, 1, 1563170072, 1563170072);
+INSERT INTO `on_permission` VALUES (1, '后台首页', 'index/index', 1, '', '', 84, 0, 0, 1, 0, 1, 1563170072, 1565856711);
 INSERT INTO `on_permission` VALUES (3, '添加角色', 'role/add', 1, 'role', 'add', NULL, 2, 0, 0, 2, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (4, '权限分配', 'role/store', 1, 'role', 'store', NULL, 2, 0, 0, 2, 1, 1563170072, 1563170072);
 INSERT INTO `on_permission` VALUES (5, '编辑角色', 'role/edit', 1, 'role', 'edit', NULL, 2, 0, 0, 2, 1, 1563170072, 1563170072);
@@ -820,10 +847,17 @@ INSERT INTO `on_permission` VALUES (32, 'eee1', 'eee/eee12', 2, 'eee', 'eee12', 
 INSERT INTO `on_permission` VALUES (33, '系统管理', 'system/index', 1, 'system', 'index', 69, 0, 0, 1, 0, 1, 1565318074, 1565318074);
 INSERT INTO `on_permission` VALUES (34, '日志管理', 'log/index', 1, 'log', 'index', NULL, 0, 0, 1, 33, 1, 1565318670, 1565318670);
 INSERT INTO `on_permission` VALUES (35, '日志列表', 'log/index', 1, 'log', 'index', NULL, 0, 0, 1, 34, 1, 1565318748, 1565318748);
-INSERT INTO `on_permission` VALUES (36, '日志编辑', 'log/edit', 1, 'log', 'edit', NULL, 0, 0, 0, 34, 0, 1565318797, 1565318895);
+INSERT INTO `on_permission` VALUES (36, '日志清空', 'log/clear', 1, 'log', 'clear', NULL, 0, 0, 1, 34, 1, 1565318797, 1565318895);
 INSERT INTO `on_permission` VALUES (37, '日志删除', 'log/delete', 1, 'log', 'delete', NULL, 0, 0, 0, 34, 1, 1565318825, 1565318825);
 INSERT INTO `on_permission` VALUES (38, '批量删除', 'log/deletes', 1, 'log', 'deletes', NULL, 0, 0, 0, 34, 1, 1565318854, 1565318854);
 INSERT INTO `on_permission` VALUES (39, '日志查看', 'log/read', 1, 'log', 'read', NULL, 0, 0, 0, 34, 1, 1565318880, 1565318880);
+INSERT INTO `on_permission` VALUES (40, '行为日志', 'action/index', 1, 'action', 'index', NULL, 0, 0, 1, 33, 1, 1565850048, 1565850048);
+INSERT INTO `on_permission` VALUES (41, '行为列表', 'action/index', 1, 'action', 'index', NULL, 0, 0, 0, 40, 1, 1565850103, 1565850103);
+INSERT INTO `on_permission` VALUES (42, '行为删除', 'action/delete', 1, 'action', 'delete', NULL, 0, 0, 0, 40, 1, 1565850140, 1565850140);
+INSERT INTO `on_permission` VALUES (43, '批量删除', 'action/deletes', 1, 'action', 'deletes', NULL, 0, 0, 0, 40, 1, 1565850159, 1565850159);
+INSERT INTO `on_permission` VALUES (44, '行为添加', 'action/add', 1, 'action', 'add', NULL, 0, 0, 0, 40, 1, 1565850190, 1565850190);
+INSERT INTO `on_permission` VALUES (45, '行为编辑', 'action/edit', 1, 'action', 'edit', NULL, 0, 0, 0, 40, 1, 1565850220, 1565850220);
+INSERT INTO `on_permission` VALUES (46, '日志导出', 'log/derive', 1, 'log', 'derive', NULL, 0, 0, 0, 34, 1, 1565850780, 1565922484);
 
 -- ----------------------------
 -- Table structure for on_role
@@ -868,7 +902,7 @@ CREATE TABLE `on_role_permission`  (
 -- ----------------------------
 -- Records of on_role_permission
 -- ----------------------------
-INSERT INTO `on_role_permission` VALUES (4, 1, '1,22,20,2,28,8,26,14,15,16,27,24,25', 0);
+INSERT INTO `on_role_permission` VALUES (4, 1, '1,22,20,2,28,8,26,14,15,16,27,24,25,33,34,35,39,46,40,41,44,45', 0);
 INSERT INTO `on_role_permission` VALUES (3, 2, '1,22,20,2,28,8,26,14,15,16,27,24,25', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

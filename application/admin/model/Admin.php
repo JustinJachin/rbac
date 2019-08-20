@@ -93,6 +93,7 @@ class Admin extends Model
      * @author jachin  2019-07-29
      */
     public function check($name,$pwd){
+    
       //查找登录邮箱
       if(Validate::isEmail($name)){
 
@@ -105,14 +106,18 @@ class Admin extends Model
       }
 
       if(empty($user)){
-
-        return 3;
+        $status=[
+          'status'=>3,
+          'msg'=>'该用户不存在'
+        ];
 
       }
       if($user['status']!='正常'){
-
-        return 2;
-
+        $status=[
+          'status'=>2,
+          'msg'=>'该用户被禁用或删除'
+        ];
+        get_log('admin_login',$user['id'],'登录失败'.$status['msg']);
       }
       if($user){
 
@@ -121,16 +126,20 @@ class Admin extends Model
             \session('uid',$user['id']);
 
             \session('admin_name',$user['name']);
-
-             return 0;
-
+            $status=[
+              'status'=>0,
+              'msg'=>'index/index'
+            ];
+            get_log('admin_login',$user['id'],'登录成功');
          }else{
-
-          return 1;
-
+            $status=[
+              'status'=>1,
+              'msg'=>'账号或者密码错误'
+            ];
+            get_log('admin_login',$user['id'],'登录失败'.$status['msg']);
          }
       }
-      
+      return $status;
     }
 
     /**

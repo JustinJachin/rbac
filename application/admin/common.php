@@ -4,10 +4,9 @@
 use think\facade\Request;
 /**  
  * 获取客户端浏览器信息
- * @param   null  
- * @author  https://blog.jjonline.cn/phptech/168.html
- * @return  string   
- */  
+* @return string 浏览器信息
+* @author jachin  2019-08-16
+*/  
 function get_broswer()
 {
 	$sys =Request::server('HTTP_USER_AGENT');
@@ -23,9 +22,9 @@ function get_broswer()
 	$exp[0] = "未知浏览器";
 	foreach ($arr as $key => $value) {
 		if(stripos($sys, $key) > 0){
-			preg_match($value['1'], $sys, $b);  
+			preg_match($value['1'], $sys, $version);  
 			$exp[0] = $value[0];  
-        	$exp[1] = $b[1]; 
+        	$exp[1] = $version[1]; 
         	break;
 		}
 	}
@@ -36,11 +35,10 @@ function get_broswer()
 }
 
 /**  
- * 获取客户端操作系统信息,包括win10 
- * @param   null  
- * @author  https://blog.jjonline.cn/phptech/168.html 
- * @return  string   
- */  
+* 获取客户端操作系统信息,包括win10 
+* @return string 系统信息
+* @author jachin  2019-08-16
+*/  
 function get_os(){  
 	$agent =Request::server('HTTP_USER_AGENT');
    	$os='未知操作系统';
@@ -63,7 +61,8 @@ function get_os(){
  		'SunOS'=>'/sun/i',
  		'IBM OS/2'=>'/ibm/i',
  		'Macintosh'=>'/Mac/i',
- 		'/win/i',
+
+ 		'/win/i',//关联$arrty
  	];
 	$arrty=[
 	 		'Windows 98'=>'/98/i',
@@ -75,8 +74,7 @@ function get_os(){
 	 		'Windows 2000'=>'/nt 5/i',
 	 		'Windows NT'=>'/nt/i',
 	 		'Windows 32'=>'/32/i',
-	 		
-	 	];
+	];
  	foreach ($arr as $key => $value) {
  		if($value=='/win/i'){
  			if(strpos($agent, '95')){
@@ -120,12 +118,12 @@ function get_os(){
 
     return $os;    
 }
-	/**
-     * @description  获取IP地址
-     * @return string IP地址
-     * @author jachin  2019-08-16
-     */
-function getIP(){
+/**
+ * @description  获取IP地址
+ * @return string IP地址
+ * @author jachin  2019-08-16
+ */
+function get_IP(){
     static $realIP;
     if(isset($_SERVER)){
         if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
@@ -146,7 +144,31 @@ function getIP(){
     }
     return $realIP;
 }
-
+/**
+ * @description  获取IP地址
+ * @param $actionName 传入行为名  
+ * @param $admin_id	  传入用户id
+ * @param $remark     传入备注
+ * @return string IP地址
+ * @author jachin  2019-08-16
+ */
+function get_log($actionName,$admin_id,$remark=''){
+	$action_id=model('Action')->where('actionName',$actionName)->field('id')->find();
+	// var_dump($action_id);exit;
+	$model=Request::module();
+	$data=[
+		'action_id'=>$action_id['id'],
+		'admin_id' =>$admin_id,
+		'IP'       =>get_IP(),
+		'browser'  =>get_broswer(),
+		'os'	   =>get_os(),
+		'remark'   =>$remark,
+		'create_time'=>time(),
+		'model'    =>$model,
+	];
+	$res=model('Log')->insert($data);
+	return $res;
+}
 // function get_broswer($glue = null)
 // {
 	

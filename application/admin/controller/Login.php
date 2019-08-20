@@ -23,7 +23,7 @@ class Login extends Controller
      * @author jachin  2019-07-29
      */
     public function index(){
-        
+       
         $captcha=new Captcha();
         if(request()->isPost()){
             $data=input('post.');
@@ -32,19 +32,20 @@ class Login extends Controller
             }
             $admin=new AdminModel;
             $res=$admin->check($data['email'],$data['password']);
-            switch($res){
+
+            switch($res['status']){
                 case 0:
-                    $this->redirect('index/index');
+                    $this->redirect($res['msg']);
 
                     break;
                 case 1:
-                    $this->error('邮箱或者密码错误 ，重新填写正在跳转.....','','',2);
+                    $this->error($res['msg'],'','',2);
                     break;
                 case 2:
-                    $this->error('该用户被禁用或删除','','',2);
+                    $this->error($res['msg'],'','',2);
                     break;
                 case 3:
-                    $this->error('该用户不存在','','',2);
+                    $this->error($res['msg'],'','',2);
                     break;
                 default :$this->error('系统问题，请联系管理员','','',2);
             }
@@ -70,7 +71,7 @@ class Login extends Controller
      */
     public function logout(){
         //获取ip地址
-        $ip=getIP();
+        $ip=get_IP();
         $admin=new AdminModel;
         //将ip地址写入数据库
         $admin->updateLogin($ip);

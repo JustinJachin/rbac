@@ -12,6 +12,10 @@ use app\admin\common;
 use app\admin\model\Admin;
 use app\admin\model\Action;
 use think\facade\Request;
+use app\admin\controller\Office;
+use app\admin\controller\ExcelOffice;
+
+
 /**
  * 后台日志控制器
  * @author jachin <jachin@qq.com>
@@ -24,7 +28,6 @@ class Log extends Base
      * @author jachin  2019-08-16
      */
 	public function index(){
-		
 		$keyword=input('get.keyword');
 		$pageParam    = ['query' =>[]];
 		if($keyword){
@@ -46,11 +49,11 @@ class Log extends Base
 			$list=LogModel::where('status',1)
 					->where('browser|model|os|remark','like',"%{$keyword}%")
 					->whereOr($map)
-					->order('id')
+					->order('id desc')
 					->paginate(10,false,$pageParam);
 		}else{
 			
-			$list=LogModel::where('status',1)->order('id')->paginate(10,false,$pageParam);
+			$list=LogModel::where('status',1)->order('id desc')->paginate(10,false,$pageParam);
 		}
 		
 		$page=$list->render();
@@ -125,16 +128,106 @@ class Log extends Base
 	}
 	/**
      * @description 日志清空
-     * @author jachin  2019-08-16
+     * @author jachin  2019-08-17
      */
 	public function clear(){
-
+		$type=input('post.type');
+		$status=[
+			'status'=>0,
+			'msg'=>'操作失败',
+		];
+		if(!empty($type)){
+			$res=LogModel::where('1=1')->delete();
+			if($res){
+				$status=[
+					'status'=>1,
+					'msg'=>'日志清空成功！',
+				];
+			}else{
+				$status['msg']='日志清空失败';
+			}
+		}
+		return json($status);
 	}
 	/**
      * @description 日志导出
      * @author jachin  2019-08-16
      */
 	public function derive(){
+		$field=input('post.obj');
+		$fields='';
+		$id=input('post.obj_id');
+		$head=[
+ 			'id'=>'日志编号', 
+ 			'IP'=>'访问地址',
+ 			'browser'=>'访问浏览器', 
+ 			'os'=>'访问系统', 
+ 			'model'=>'访问模块', 
+ 			'remark'=>'访问备注', 
+ 			'status'=>'访问状态', 
+ 			'create_time'=>'访问时间', 
+ 			'admin_name'=>'访问人', 
+ 			'action_name'=>'访问行为'
+ 		];
+		if(!empty($id)){
+			$map=[
+				['id','in',$id],
+			];
+		}else{
+			$map='';
+		}
+		if(!empty($field)){
+			$fields=implode(',',$field);
+			if(!in_array('action_id',$field)){
+				$fields=$fields.',action_id';
+			}
+			if(!in_array('admin_id',$field)){
+				$fields=$fields.',admin_id';
+			}
+			$adminParam=['admin_name','action_name'];
+			$field=array_merge($field,$adminParam);
+			$field=array_diff($field,['action_id','admin_id']);
+			foreach ($field as $key => $value) {
+	 			if(array_key_exists($value,$head)){
+	 				$header[$value]=$head[$value];
+	 			}
+	 		}       
 
+		}else{
+			$header=$head;
+		}
+
+		$data=LogModel::where($map)->field($fields)->select();
+		
+		foreach ($data as $key => $value) {
+			$data[$key]['admin_name']=$value['admin']['name'];
+			$data[$key]['action_name']=$value['action']['actionTitle'];
+			unset($value['admin']);
+			unset($value['action']);
+			unset($value['action_id']);
+			unset($value['admin_id']);
+		}
+		
+
+		// $excel=new ExcelOffice();
+		// $excel->daysales_excel();
+		
+		$excel = new Office();
+
+		$res=$excel->outdata($data, $header,'日志表');
+		if($res){
+			$status=[
+				'status'=>1,
+				'res'=>$res,
+				'msg'=>'下载成功!',
+			];
+			
+		}else{
+			$status=[
+				'status'=>0,
+				'msg'=>'下载失败!',
+			];
+		}
+		return json($status);
 	}
 }
