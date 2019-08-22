@@ -1,4 +1,4 @@
-<?php /*a:5:{s:76:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\action\index.html";i:1565860151;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:76:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\action\index.html";i:1566351227;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -143,7 +143,7 @@
 
 								<div class="row">
 									<div class="col-lg-12">
-										<div class="card">
+										<div class="card cards">
 											<div class="card-header">
 												<!-- <form class="float-right">
 													<div class="input-group">
@@ -301,7 +301,7 @@
 				    		dataType:'json',
 							success:function(data){
 								if(data.status==1){
-									$(".table").load(location.href+" .table");
+									$(".cards").load(location.href+" .cards");
 									toastr.success('', data.msg);
 								}else{
 									toastr.error('', data.msg);

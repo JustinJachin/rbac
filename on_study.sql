@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 20/08/2019 17:03:49
+ Date: 22/08/2019 15:48:40
 */
 
 SET NAMES utf8mb4;
@@ -31,14 +31,20 @@ CREATE TABLE `on_action`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `actionName`(`actionName`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '行为列表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '行为列表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_action
 -- ----------------------------
 INSERT INTO `on_action` VALUES (1, 'admin_login', '管理员登录', '管理员登录', 1, 1, 1563170072);
 INSERT INTO `on_action` VALUES (2, 'update', '更新内容', '更新内容', 1, 1, 1565856140);
-INSERT INTO `on_action` VALUES (3, 'user_login', '用户登录', '用户登录', 1, 1, 1565860656);
+INSERT INTO `on_action` VALUES (3, 'user_login1', '用户登录', '用户登录', 1, 1, 1565860656);
+INSERT INTO `on_action` VALUES (4, 'updateMenu', '更新菜单', '更新菜单', 0, 1, 1566292170);
+INSERT INTO `on_action` VALUES (5, 'getExcel', '导出表格', '导出表格', 1, 1, 1566292803);
+INSERT INTO `on_action` VALUES (6, 'delete', '删除数据', '删除数据', 1, 1, 1566293108);
+INSERT INTO `on_action` VALUES (7, 'deletes', '批量删除', '批量删除', 1, 1, 1566348300);
+INSERT INTO `on_action` VALUES (8, 'add', '添加操作', '添加操作', 1, 1, 1566348326);
+INSERT INTO `on_action` VALUES (9, 'clear', '清空操作', '清空操作', 1, 1, 1566348394);
 
 -- ----------------------------
 -- Table structure for on_admin
@@ -51,6 +57,7 @@ CREATE TABLE `on_admin`  (
   `sex` tinyint(1) NOT NULL DEFAULT 2 COMMENT '性别，0女1男2保密',
   `email` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
   `is_admin` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0原始管理员1管理员',
+  `is_login` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0未登录，1登录',
   `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '1启用0禁用',
   `create_time` int(11) UNSIGNED NOT NULL COMMENT '创建时间',
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
@@ -60,36 +67,36 @@ CREATE TABLE `on_admin`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE,
   UNIQUE INDEX `email`(`email`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_admin
 -- ----------------------------
-INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 1, 1557898848, 1566179781, 1564558418, 1566179781, '127.0.0.1');
-INSERT INTO `on_admin` VALUES (2, 'justin', 'on6559c2b7caad120d5d85b85bd1b88561', 1, 'justin1@qq.com', 1, 1, 1557898848, 1565145065, 1564558418, 1565145065, '127.0.0.1');
-INSERT INTO `on_admin` VALUES (32, 'mooke', 'on47288b0def8776d233329db248e37188', 0, 'mooke@qq.com', 1, 1, 1564539804, 1564539804, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (10, 'niki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '5@qq.com', 1, 1, 1564470214, 1564558418, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (9, 'yuki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, '3@qq.com', 1, 0, 1564469023, 1565144564, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (8, 'jack', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '2@qq.com', 1, 2, 1564468966, 1564558670, 1564558670, NULL, NULL);
-INSERT INTO `on_admin` VALUES (13, 'jeannie', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'qq@qq.com', 1, 0, 1564470563, 1564713995, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (11, 'banks', 'onc1053fbf10e6253b3f41e18307543bd6', 1, '6@qq.com', 1, 0, 1564470433, 1564713982, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (12, 'willy', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '7@qq.com', 1, 0, 1564470455, 1564559786, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (14, 'lily', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'we@qq.com', 1, 1, 1564470601, 1564558418, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (15, 'anna', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'ef@qq.com', 1, 1, 1564470641, 1564558418, 1564558418, NULL, NULL);
-INSERT INTO `on_admin` VALUES (16, 'ella', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'ella@qq.com', 1, 1, 1564470669, 1564470669, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (17, 'ava', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'ava@qq.com', 1, 1, 1564470688, 1564470688, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (18, 'emma', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'emma@qq.com', 1, 1, 1564470723, 1564470723, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (19, 'john', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'john@qq.com', 1, 1, 1564470765, 1564470765, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (20, 'jordan', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'jordan@qq.com', 1, 1, 1564470791, 1564470791, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (21, 'aiden', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'aiden@qq.com', 1, 1, 1564470810, 1564470810, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (34, 'youhn', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'youhn@qq.com', 1, 2, 1564539899, 1565147494, 1564549971, NULL, NULL);
-INSERT INTO `on_admin` VALUES (33, 'mookee', 'on47288b0def8776d233329db248e37188', 0, 'mookee@qq.com', 1, 2, 1564539834, 1565147494, 1564550003, NULL, NULL);
-INSERT INTO `on_admin` VALUES (28, 'juck', 'on47288b0def8776d233329db248e37188', 1, 'juck@qq.com', 1, 1, 1564539465, 1564539465, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (29, 'molera', 'on47288b0def8776d233329db248e37188', 1, 'molera@qq.com', 1, 1, 1564539496, 1564539496, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (30, 'jacka', 'on47288b0def8776d233329db248e37188', 1, 'jacka@qq.com', 1, 1, 1564539565, 1564539565, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (31, 'julye', 'on47288b0def8776d233329db248e37188', 0, 'julye@163.com', 1, 1, 1564539718, 1564539718, NULL, NULL, NULL);
-INSERT INTO `on_admin` VALUES (44, '1233', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '1223@qq.com', 1, 2, 1564540426, 1565147494, 1564549866, NULL, NULL);
-INSERT INTO `on_admin` VALUES (43, '123', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '123@qq.com', 1, 2, 1564540402, 1564549927, 1564549927, NULL, NULL);
+INSERT INTO `on_admin` VALUES (1, 'admin', 'on490bc47ffe57e67f88e681c577f430e1', 1, 'admin@qq.com', 0, 0, 1, 1557898848, 1566458131, NULL, 1566458131, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (2, 'justin', 'on6559c2b7caad120d5d85b85bd1b88561', 1, 'justin1@qq.com', 1, 1, 1, 1557898848, 1566371217, NULL, 1565145065, '127.0.0.1');
+INSERT INTO `on_admin` VALUES (32, 'mooke', 'on47288b0def8776d233329db248e37188', 0, 'mooke@qq.com', 1, 0, 1, 1564539804, 1564539804, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (10, 'niki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '5@qq.com', 1, 0, 1, 1564470214, 1564558418, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (9, 'yuki', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, '3@qq.com', 1, 0, 1, 1564469023, 1566368015, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (8, 'jack', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '2@qq.com', 1, 0, 2, 1564468966, 1564558670, 1564558670, NULL, NULL);
+INSERT INTO `on_admin` VALUES (13, 'jeannie', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'qq@qq.com', 1, 0, 0, 1564470563, 1564713995, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (11, 'banks', 'onc1053fbf10e6253b3f41e18307543bd6', 1, '6@qq.com', 1, 0, 0, 1564470433, 1564713982, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (12, 'willy', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, '7@qq.com', 1, 0, 0, 1564470455, 1564559786, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (14, 'lily', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'we@qq.com', 1, 0, 1, 1564470601, 1564558418, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (15, 'anna', 'on5e2680c87b294fe0dd00c076b7afe1b4', 0, 'ef@qq.com', 1, 0, 1, 1564470641, 1564558418, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (16, 'ella', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'ella@qq.com', 1, 0, 1, 1564470669, 1564470669, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (17, 'ava', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'ava@qq.com', 1, 0, 1, 1564470688, 1564470688, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (18, 'emma', 'on5e2680c87b294fe0dd00c076b7afe1b4', 2, 'emma@qq.com', 1, 0, 1, 1564470723, 1564470723, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (19, 'john', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'john@qq.com', 1, 0, 1, 1564470765, 1564470765, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (20, 'jordan', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'jordan@qq.com', 1, 0, 1, 1564470791, 1564470791, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (21, 'aiden', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'aiden@qq.com', 1, 0, 1, 1564470810, 1564470810, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (34, 'youhn', 'on5e2680c87b294fe0dd00c076b7afe1b4', 1, 'youhn@qq.com', 1, 0, 2, 1564539899, 1565147494, 1564549971, NULL, NULL);
+INSERT INTO `on_admin` VALUES (33, 'mookee', 'on47288b0def8776d233329db248e37188', 0, 'mookee@qq.com', 1, 0, 2, 1564539834, 1565147494, 1564550003, NULL, NULL);
+INSERT INTO `on_admin` VALUES (28, 'juck', 'on47288b0def8776d233329db248e37188', 1, 'juck@qq.com', 1, 0, 1, 1564539465, 1564539465, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (29, 'molera', 'on47288b0def8776d233329db248e37188', 1, 'molera@qq.com', 1, 0, 1, 1564539496, 1564539496, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (30, 'jacka', 'on47288b0def8776d233329db248e37188', 1, 'jacka@qq.com', 1, 0, 1, 1564539565, 1564539565, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (31, 'julye', 'on47288b0def8776d233329db248e37188', 0, 'julye@163.com', 1, 0, 1, 1564539718, 1564539718, NULL, NULL, NULL);
+INSERT INTO `on_admin` VALUES (45, 'admin1123', 'on19b7c9c11f2afd6ad8d6249797787fca', 1, 'admin123@qq.com', 1, 0, 2, 1566352584, 1566352633, 1564550003, NULL, NULL);
+INSERT INTO `on_admin` VALUES (46, 'admin11232', 'on19b7c9c11f2afd6ad8d6249797787fca', 1, 'admin1232@qq.com', 1, 0, 2, 1566352622, 1566352633, 1564550003, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for on_admin_role
@@ -102,13 +109,19 @@ CREATE TABLE `on_admin_role`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uid`(`uid`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户与角色表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台用户与角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_admin_role
 -- ----------------------------
 INSERT INTO `on_admin_role` VALUES (1, 2, '1', 1563170072);
-INSERT INTO `on_admin_role` VALUES (3, 9, '2，6，7', 1565144570);
+INSERT INTO `on_admin_role` VALUES (3, 9, '2，3', 1565144570);
+INSERT INTO `on_admin_role` VALUES (4, 32, '2', 1566441156);
+INSERT INTO `on_admin_role` VALUES (5, 31, '2', 1566441165);
+INSERT INTO `on_admin_role` VALUES (6, 30, '2', 1566441169);
+INSERT INTO `on_admin_role` VALUES (7, 29, '2', 1566441174);
+INSERT INTO `on_admin_role` VALUES (8, 28, '2', 1566441180);
+INSERT INTO `on_admin_role` VALUES (9, 20, '3', 1566441186);
 
 -- ----------------------------
 -- Table structure for on_icon
@@ -759,7 +772,7 @@ CREATE TABLE `on_log`  (
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日志' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 187 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_log
@@ -772,6 +785,184 @@ INSERT INTO `on_log` VALUES (5, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Wind
 INSERT INTO `on_log` VALUES (6, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录失败账号或者密码错误', 1, 1566179801);
 INSERT INTO `on_log` VALUES (7, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566179830);
 INSERT INTO `on_log` VALUES (8, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566261102);
+INSERT INTO `on_log` VALUES (9, 4, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '添加了123菜单', 1, 1566292584);
+INSERT INTO `on_log` VALUES (10, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566293020);
+INSERT INTO `on_log` VALUES (11, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566293259);
+INSERT INTO `on_log` VALUES (12, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '日志删除', 1, 1566293315);
+INSERT INTO `on_log` VALUES (13, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '日志删除', 1, 1566293390);
+INSERT INTO `on_log` VALUES (14, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566348195);
+INSERT INTO `on_log` VALUES (15, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为1日志被删除', 1, 1566348627);
+INSERT INTO `on_log` VALUES (16, 7, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为15的日志被删除', 1, 1566348874);
+INSERT INTO `on_log` VALUES (17, 7, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为7,6的日志被删除', 1, 1566348882);
+INSERT INTO `on_log` VALUES (18, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为8的角色被删除', 1, 1566349483);
+INSERT INTO `on_log` VALUES (19, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '给账号id为9成功授予了角色', 1, 1566350283);
+INSERT INTO `on_log` VALUES (20, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '添加了test21角色', 1, 1566350986);
+INSERT INTO `on_log` VALUES (21, 2, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '编辑了id为的角色信息', 1, 1566351061);
+INSERT INTO `on_log` VALUES (22, 2, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '编辑了id为11的角色信息', 1, 1566351100);
+INSERT INTO `on_log` VALUES (23, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为10的角色被删除', 1, 1566351137);
+INSERT INTO `on_log` VALUES (24, 7, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为6,7,9,11的角色被删除', 1, 1566351326);
+INSERT INTO `on_log` VALUES (25, 7, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为6,7,8的角色被删除', 1, 1566351381);
+INSERT INTO `on_log` VALUES (26, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为5的角色被删除', 1, 1566352296);
+INSERT INTO `on_log` VALUES (27, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '给id为2的角色添加了权限', 1, 1566352389);
+INSERT INTO `on_log` VALUES (28, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为51的菜单被删除', 1, 1566352410);
+INSERT INTO `on_log` VALUES (29, 7, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为52的日志被删除', 1, 1566352430);
+INSERT INTO `on_log` VALUES (30, 2, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '编辑了ID为39的菜单', 1, 1566352459);
+INSERT INTO `on_log` VALUES (31, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '添加了--123--菜单', 1, 1566352530);
+INSERT INTO `on_log` VALUES (32, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '给账号id为2成功授予了角色', 1, 1566352561);
+INSERT INTO `on_log` VALUES (33, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '添加了id为46的账号信息', 1, 1566352622);
+INSERT INTO `on_log` VALUES (34, 7, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '批量删除了id为45,46的账号信息', 1, 1566352633);
+INSERT INTO `on_log` VALUES (35, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', 'id为39的菜单被删除', 1, 1566352952);
+INSERT INTO `on_log` VALUES (36, 6, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '删除了id为4的行为信息', 1, 1566353098);
+INSERT INTO `on_log` VALUES (37, 2, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '修改了id为3的行为信息', 1, 1566354386);
+INSERT INTO `on_log` VALUES (38, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566356217);
+INSERT INTO `on_log` VALUES (39, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566356963);
+INSERT INTO `on_log` VALUES (40, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566357125);
+INSERT INTO `on_log` VALUES (41, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566357173);
+INSERT INTO `on_log` VALUES (42, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566357195);
+INSERT INTO `on_log` VALUES (43, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566357261);
+INSERT INTO `on_log` VALUES (44, 1, 2, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录失败账号或者密码错误', 1, 1566367085);
+INSERT INTO `on_log` VALUES (45, 2, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '修改了id为账号的密码', 1, 1566367167);
+INSERT INTO `on_log` VALUES (46, 1, 2, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录成功', 1, 1566367195);
+INSERT INTO `on_log` VALUES (47, 1, 2, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录成功', 1, 1566367489);
+INSERT INTO `on_log` VALUES (48, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566367546);
+INSERT INTO `on_log` VALUES (49, 1, 2, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566367560);
+INSERT INTO `on_log` VALUES (50, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566367580);
+INSERT INTO `on_log` VALUES (51, 8, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '给账号id为2成功授予了角色', 1, 1566367605);
+INSERT INTO `on_log` VALUES (52, 1, 2, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录成功', 1, 1566368196);
+INSERT INTO `on_log` VALUES (53, 1, 2, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录成功', 1, 1566371217);
+INSERT INTO `on_log` VALUES (54, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录失败账号或者密码错误', 1, 1566434712);
+INSERT INTO `on_log` VALUES (55, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566435309);
+INSERT INTO `on_log` VALUES (56, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566435960);
+INSERT INTO `on_log` VALUES (57, 1, 1, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录成功', 1, 1566436068);
+INSERT INTO `on_log` VALUES (58, 1, 1, '127.0.0.1', '未知浏览器 ', '未知操作系统', 'admin', '登录成功', 1, 1566439470);
+INSERT INTO `on_log` VALUES (59, 1, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 7', 'admin', '登录成功', 1, 1566440934);
+INSERT INTO `on_log` VALUES (60, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Linux', 'admin', '导出日志表格', 1, 1566440981);
+INSERT INTO `on_log` VALUES (61, 5, 1, '127.0.0.1', 'safari 605.1.15', 'SunOS', 'admin', '导出日志表格', 1, 1566441001);
+INSERT INTO `on_log` VALUES (62, 5, 1, '127.0.0.1', 'safari 605.1.15', 'SunOS', 'admin', '导出日志表格', 1, 1566441029);
+INSERT INTO `on_log` VALUES (63, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441076);
+INSERT INTO `on_log` VALUES (64, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为32成功授予了角色', 1, 1566441156);
+INSERT INTO `on_log` VALUES (65, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为31成功授予了角色', 1, 1566441165);
+INSERT INTO `on_log` VALUES (66, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为30成功授予了角色', 1, 1566441169);
+INSERT INTO `on_log` VALUES (67, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为29成功授予了角色', 1, 1566441174);
+INSERT INTO `on_log` VALUES (68, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为28成功授予了角色', 1, 1566441180);
+INSERT INTO `on_log` VALUES (69, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为20成功授予了角色', 1, 1566441186);
+INSERT INTO `on_log` VALUES (70, 8, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '给账号id为9成功授予了角色', 1, 1566441198);
+INSERT INTO `on_log` VALUES (71, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441222);
+INSERT INTO `on_log` VALUES (72, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441224);
+INSERT INTO `on_log` VALUES (73, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441227);
+INSERT INTO `on_log` VALUES (74, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441229);
+INSERT INTO `on_log` VALUES (75, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441231);
+INSERT INTO `on_log` VALUES (76, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441239);
+INSERT INTO `on_log` VALUES (77, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441249);
+INSERT INTO `on_log` VALUES (78, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441250);
+INSERT INTO `on_log` VALUES (79, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441252);
+INSERT INTO `on_log` VALUES (80, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441253);
+INSERT INTO `on_log` VALUES (81, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441253);
+INSERT INTO `on_log` VALUES (82, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441254);
+INSERT INTO `on_log` VALUES (83, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441254);
+INSERT INTO `on_log` VALUES (84, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441255);
+INSERT INTO `on_log` VALUES (85, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441255);
+INSERT INTO `on_log` VALUES (86, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441255);
+INSERT INTO `on_log` VALUES (87, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441255);
+INSERT INTO `on_log` VALUES (88, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441256);
+INSERT INTO `on_log` VALUES (89, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441256);
+INSERT INTO `on_log` VALUES (90, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441256);
+INSERT INTO `on_log` VALUES (91, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441256);
+INSERT INTO `on_log` VALUES (92, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441257);
+INSERT INTO `on_log` VALUES (93, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441257);
+INSERT INTO `on_log` VALUES (94, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441257);
+INSERT INTO `on_log` VALUES (95, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441258);
+INSERT INTO `on_log` VALUES (96, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441258);
+INSERT INTO `on_log` VALUES (97, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441258);
+INSERT INTO `on_log` VALUES (98, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441258);
+INSERT INTO `on_log` VALUES (99, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441259);
+INSERT INTO `on_log` VALUES (100, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441259);
+INSERT INTO `on_log` VALUES (101, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441259);
+INSERT INTO `on_log` VALUES (102, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441260);
+INSERT INTO `on_log` VALUES (103, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441260);
+INSERT INTO `on_log` VALUES (104, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441260);
+INSERT INTO `on_log` VALUES (105, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441261);
+INSERT INTO `on_log` VALUES (106, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441261);
+INSERT INTO `on_log` VALUES (107, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441261);
+INSERT INTO `on_log` VALUES (108, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441261);
+INSERT INTO `on_log` VALUES (109, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441262);
+INSERT INTO `on_log` VALUES (110, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441262);
+INSERT INTO `on_log` VALUES (111, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441262);
+INSERT INTO `on_log` VALUES (112, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441263);
+INSERT INTO `on_log` VALUES (113, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441263);
+INSERT INTO `on_log` VALUES (114, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441263);
+INSERT INTO `on_log` VALUES (115, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441264);
+INSERT INTO `on_log` VALUES (116, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441264);
+INSERT INTO `on_log` VALUES (117, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441264);
+INSERT INTO `on_log` VALUES (118, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441264);
+INSERT INTO `on_log` VALUES (119, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441265);
+INSERT INTO `on_log` VALUES (120, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441265);
+INSERT INTO `on_log` VALUES (121, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441265);
+INSERT INTO `on_log` VALUES (122, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441266);
+INSERT INTO `on_log` VALUES (123, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441863);
+INSERT INTO `on_log` VALUES (124, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441864);
+INSERT INTO `on_log` VALUES (125, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441864);
+INSERT INTO `on_log` VALUES (126, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441865);
+INSERT INTO `on_log` VALUES (127, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441865);
+INSERT INTO `on_log` VALUES (128, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441866);
+INSERT INTO `on_log` VALUES (129, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566441866);
+INSERT INTO `on_log` VALUES (130, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441881);
+INSERT INTO `on_log` VALUES (131, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441881);
+INSERT INTO `on_log` VALUES (132, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441881);
+INSERT INTO `on_log` VALUES (133, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441882);
+INSERT INTO `on_log` VALUES (134, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441882);
+INSERT INTO `on_log` VALUES (135, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441882);
+INSERT INTO `on_log` VALUES (136, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441883);
+INSERT INTO `on_log` VALUES (137, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441883);
+INSERT INTO `on_log` VALUES (138, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441883);
+INSERT INTO `on_log` VALUES (139, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441905);
+INSERT INTO `on_log` VALUES (140, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441905);
+INSERT INTO `on_log` VALUES (141, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441905);
+INSERT INTO `on_log` VALUES (142, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441906);
+INSERT INTO `on_log` VALUES (143, 5, 1, '127.0.0.1', 'Edge 18.17763', 'Windows 10', 'admin', '导出日志表格', 1, 1566441906);
+INSERT INTO `on_log` VALUES (144, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441933);
+INSERT INTO `on_log` VALUES (145, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441934);
+INSERT INTO `on_log` VALUES (146, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441934);
+INSERT INTO `on_log` VALUES (147, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441934);
+INSERT INTO `on_log` VALUES (148, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441935);
+INSERT INTO `on_log` VALUES (149, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441935);
+INSERT INTO `on_log` VALUES (150, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441935);
+INSERT INTO `on_log` VALUES (151, 5, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '导出日志表格', 1, 1566441936);
+INSERT INTO `on_log` VALUES (152, 5, 1, '127.0.0.1', 'safari 605.1.15', 'SunOS', 'admin', '导出日志表格', 1, 1566442009);
+INSERT INTO `on_log` VALUES (153, 5, 1, '127.0.0.1', 'safari 605.1.15', 'SunOS', 'admin', '导出日志表格', 1, 1566442023);
+INSERT INTO `on_log` VALUES (154, 5, 1, '127.0.0.1', 'safari 605.1.15', 'SunOS', 'admin', '导出日志表格', 1, 1566442043);
+INSERT INTO `on_log` VALUES (155, 1, 1, '127.0.0.1', 'Firefox 60.8', 'Windows 10', 'admin', '登录成功', 1, 1566444500);
+INSERT INTO `on_log` VALUES (156, 1, 2, '127.0.0.1', 'IE 11.0', 'Windows 7', 'admin', '登录成功', 1, 1566444606);
+INSERT INTO `on_log` VALUES (157, 1, 2, '127.0.0.1', 'IE 11.0', 'Windows 7', 'admin', '登录失败账号或者密码错误', 1, 1566444620);
+INSERT INTO `on_log` VALUES (158, 1, 1, '127.0.0.1', 'IE 11.0', 'Windows 7', 'admin', '登录成功', 1, 1566451612);
+INSERT INTO `on_log` VALUES (159, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566451677);
+INSERT INTO `on_log` VALUES (160, 1, 2, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566452021);
+INSERT INTO `on_log` VALUES (161, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566452376);
+INSERT INTO `on_log` VALUES (162, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566452658);
+INSERT INTO `on_log` VALUES (163, 1, 1, '127.0.0.1', 'safari 605.1.15', 'SunOS', 'admin', '登录成功', 1, 1566452685);
+INSERT INTO `on_log` VALUES (164, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566454246);
+INSERT INTO `on_log` VALUES (165, 1, 1, '127.0.0.1', 'Firefox 68.0', 'Linux', 'admin', '登录成功', 1, 1566454377);
+INSERT INTO `on_log` VALUES (166, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566454525);
+INSERT INTO `on_log` VALUES (167, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566454571);
+INSERT INTO `on_log` VALUES (168, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566455006);
+INSERT INTO `on_log` VALUES (169, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566455200);
+INSERT INTO `on_log` VALUES (170, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566455443);
+INSERT INTO `on_log` VALUES (171, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566455828);
+INSERT INTO `on_log` VALUES (172, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566456429);
+INSERT INTO `on_log` VALUES (173, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566456568);
+INSERT INTO `on_log` VALUES (174, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566456749);
+INSERT INTO `on_log` VALUES (175, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566456781);
+INSERT INTO `on_log` VALUES (176, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录失败账号或者密码错误', 1, 1566456943);
+INSERT INTO `on_log` VALUES (177, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566456959);
+INSERT INTO `on_log` VALUES (178, 1, 1, '127.0.0.1', 'Firefox 68.0', 'Windows 10', 'admin', '登录成功', 1, 1566457113);
+INSERT INTO `on_log` VALUES (179, 1, 1, '127.0.0.1', 'IE 11.0', 'Windows 7', 'admin', '登录成功', 1, 1566457173);
+INSERT INTO `on_log` VALUES (180, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566457883);
+INSERT INTO `on_log` VALUES (181, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566458138);
+INSERT INTO `on_log` VALUES (182, 5, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '导出日志表格', 1, 1566458203);
+INSERT INTO `on_log` VALUES (183, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566459159);
+INSERT INTO `on_log` VALUES (184, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566459296);
+INSERT INTO `on_log` VALUES (185, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566459433);
+INSERT INTO `on_log` VALUES (186, 1, 1, '127.0.0.1', 'Chrome 75.0.3770.142', 'Windows 7', 'admin', '登录成功', 1, 1566459853);
 
 -- ----------------------------
 -- Table structure for on_module
@@ -810,7 +1001,7 @@ CREATE TABLE `on_permission`  (
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `model`(`module_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_permission
@@ -843,14 +1034,13 @@ INSERT INTO `on_permission` VALUES (23, 'test', 'tess/index', 1, 'tess', 'index'
 INSERT INTO `on_permission` VALUES (24, '个人中心', 'admin/edit', 1, 'admin', 'edit', NULL, 2, 0, 0, 14, 1, 1501686013, 1501686013);
 INSERT INTO `on_permission` VALUES (25, '分配角色', 'admin/addRole', 1, 'admin', 'addRole', NULL, 2, 0, 0, 14, 1, 1501686013, 1501686013);
 INSERT INTO `on_permission` VALUES (28, '角色列表', 'role/index', 1, 'role', 'index', NULL, 2, 0, 0, 2, 1, 1501686013, 1501686013);
-INSERT INTO `on_permission` VALUES (32, 'eee1', 'eee/eee12', 2, 'eee', 'eee12', 12, 0, 0, 1, 0, 1, 1565256340, 1565256687);
 INSERT INTO `on_permission` VALUES (33, '系统管理', 'system/index', 1, 'system', 'index', 69, 0, 0, 1, 0, 1, 1565318074, 1565318074);
 INSERT INTO `on_permission` VALUES (34, '日志管理', 'log/index', 1, 'log', 'index', NULL, 0, 0, 1, 33, 1, 1565318670, 1565318670);
 INSERT INTO `on_permission` VALUES (35, '日志列表', 'log/index', 1, 'log', 'index', NULL, 0, 0, 1, 34, 1, 1565318748, 1565318748);
 INSERT INTO `on_permission` VALUES (36, '日志清空', 'log/clear', 1, 'log', 'clear', NULL, 0, 0, 1, 34, 1, 1565318797, 1565318895);
 INSERT INTO `on_permission` VALUES (37, '日志删除', 'log/delete', 1, 'log', 'delete', NULL, 0, 0, 0, 34, 1, 1565318825, 1565318825);
 INSERT INTO `on_permission` VALUES (38, '批量删除', 'log/deletes', 1, 'log', 'deletes', NULL, 0, 0, 0, 34, 1, 1565318854, 1565318854);
-INSERT INTO `on_permission` VALUES (39, '日志查看', 'log/read', 1, 'log', 'read', NULL, 0, 0, 0, 34, 1, 1565318880, 1565318880);
+INSERT INTO `on_permission` VALUES (39, '日志查看1', 'log/read', 1, 'log', 'read', NULL, 0, 0, 1, 34, 0, 1565318880, 1566352952);
 INSERT INTO `on_permission` VALUES (40, '行为日志', 'action/index', 1, 'action', 'index', NULL, 0, 0, 1, 33, 1, 1565850048, 1565850048);
 INSERT INTO `on_permission` VALUES (41, '行为列表', 'action/index', 1, 'action', 'index', NULL, 0, 0, 0, 40, 1, 1565850103, 1565850103);
 INSERT INTO `on_permission` VALUES (42, '行为删除', 'action/delete', 1, 'action', 'delete', NULL, 0, 0, 0, 40, 1, 1565850140, 1565850140);
@@ -871,21 +1061,22 @@ CREATE TABLE `on_role`  (
   `create_time` int(11) UNSIGNED NOT NULL COMMENT '创建时间',
   `update_time` int(11) UNSIGNED NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of on_role
 -- ----------------------------
 INSERT INTO `on_role` VALUES (1, 'admin', '管理员', 1, 1563170072, 1563170072);
-INSERT INTO `on_role` VALUES (2, 'test111', '测试10', 0, 1563170072, 1565145017);
+INSERT INTO `on_role` VALUES (2, 'test111', '测试10', 1, 1563170072, 1565145017);
 INSERT INTO `on_role` VALUES (3, 'test1', '测试1', 1, 1563170072, 1565145012);
 INSERT INTO `on_role` VALUES (4, 'test2', '测试2', 1, 1563170072, 1564722389);
-INSERT INTO `on_role` VALUES (5, 'test3', '测试3', 1, 1563170072, 1564722372);
-INSERT INTO `on_role` VALUES (6, 'test4', '测试4', 0, 1563170072, 1564724352);
-INSERT INTO `on_role` VALUES (7, 'test5', '测试5', 0, 1563170072, 1564724352);
-INSERT INTO `on_role` VALUES (8, 'test7', '测试7', 1, 1564730259, 1564730259);
-INSERT INTO `on_role` VALUES (9, 'test81', '测试81', 0, 1564730271, 1565145019);
-INSERT INTO `on_role` VALUES (10, 'test10', '测试10', 1, 1564732635, 1564732635);
+INSERT INTO `on_role` VALUES (5, 'test3', '测试3', 0, 1563170072, 1566352295);
+INSERT INTO `on_role` VALUES (6, 'test4', '测试4', 0, 1563170072, 1566351381);
+INSERT INTO `on_role` VALUES (7, 'test5', '测试5', 0, 1563170072, 1566351381);
+INSERT INTO `on_role` VALUES (8, 'test7', '测试7', 0, 1564730259, 1566351381);
+INSERT INTO `on_role` VALUES (9, 'test81', '测试81', 0, 1564730271, 1566351326);
+INSERT INTO `on_role` VALUES (10, 'test10', '测试10', 0, 1564732635, 1566351137);
+INSERT INTO `on_role` VALUES (11, 'test21', '测试21', 0, 1566350986, 1566351326);
 
 -- ----------------------------
 -- Table structure for on_role_permission
@@ -903,6 +1094,6 @@ CREATE TABLE `on_role_permission`  (
 -- Records of on_role_permission
 -- ----------------------------
 INSERT INTO `on_role_permission` VALUES (4, 1, '1,22,20,2,28,8,26,14,15,16,27,24,25,33,34,35,39,46,40,41,44,45', 0);
-INSERT INTO `on_role_permission` VALUES (3, 2, '1,22,20,2,28,8,26,14,15,16,27,24,25', 0);
+INSERT INTO `on_role_permission` VALUES (3, 2, '1,22,20,2,28,8,26,14,15,16,27,24,25,33,34,35', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

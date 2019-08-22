@@ -31,5 +31,7 @@ class Action extends Validate{
 		'actionTitle.unique'=>'行为名称必须填写',
 		'remark.unique'=>'行为描述必须填写',
 	];
-	
+	protected $scene=[
+		'edit'=>['actionName'],
+	];
 }

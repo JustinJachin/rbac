@@ -24,7 +24,6 @@ class Admin extends Base
      * @author jachin  2019-07-29
      */
 	public function index(){
-		
 		$keyword=input('get.keyword');
 		$type=input('get.types');
 		$pageParam    = ['query' =>[]];
@@ -68,6 +67,7 @@ class Admin extends Base
 			$id=$role['id'];
 			unset($role['id']);
 			$data=implode('，',$role);
+			
 			$adminRole=AdminRole::where('uid',$id)->find();
 			if($adminRole){
 				$adminRole->role_id=$data;
@@ -81,6 +81,7 @@ class Admin extends Base
 				$res=AdminRole::create($map);
 			}
 			if($res){
+				get_log('add',\session('uid'),'给账号id为'.$id.'成功授予了角色');
 				$status=array(
 					'status'=>1,
 					'msg'=>'给该账号成功授予了角色'
@@ -95,7 +96,8 @@ class Admin extends Base
 		}else{
 			$id=$request->param('id');
 			$data=array();
-			$role=Role::field("id,name,description")->select();
+
+			$role=Role::where('status',1)->field("id,name,description")->select();
 			$admin_role=AdminRole::where('uid',$id)->field('role_id')->find();
 			$data=explode('，',$admin_role['role_id']);
 			$count = count($role);
@@ -181,6 +183,7 @@ class Admin extends Base
 			}
 			$result=AdminModel::where('id',session('uid'))->update($res);
 			if($result){
+				get_log('update',\session('uid'),'修改了id为'.$res['id'].'的账号信息');
 				$data=array(
 					'status'=>1,
 					'msg'=>'修改成功'
@@ -223,6 +226,7 @@ class Admin extends Base
 				$admin->update_time=time();//密码加密
 				$res=$admin->save();
 				if($res){
+					get_log('update',\session('uid'),'修改了id为'.$res['id'].'账号的密码');
 					$data=array(
 						'status'=>1,
 						'msg'=>'修改成功'
@@ -290,6 +294,7 @@ class Admin extends Base
 		$admin=new AdminModel();
 		$res=$admin->saveAll($map);
 		if($res){
+			get_log('deletes',\session('uid'),'批量删除了id为'.implode(',',$ids).'的账号信息');
 			$data['status'] = 1;
 			$data['msg']    = '删除成功';
 		}else{
@@ -322,6 +327,7 @@ class Admin extends Base
 		}
 		$res=$admin->save();
 		if($res){
+
 			if($method==='start'){
 				$msg='启用成功';
 			}else{
@@ -361,6 +367,7 @@ class Admin extends Base
 			$admin->delete_time=time();
 			$res=$admin->save();
 			if($res){
+				get_log('delete',\session('uid'),'删除了id为'.$id.'的账号信息');
 				$data['status'] = 1;
 				$data['msg']    = '删除成功';
 				
@@ -415,6 +422,7 @@ class Admin extends Base
 				unset($data['password_confirm']);//剔除重复密码
 				$res=AdminModel::create($data);//加入数据库
 				if($res){
+					get_log('add',\session('uid'),'添加了id为'.$res['id'].'的账号信息');
 					$status=array(
 						'status'=>1,
 						'msg'=>'添加成功'

@@ -69,9 +69,10 @@ class LayPage extends Paginator
             'last'   => null
         ];
  
-        $side   = 3;
+        // $side   = 3;
+        // $window = $side * 2;
+        $side   = 2;
         $window = $side * 2;
- 
         if ($this->lastPage < $window + 6) {
             $block['first'] = $this->getUrlRange(1, $this->lastPage);
         } elseif ($this->currentPage <= $window) {

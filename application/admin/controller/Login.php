@@ -27,25 +27,28 @@ class Login extends Controller
         $captcha=new Captcha();
         if(request()->isPost()){
             $data=input('post.');
-            if(!$captcha->check($data['code'])){
-                return $this->error('验证码错误，正在跳转......','','',2);
-            }
+            // if(!$captcha->check($data['code'])){
+            //     return $this->error('验证码错误，正在跳转......','','',2);
+            // }
             $admin=new AdminModel;
             $res=$admin->check($data['email'],$data['password']);
-
             switch($res['status']){
                 case 0:
                     $this->redirect($res['msg']);
 
                     break;
                 case 1:
-                    $this->error($res['msg'],'','',2);
-                    break;
+                    
                 case 2:
+                   
+                case 3:
+                    
+                case 4:
                     $this->error($res['msg'],'','',2);
                     break;
-                case 3:
-                    $this->error($res['msg'],'','',2);
+                case 5:
+                    $this->success($res['msg'],'index/index');
+                    // $this->error($res['msg'],'','',2);
                     break;
                 default :$this->error('系统问题，请联系管理员','','',2);
             }
@@ -75,8 +78,15 @@ class Login extends Controller
         $admin=new AdminModel;
         //将ip地址写入数据库
         $admin->updateLogin($ip);
+
+        $redis=connectRedis();
+        $cacheName=config('REDIS_NAME').session('uid');
+
+        $redis->delete($cacheName);
+
         //清空session
         session(null);
+        
         $this->redirect('login/index');
     }
 

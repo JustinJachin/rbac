@@ -65,7 +65,7 @@ class Log extends Base
      * @author jachin  2019-08-16
      */
 	public function delete(Request $request){
-		$id=intval($request->param('id'));
+		$id=intval(input('get.id'));
 
 		if(empty($id)){
 			$status=[
@@ -79,6 +79,7 @@ class Log extends Base
 		$log->status=0;
 		$res=$log->save();
 		if($res){
+			get_log('delete',\session('uid'),'id为'.$id.'的日志被删除');
 			$status=[
 				'status'=>1,
 				'msg'=>'删除成功',
@@ -114,6 +115,7 @@ class Log extends Base
 		$log=new LogModel();
 		$res=$log->saveAll($map);
 		if($res){
+			get_log('deletes',\session('uid'),'id为'.implode(',',$ids).'的日志被删除');
 			$status=[
 				'status'=>1,
 				'msg'=>'删除成功'
@@ -139,6 +141,7 @@ class Log extends Base
 		if(!empty($type)){
 			$res=LogModel::where('1=1')->delete();
 			if($res){
+				get_log('clear',\session('uid'),'日志清空');
 				$status=[
 					'status'=>1,
 					'msg'=>'日志清空成功！',
@@ -216,6 +219,7 @@ class Log extends Base
 
 		$res=$excel->outdata($data, $header,'日志表');
 		if($res){
+			get_log('getExcel',\session('uid'),'导出日志表格');
 			$status=[
 				'status'=>1,
 				'res'=>$res,

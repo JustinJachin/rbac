@@ -24,8 +24,10 @@ class AdminRole extends Model
     public function getRole($userId,$module_id){
       $map=[
         'uid'=>$userId,
-        'module_id'=>$module_id,
+        // 
       ];
+
+
     	$role_id=db('AdminRole')->where($map)->field('role_id')->find();
       
     	if(empty($role_id)){
@@ -50,11 +52,12 @@ class AdminRole extends Model
     	$result=array_values(array_filter(array_unique($result)));
       //查看权限是否被删除
       foreach ($result as $key=>$value ) {
-        $map=array(
+        $maps=array(
             'id' => $value,
-            'status'  => 1
+            'status'  => 1,
+            'module_id'=>$module_id,
           );
-        $perssion=Permission::where($map)->field('id')->find();
+        $perssion=Permission::where($maps)->field('id')->find();
         
         if(!$perssion){
           unset($result[$key]);

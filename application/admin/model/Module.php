@@ -28,6 +28,7 @@ class Module extends Model
 	}
 	public function getModuleId(){
 		$model=Request::module();
+		// var_dump($model);
         $module_id=$this::where('name',$model)->find();
         return $module_id['id'];
 	}

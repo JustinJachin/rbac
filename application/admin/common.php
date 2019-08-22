@@ -2,6 +2,25 @@
 
 
 use think\facade\Request;
+
+// function getDeviceUUID($uid,$userName){
+//     \Session::init([
+//         'prefix'         => 'study',
+//         'type'           => '',
+//         'auto_start'     => true,
+//     ]);
+//     $data=md5($uid+session_id()+$userName);
+//     return $data;
+// }
+
+function connectRedis(){
+    $host=config('REDIS_HOST');
+    $port=config('REDIS_PORT');
+    $redis=new Redis();
+    $redis->connect($host,$port);
+    return $redis;
+}
+
 /**  
  * 获取客户端浏览器信息
 * @return string 浏览器信息
@@ -10,6 +29,7 @@ use think\facade\Request;
 function get_broswer()
 {
 	$sys =Request::server('HTTP_USER_AGENT');
+    
 	$arr=[
 		'Firefox'=>array("Firefox","/Firefox\/([^;)]+)+/i"),
 		'Maxthon'=>array("傲游","/Maxthon\/([\d\.]+)/"),
@@ -18,6 +38,14 @@ function get_broswer()
 		'Edge'   =>array("Edge","/Edge\/([\d\.]+)/"),
 		'Chrome' =>array("Chrome","/Chrome\/([\d\.]+)/"),
 		'rv:'    =>array("IE","/rv:([\d\.]+)/"),
+        'Netscape'=>array("Netscape","/Netscape([\d]*)\/([^\s]+)/i"),
+        'safari'=>array("safari","/safari\/([^\s]+)/i"),
+        '微信浏览器'=>array("MicroMessenger","/MicroMessenger\/([^\s]+)/i"),
+        'Lynx'=>array("Lynx","/Lynx\/([^\s]+)/i"),
+        '360SE'=>array("360SE","/360SE/i"),
+        '搜狗'=>array("SE 2.x","/SE 2.x/i"),
+        'Maxthon'=>array("Maxthon","/Maxthon/i"),
+        'NetCaptor'=>array("NetCaptor","/NetCaptor\s([^\s|;]+)/i"),
 	];
 	$exp[0] = "未知浏览器";
 	foreach ($arr as $key => $value) {

@@ -9,6 +9,8 @@ use app\admin\model\Permission;
 use think\Controller;
 use think\facade\Request;
 use app\admin\model\Module;
+use think\Session;
+
 /**
  * 后台基类控制器
  * @author jachin <jachin@qq.com>
@@ -22,6 +24,14 @@ class Base extends Controller
     public function initialize(){
         
         $this->is_login();
+        $this->extendDeviceInfoTTL();
+        // if(!$res){
+        //     $this->error('你的账号已被登录，请联系管理员帮你修改密码','login/index');
+        // }
+        // $admin=model('Admin')->eqValueInRedis(session('uid'),session('admin_name'));
+        // if($admin){
+        //     $this->error('您没有登录无法访问，请登录账号！','login/index');
+        // }
         $this->getMenu();
         $this->getRole();
 
@@ -31,8 +41,9 @@ class Base extends Controller
      * @author jachin  2019-07-29
      */
     public function is_login(){
-        $name = session('uid');
-        if(!$name){
+        $uid = session('uid');
+        // var_dump($uid);exit;
+        if(!$uid){
          $this->error('您没有登录无法访问，请登录账号！','login/index');
         }
     }
@@ -81,4 +92,32 @@ class Base extends Controller
         }
 
     }
+    public function extendDeviceInfoTTL(){
+
+        $redis=connectRedis();
+
+        $cacheName=config('REDIS_NAME').session('uid');
+        $deviceUUID=md5(session('uid')+Session::sessionId()+session('admin_name'));
+        $timeout=config('REDIS_TIME');
+        $cachedDeviceUUID = $redis->get($cacheName);
+        $isTimeout = false === $cachedDeviceUUID;
+// var_dump($isTimeout);exit;
+        $isTheRightDevice = $deviceUUID === $cachedDeviceUUID;
+        if($isTimeout){
+            return $this->error('你登录帐号有效期已到，请重新登录账号','login/index');
+        }
+        // if()
+
+        if(!$isTheRightDevice){
+
+           return $this->error('你的账号已被登录，请联系管理员帮你修改密码','login/index');
+
+        }
+
+        $redis->setTimeout($cacheName, $timeout);
+
+        return true;
+
+    }
+
 }

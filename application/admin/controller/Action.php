@@ -46,9 +46,9 @@ class Action extends Base{
 			
 			if($datas['actionName']!=$action['actionName']){
 				$actionname=['actionName'=>$datas['actionName']];
-				$action=new ActionValidate();
+				$actionvalidate=new ActionValidate();
 				
-				$res=$action->check($actionname);
+				$res=$actionvalidate->scene('edit')->check($actionname);
 
 				if(!$res){
 					$status['msg']=$action->getError();	
@@ -69,6 +69,7 @@ class Action extends Base{
 			}
 			$res=ActionModel::where('id',$id)->update($map);
 			if($res){
+				get_log('update',\session('uid'),'修改了id为'.$id.'的行为信息');
 				$status=[
 					'status'=>1,
 					'msg'=>'修改成功'
@@ -100,6 +101,7 @@ class Action extends Base{
 			}
 			$res=ActionModel::create($data);
 			if($res){
+				get_log('add',\session('uid'),'添加了了id为'.$res['id'].'的行为信息');
 				$status=[
 					'status'=>1,
 					'msg'=>'添加成功',
@@ -131,6 +133,7 @@ class Action extends Base{
 		$action->status=0;
 		$res=$action->save();
 		if($res){
+			get_log('delete',\session('uid'),'删除了id为'.$id.'的行为信息');
 			$status=[
 				'status'=>1,
 				'msg'=>'删除成功',
@@ -164,6 +167,7 @@ class Action extends Base{
 		$action=new ActionModel();
 		$res=$action->saveAll($map);
 		if($res){
+			get_log('deletes',\session('uid'),'批量删除了id为'.implode(',',$ids).'的行为信息');
 			$status=[
 				'status'=>1,
 				'msg'=>'删除成功'

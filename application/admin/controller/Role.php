@@ -50,6 +50,7 @@ class Role extends Base{
 			
 			$res=RoleModel::create($role);
 			if($res){
+				get_log('add',\session('uid'),'添加了'.$res['name'].'角色');
 				$status=array(
 					'status'=>1,
 					'msg'=>'添加成功'
@@ -102,6 +103,7 @@ class Role extends Base{
 			}
 			$ress=RoleModel::where('id',$id)->update($res);
 			if($ress){
+				get_log('update',\session('uid'),'编辑了id为'.$id.'的角色信息');
 				$status=array(
 					'status'=>1,
 					'msg'=>'修改成功'
@@ -144,6 +146,7 @@ class Role extends Base{
 			$roleper->access_id=$data['data'];
 			$res=$roleper->save();
 			if($res){
+				get_log('add',\session('uid'),'给id为'.$data['id'].'的角色添加了权限');
 				$status=array(
 					'status'=>1,
 					'msg'=>'授权成功'
@@ -185,6 +188,7 @@ class Role extends Base{
 		$res->status=0;
 		$result=$res->save();
 		if($result){
+			get_log('delete',\session('uid'),'id为'.$id.'的角色被删除');
 			$status=array(
 				'status'=> 1,
 			 	'msg' => '删除成功',
@@ -209,11 +213,10 @@ class Role extends Base{
 		foreach ($ids as $key => $value) {
 			$map[$key]=['id'=>$value,'status'=>0];
 		}
-		var_dump(RoleModel::get($map));
-		exit;
 		$role=new RoleModel();
 		$flag=$role->saveAll($map);
 		if($flag){
+			get_log('deletes',\session('uid'),'id为'.implode(',',$ids).'的角色被删除');
 			$status=array(
 				'status'=>1,
 				'msg'=>'删除成功'

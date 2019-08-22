@@ -56,6 +56,7 @@ class Permission extends Base{
 			$data['action']=$map[1];
 			$result=PermissionModel::create($data);
 			if($result){
+				get_log('add',\session('uid'),'添加了--'.$data['title'].'--菜单');
 				$status['status']=1;
 				$status['msg']='添加成功';
 			}else{
@@ -129,6 +130,7 @@ class Permission extends Base{
 			}
 			$result=PermissionModel::where('id',$id)->update($data);
 			if($result){
+				get_log('update',\session('uid'),'编辑了ID为'.$id.'的菜单');
 				$status['status']=1;
 				$status['msg']='更新成功';
 			}else{
@@ -175,6 +177,7 @@ class Permission extends Base{
 		$permission->status=0;
 		$res=$permission->save();
 		if($res){
+			get_log('delete',\session('uid'),'id为'.$id.'的菜单被删除');
 			$status=[
 				'status'=>1,
 				'msg'=>'删除成功'
@@ -208,6 +211,7 @@ class Permission extends Base{
 		$permission=new PermissionModel();
 		$res=$permission->saveAll($map);
 		if($res){
+			get_log('deletes',\session('uid'),'id为'.implode(',',$ids).'的日志被删除');
 			$status=[
 				'status'=>1,
 				'msg'=>'删除成功'
