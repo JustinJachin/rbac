@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{include file="public:top"}
+		<block name="topCss">
+			<!--DataTables css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/Datatable/css/dataTables.bootstrap4.css">
+
+			<!--iCheck css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
+
+			
+		</block>
+	</head>
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{include file="public:header"}
+				{include file="public:menu"}
+				<block name="bodsy">
+					<div class="app-content">
+						<section class="section">
+							<ol class="breadcrumb">
+						        <li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
+						        <li class="breadcrumb-item active" aria-current="page">管理员页面</li>
+						    </ol>
+
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="card">
+										<div class="card-header">
+											<h4>行政区域选择</h4>
+										</div>
+										<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
+											
+											<div class="float-left">
+												<button type="submit" class="btn btn-primary" onclick="update(1)" name="moreDel">省名更新</button> 
+												<button type="submit" class="btn btn-primary" onclick="update(2)" name="moreDel">市名更新</button> 
+												<button type="submit" class="btn btn-primary" onclick="update(3)" name="moreDel">县名更新</button> 
+												<button type="submit" class="btn btn-primary" onclick="update(4)" name="moreDel">镇名更新</button> 
+											</div>
+											<div class="float-right col-lg-4">
+												
+											</div> 
+											
+										</div>
+										<div class="card-body">
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+					</div>
+					
+				</block>
+			</div>
+		</div>
+		<script>
+			function selectAll(choiceBtn){
+			    var arr=document.getElementsByName("choice");
+			    for(var i=0;i<arr.length;i++){
+			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+			    }
+		    }
+		    function btn(id,method,action){
+		    	var url="{:url('admin/"+action+"')}";
+		    	var data={'method':method,'id':id};
+		    	AjaxGet(url,data);
+		    }
+		 
+		    function update(id){
+		    	$.ajax({
+		    		type:'post',
+		    		url:"{:url('Area/update')}",
+		    		data:{'type':id},
+		    		dataType:'json',
+					success:function(data){
+						if(data.status==1){
+							toastr.success('', data.msg);
+						}else{
+							toastr.error('', data.msg);
+						}
+						
+					},
+					error:function(msg){
+						
+						alert('系统错误，请联系管理员！');
+						
+					}
+		    	})
+		    };
+
+		</script>
+		{include file="public:js"}
+		<block name="js">
+			<!--DataTables css-->
+			<script src="__STATIC__/plugins/Datatable/js/jquery.dataTables.js"></script>
+			<script src="__STATIC__/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
+
+			<!--Select2 js-->
+			<script src="__STATIC__/plugins/select2/select2.full.js"></script>
+
+			<!--Inputmask js-->
+			<script src="__STATIC__/plugins/inputmask/jquery.inputmask.js"></script>
+
+			<!--Moment js-->
+			<script src="__STATIC__/plugins/moment/moment.min.js"></script>
+
+			<!--Bootstrap-daterangepicker js-->
+			<script src="__STATIC__/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+			<!--Bootstrap-datepicker js-->
+			<script src="__STATIC__/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+			<!--Bootstrap-colorpicker js-->
+			<script src="__STATIC__/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+			<!--Bootstrap-timepicker js-->
+			<script src="__STATIC__/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+
+			<!--iCheck js-->
+			<script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
+
+			<!--forms js-->
+			<script src="__STATIC__/js/forms.js"></script>
+
+		</block>
+	</body>
+</html>

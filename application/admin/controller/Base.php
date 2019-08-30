@@ -84,7 +84,7 @@ class Base extends Controller
                 $id_method=model('Permission')->getPermission($method);
 
                 if(!in_array($id_method,$access_id)){
-                    $this->error('你无权访问！请联系管理员');
+                    $this->error('你无权访问！请联系管理员','index/index');
                 }
             }
             
@@ -92,6 +92,11 @@ class Base extends Controller
         }
 
     }
+    /**
+     * @description  检查账号是否登录，以及是否登录超时
+     * @return bool  返回true
+     * @author jachin  2019-07-29
+     */
     public function extendDeviceInfoTTL(){
 
         $redis=connectRedis();
@@ -101,12 +106,10 @@ class Base extends Controller
         $timeout=config('REDIS_TIME');
         $cachedDeviceUUID = $redis->get($cacheName);
         $isTimeout = false === $cachedDeviceUUID;
-// var_dump($isTimeout);exit;
         $isTheRightDevice = $deviceUUID === $cachedDeviceUUID;
         if($isTimeout){
-            return $this->error('你登录帐号有效期已到，请重新登录账号','login/index');
+            return $this->error('登录已超时，请重新登录','login/index');
         }
-        // if()
 
         if(!$isTheRightDevice){
 

@@ -65,6 +65,7 @@ class Log extends Base
      * @author jachin  2019-08-16
      */
 	public function delete(Request $request){
+
 		$id=intval(input('get.id'));
 
 		if(empty($id)){
@@ -99,6 +100,7 @@ class Log extends Base
      * @author jachin  2019-08-16
      */
 	public function deletes(){
+		
 		$ids=input('post.check_val');
 		if(empty($ids)){
 			$status=[
@@ -133,6 +135,7 @@ class Log extends Base
      * @author jachin  2019-08-17
      */
 	public function clear(){
+		
 		$type=input('post.type');
 		$status=[
 			'status'=>0,

@@ -147,6 +147,49 @@ return [
     'REDIS_HOST'=>'127.0.0.1',//服务器地址
     'REDIS_PORT'=>'6379',//服务器端口
     'REDIS_NAME'=>'deviceUUID:user',
-    'REDIS_TIME'=>600,
+    'REDIS_TIME'=>3600,//设置登录在线时长
+
+
+
+    /*短信配置*/
+    'MESSAGE_APPID'=>1400217955,
+    'MESSAGE_APPKEY'=>'435a3154b6650c7b8709a79232a4ed32',
+    'MESSAGE_SIGN'=>'怀念那年',
+    'MESSAGE_YEMPLATEID'=>345476,
+   
+    /*支付宝支付配置*/
+    "ALIPAY_CONFIG" => [
+        //应用ID,您的APPID。
+       'app_id' => "2016092100559401",
+
+       //商户私钥
+       'merchant_private_key' => "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCGGBdZtZIiKoy5SF9BDimD18kmF/sCHx/lOxjn7ZqZ9S4CW7P0QItswi1F1qGB39Wg+HD4tCSt0Mrxa6NDHOqlggit3/so/FOMhparZyhjiVva1n+H4yhjDp2pLybJzhCsGno0JCqDVTMe3jA3oVPArY59IqSWxzMCEdo0uEbu09rTQxg5oWDLRAgFIBCr1PxLgF2GMOc65EkJ18WFkyfBiQO03enJm+uQWQuukFxbWU6mcUAv2gkVpYfGszWQNKKnBMKdh2meOgtPbGFI/Ka81QmIIPMZjaWtY51vZnTChedy3jr/w7sIiOdVBtD9yAdUzUsWrmAED9co437N2rdXAgMBAAECggEANNNkz4iCK0eL7KogLGbB4BiwO3uS/QD59bpUU3n9P82g9Hjf6cdLperRHwQw2BMv+5wkFTYShQ8OBBGdXaEUp2MUvDrSnRDacS/MR3X6KUxBjXKXBxdsH6nwXmge5b1yP/qmTcg5n0d/PhfV8vRxJCS7T3zITkXnSFd0GPTHrOniMi6DgDrW7/pmO8HZrGpMKXvrvB8iI0MrNV9t9LxmTq9WF6U218n5XO7VET1ELiruBvxZvlpLVtfALP7fUO3YRreC3s3mXBkyv8L8+GKi7uWEy6ID17Z2FfD3OLL+c8KIdYKNyl+QSxY8rahZUbo4r9klN+wBa8jBvXGJ0zt7sQKBgQDNpw46VyIJsebHOxCzd4a509jxfdWmF6LBKGHPsSU6g+3n6ddLZw8IXGpbcqtGk2RhHKKPIVUBUo/imM9i3PHMeAkhrTg33sBLcnePM0WoRZxYld37HVDJaTG9n0jt63pwZEitRYsRLATmcVteVjnQaerUs3CnwdBkZFsYr10zHQKBgQCm7DlpRTagtEB+8EEBzM6uJw850d8rJB2XlOLwX+XvMXP0R5yi5YHKXYQs6Vq6pJEn0qSzr/HTsa6NjZCRouOOVG0bQQOviWuZ+eR+C/Y47rgmHfYbw2sl9HGFSYT0VwuAp6F6pARSlAH+MX8nwGiSKOsE2AjG9KquD4+k/vc2AwKBgBFL4550haBbHhXTmev+OY6Xir+E3dtCUaX9R3y4YXEyd2fx+vGUkWcanrdiRZWCAAdK6UEwhH2/++oLACZIfu27iskSUJAiY/n0fqnEni8w651nvWvJY2oNNunD49Ze38VkKdio6LFhCmh3UD/28JXe0qlhDjCN1IEdD6xb03LhAoGAA+zICM6k0zCJ17JEhQtQzM2EUSK7MaN+wqKwl2BZ4r7x8AuDBl2JKL38LqYqCPt3ok0UrFj1wbmK1i8+9/2xhhY8Hojv0j/T9OHoWoJjfsE2OUc5EzwMF+9gf/bTln85eQP4Cw8yPtLWHSkCyWd/zfgCVrHRuwPjw4YAJawNGgsCgYEAunRgC7lOTwJ5ELmBKUW36UiLUdO61s8KhfJhn8XWP9FDRP0mN0zsr9BG2NmrtMnu5+F/B4r6wYKJg9Y41A21g2sS3nUZ5V6udqd73rsRmVwsqKds2OMkHxosyVgVFGAz8uHTJQzhvKnHMqh1mTfBACigv5QV+1wVNonEpDPctZs=",
+
+       //异步通知地址
+       'notify_url' => "http://www.fcc.cn/index.php/admin/alipay/notify",
+       // 'notify_url' => "http://www.fcc.cn/index.php/alipay/notify_url.php",
+
+       //同步跳转
+       // 'return_url' => "http://www.fcc.cn/index.php/alipay/return_url.php",
+       'return_url' => "http://www.fcc.cn/index.php/admin/alipay/returnfy",
+
+       //编码格式
+       'charset' => "UTF-8",
+
+       //签名方式
+       'sign_type' => "RSA2",
+
+       //支付宝网关
+       'gatewayUrl' => "https://openapi.alipaydev.com/gateway.do",
+
+       //支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
+       'alipay_public_key' => 
+       "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAybaiQBvlbn9y6+p6V/BC5LWW6KWvXLMEbzYp0WTKT6FIdAYqElj3W+X3ErWipM3Q8+MRg9T+A4Sce3DJmVaMnDUqPJUpMETnnMRMj67B9XJtlHUMNUw7qaA6d4ZWPsrPvqk1epL/OGTPCJVlIWAJ4kZGhy007Mg1olS37qWqoaN8XAfuVuffdcq2Qtxt5xHw0954hBn3oG1L7h+LuKh0JFMVfBNMKfiXl8/Jx74QFL35nTi82Tx5BMLxzVxb0tfIyLZrnT++2HBEoMyuf+FPggYyFk0xvgo6+quhDHF/DtMgBMnlKDmkhqGbmlNyye9olXdHc8zrtMHHEuo5bp/VAQIDAQAB",
+    ],
+
+    /*天气配置*/
+
+    'WEATHER_APPID'=>87913429,
+    'WEATHER_APPSECRET'=>'JdzS9JIl',
 
 ];

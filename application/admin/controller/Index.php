@@ -20,8 +20,11 @@ class Index extends Base
      */
     public function index()
     {
-        //获取天气信息返回数据是json格式
-        $weather=$this->getUrl("https://www.tianqiapi.com/api/?version=v1");
+        $appId=config('WEATHER_APPID');
+        $appsecret=config('WEATHER_APPSECRET');
+        //获取天气信息返回数据是json格式 87913429   JdzS9JIl
+        $weather=$this->getUrl("https://www.tianqiapi.com/api/?appid=".$appId."&appsecret=".$appsecret."&version=v1");
+        // var_dump($weather);exit;
         $weatherData=array();
         //重组数组,将有用的数据提取出来
         foreach($weather as $k=>$v){
