@@ -1,4 +1,4 @@
-<?php /*a:5:{s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\area\index.html";i:1567068076;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\area\index.html";i:1567473885;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -45,8 +45,8 @@
 
 			<!--iCheck css-->
 			<link rel="stylesheet" href="/../static/plugins/iCheck/all.css">
-
-			
+			<!--Select2 css-->
+			<link rel="stylesheet" href="/../static/plugins/select2/select2.css">
 		</block>
 	</head>
 
@@ -152,17 +152,46 @@
 										<div class=" col-lg-12" style="margin-top:20px;margin-bottom: -10px;">
 											
 											<div class="float-left">
-												<button type="submit" class="btn btn-primary" onclick="update(1)" name="moreDel">省名更新</button> 
-												<button type="submit" class="btn btn-primary" onclick="update(2)" name="moreDel">市名更新</button> 
-												<button type="submit" class="btn btn-primary" onclick="update(3)" name="moreDel">县名更新</button> 
-												<button type="submit" class="btn btn-primary" onclick="update(4)" name="moreDel">镇名更新</button> 
+												<button type="submit" class="btn btn-primary float-left" style="margin-right: 10px;" onclick="update(1)" name="moreDel">省市更新</button> 
+												<button type="submit" class="btn btn-primary float-left" style="margin-right: 10px;" onclick="update(2)" name="moreDel">市区更新</button> 
+												<button type="submit" class="btn btn-primary float-left" style="margin-right: 10px;" onclick="update(3)" name="moreDel">区县更新</button> 
+												<div class="col-md-2 float-left">
+													<select class="form-control select2 w-100"  name="page" id="page">
+														
+														<?php if(is_array($page) || $page instanceof \think\Collection || $page instanceof \think\Paginator): $i = 0; $__LIST__ = $page;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$page): $mod = ($i % 2 );++$i;?>
+														<option value="<?php echo htmlentities($page); ?>"><?php echo htmlentities($page); ?></option>
+														<?php endforeach; endif; else: echo "" ;endif; ?>
+													</select>
+												</div>
+												<button type="submit" class="btn btn-primary" onclick="update(4)" name="moreDel" data-toggle="tooltip" title="当你更新乡镇的时候，请在勾选前方下拉框的数字，该数字表示是更新第几页数据，否则会更新失败" data-placement="top">乡镇更新</button> 
 											</div>
-											<div class="float-right col-lg-4">
-												
-											</div> 
+											
 											
 										</div>
 										<div class="card-body">
+											<div class="col-md-2">
+												<select class="form-control select2 w-100"  name="pro" id="pro">
+													<option >--请选择省份--</option>
+													<?php if(is_array($pro) || $pro instanceof \think\Collection || $pro instanceof \think\Paginator): $i = 0; $__LIST__ = $pro;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$pro): $mod = ($i % 2 );++$i;?>
+													<option value="<?php echo htmlentities($pro['areaId']); ?>"><?php echo htmlentities($pro['name']); ?></option>
+													<?php endforeach; endif; else: echo "" ;endif; ?>
+												</select>
+											</div>
+											<div class="col-md-2">
+												<select class="form-control select2 w-100"  name="city" id="city">
+													<option value=""></option>	
+												</select>
+											</div>
+											<div class="col-md-2">
+												<select class="form-control select2 w-100"  name="countytr" id="countytr">
+													<option value=""></option>	
+												</select>
+											</div>
+											<div class="col-md-2">
+												<select class="form-control select2 w-100"  name="towntr" id="towntr">
+													<option value=""></option>	
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -175,40 +204,26 @@
 			</div>
 		</div>
 		<script>
-			function selectAll(choiceBtn){
-			    var arr=document.getElementsByName("choice");
-			    for(var i=0;i<arr.length;i++){
-			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
-			    }
-		    }
-		    function btn(id,method,action){
-		    	var url="<?php echo url('admin/"+action+"'); ?>";
-		    	var data={'method':method,'id':id};
-		    	AjaxGet(url,data);
-		    }
-		 
 		    function update(id){
+		    	// var page=document.getElementsByName('page');
+		    	var page=$('#page option:selected').val();
 		    	$.ajax({
 		    		type:'post',
 		    		url:"<?php echo url('Area/update'); ?>",
-		    		data:{'type':id},
+		    		data:{'type':id,'page':page},
 		    		dataType:'json',
 					success:function(data){
 						if(data.status==1){
 							toastr.success('', data.msg);
 						}else{
 							toastr.error('', data.msg);
-						}
-						
+						}	
 					},
 					error:function(msg){
-						
-						alert('系统错误，请联系管理员！');
-						
+						toastr.error('', '系统错误');
 					}
 		    	})
 		    };
-
 		</script>
 		<!--Jquery.min js-->
 <script src="/../static/js/jquery.min.js"></script>
@@ -284,7 +299,50 @@
 
 			<!--forms js-->
 			<script src="/../static/js/forms.js"></script>
-
 		</block>
+		<script type="text/javascript">
+			$('#pro').change(function(){
+				$.ajax({
+					type:'post',
+					url:"<?php echo url('Area/getCity'); ?>",
+					data:{'pid':$('#pro').val(),'type':1},
+					dataType:'json',
+					success:function(data){
+						$('#city').html(data);
+					},
+					error:function(msg){
+						toastr.error('', '系统错误');
+					}
+				})
+			})
+			$('#city').change(function(){
+				$.ajax({
+					type:'post',
+					url:"<?php echo url('Area/getCity'); ?>",
+					data:{'pid':$('#city').val(),'type':2},
+					dataType:'json',
+					success:function(data){
+						$('#countytr').html(data);
+					},
+					error:function(msg){
+						toastr.error('', '系统错误');
+					}
+				})
+			})
+			$("#countytr").change(function(){
+				$.ajax({
+					type:'post',
+					url:"<?php echo url('Area/getCity'); ?>",
+					data:{'pid':$('#countytr').val(),'type':3},
+					dataType:'json',
+					success:function(data){
+						$('#towntr').html(data);
+					},
+					error:function(msg){
+						toastr.error('', '系统错误');
+					}
+				})
+			})
+		</script>
 	</body>
 </html>

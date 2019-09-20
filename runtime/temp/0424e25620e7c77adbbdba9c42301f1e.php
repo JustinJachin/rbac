@@ -1,4 +1,4 @@
-<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1564713972;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
+<?php /*a:5:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\admin\index.html";i:1567564763;s:74:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\top.html";i:1564537202;s:77:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\header.html";i:1564563722;s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\menu.html";i:1565232038;s:73:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\public\js.html";i:1565071540;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -300,7 +300,7 @@
 		    		dataType:'json',
 					success:function(data){
 						if(data.status==1){
-							$(".table").load(location.href+" .table");
+							$(".table").load(location.href+".table");
 							toastr.success('', data.msg);
 						}else{
 							toastr.error('', data.msg);
