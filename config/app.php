@@ -191,5 +191,6 @@ return [
 
     'WEATHER_APPID'=>87913429,
     'WEATHER_APPSECRET'=>'JdzS9JIl',
+    'RESETURL'=>'http://www.fcc.cn/index.php/admin/login/reset.html',
 
 ];

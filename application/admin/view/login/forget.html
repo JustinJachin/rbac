@@ -1,0 +1,58 @@
+{include file="publics/head"}
+<section class="section">
+    <div class="container mt-6 mb-5">
+        <div class="row">
+            <div class="single-page construction-bg cover-image" data-image-src="__STATIC__/img/news/img14.jpg">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="wrapper ">
+                            <form id="Forgot" class="card-body" tabindex="500">
+                                <h4>Forgot Your Password?</h4>
+                                <div class="mail">
+                                    <input type="email" name="mail" id="mail">
+                                    <label>email</label>
+                                </div>
+                                <div class="submit">
+                                    <a class="btn btn-primary btn-block" href="#" onclick="sendMessage()">send email</a>
+                                </div>
+                                <div class="text-center text-dark mt-3 mb-0">
+                                    Remember password, <a href="{:url('login/index')}">click here</a> to return to the login page.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="log-wrapper text-center pt-lg-3 pb-lg-3 ">
+                            <h3>Welcome</h3>
+                            <h3>Login background system</h3>
+                        </div>
+                    </div>  
+                </div>  
+            </div>  
+        </div>
+    </div>
+
+</section>
+
+{include file="publics/footer"}
+<script>              
+    function sendMessage(){
+        var email=$('#mail').val();
+        $.ajax({
+            type:'post',
+            url:"{:url('/admin/login/forget')}",
+            data:{'email':email},
+            dataType:'json',
+            success:function(data){
+                if(data.status==1){
+                    toastr.success('',data.msg);
+                }else{
+                    toastr.error('',data.msg);
+                }
+            },
+            error:function(msg){
+                toastr.error('请联系管理员','系统错误');
+            }
+        })
+    }
+</script>          

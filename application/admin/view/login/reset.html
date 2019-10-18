@@ -1,0 +1,73 @@
+{include file="publics/head"}
+<section class="section">
+    <div class="container mt-6 mb-5">
+        <div class="row">
+            <div class="single-page construction-bg cover-image" data-image-src="__STATIC__/img/news/img14.jpg">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class=" wrapper">
+                            <form  class="card-body" tabindex="500">
+                                <h3>Reset Password</h3>
+                                <div class="mail">
+                                    <input type="email" name="email">
+                                    <label>Email</label>
+                                </div>
+                                <div class="code">
+                                    <input type="text" name="code">
+                                    <label>Verification</label>
+                                </div>
+                                <div class="passwd">
+                                    <input type="password" name="password">
+                                    <label>Password</label>
+                                </div>
+                                <div class="passwd">
+                                    <input type="password" name="password1">
+                                    <label>Conform Password</label>
+                                </div>
+                                <div class="submit mt-1 mb-0">
+                                    <a class="btn btn-primary btn-block" href="#" onclick="sendMessage()">Reset Password</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="log-wrapper text-center">
+                            <h3>Welcome</h3>
+                            <h3>Login background system</h3>
+                        </div>
+                    </div>
+                </div>  
+            </div>  
+        </div>
+    </div>
+</section>
+{include file="publics/footer"}
+<script>              
+    function sendMessage(){
+        var email=$('.mail').val();
+        var code=$('.code').val();
+        var password=$('.password').val();
+        var password1=$('.password1').val();
+        if(password1!=password){
+            toastr.error('','密码不一致！');
+        }else{
+            $.ajax({
+                type:'post',
+                url:"{:url('/admin/login/reset')}",
+                data:{'email':email},
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        toastr.success('',data.msg);
+                    }else{
+                        toastr.error('',data.msg);
+                    }
+                },
+                error:function(msg){
+                    toastr.error('请联系管理员','系统错误');
+                }
+            })
+        }
+        
+    }
+</script>         

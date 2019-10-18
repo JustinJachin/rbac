@@ -1,4 +1,4 @@
-<?php /*a:3:{s:75:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\login\login.html";i:1571386289;s:76:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\publics\head.html";i:1571386746;s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\publics\footer.html";i:1571386715;}*/ ?>
+<?php /*a:3:{s:76:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\login\forget.html";i:1571386888;s:76:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\publics\head.html";i:1571386746;s:78:"E:\phpStudy\PHPTutorial\WWW\tp5rbac\application\admin\view\publics\footer.html";i:1571386715;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,48 +26,41 @@
             
                 
                         
-<section class="section section-2">
-	<div class="container">
-		<div class="row">
-			<div class="single-page single-pageimage construction-bg cover-image " data-image-src="/../static/img/news/img14.jpg">
-			    <div class="row">
-			        <div class="col-lg-6">
-			            <div class="wrapper wrapper2">
-							<form id="login" class="card-body" tabindex="500" method="post" >
-								<h3>LOGIN</h3>
-								<div class="mail">
-									<input type="" name="email">
-									<label>username/email</label>
-								</div>
-								<div class="passwd">
-									<input type="password" name="password">
-									<label>password</label>
-								</div>
-								<div class="mail">
-									<input type="text" name="code" style="width: 100px;margin-right: 200px">
-			<!--                                                <img src="<?php echo captcha_src(); ?>" onclick="this.src='<?php echo captcha_src(); ?>?'+Math.random()" style="margin-left: 100px;margin-top: -60px"/>-->
-			                        <img src="<?php echo url('admin/login/verify'); ?>" onclick="changeCode(this)" style="margin-left: 100px;margin-top: -60px"/>
-									<label>Verification</label>
-								</div>
-								<div class="submit">
-									<input class="btn btn-primary btn-block" value="Login" type="submit">
-								</div>
-								<p class="mb-2"><a href="<?php echo url('login/forget'); ?>" >Forgot Your Password?</a></p>
-							</form>
+<section class="section">
+    <div class="container mt-6 mb-5">
+        <div class="row">
+            <div class="single-page construction-bg cover-image" data-image-src="/../static/img/news/img14.jpg">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="wrapper ">
+                            <form id="Forgot" class="card-body" tabindex="500">
+                                <h4>Forgot Your Password?</h4>
+                                <div class="mail">
+                                    <input type="email" name="mail" id="mail">
+                                    <label>email</label>
+                                </div>
+                                <div class="submit">
+                                    <a class="btn btn-primary btn-block" href="#" onclick="sendMessage()">send email</a>
+                                </div>
+                                <div class="text-center text-dark mt-3 mb-0">
+                                    Remember password, <a href="<?php echo url('login/index'); ?>">click here</a> to return to the login page.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="log-wrapper text-center pt-lg-3 pb-lg-3 ">
+                            <h3>Welcome</h3>
+                            <h3>Login background system</h3>
+                        </div>
+                    </div>  
+                </div>  
+            </div>  
+        </div>
+    </div>
 
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="log-wrapper text-center">
-							<h3>Welcome</h3>
-							<h3>Login background system</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </section>
+
                     
             
         </div>
@@ -113,4 +106,25 @@
         <script src="/../static/plugins/toaster/garessi-notif.js"></script>
 
     </body>
-</html>							
+</html>
+<script>              
+    function sendMessage(){
+        var email=$('#mail').val();
+        $.ajax({
+            type:'post',
+            url:"<?php echo url('/admin/login/forget'); ?>",
+            data:{'email':email},
+            dataType:'json',
+            success:function(data){
+                if(data.status==1){
+                    toastr.success('',data.msg);
+                }else{
+                    toastr.error('',data.msg);
+                }
+            },
+            error:function(msg){
+                toastr.error('请联系管理员','系统错误');
+            }
+        })
+    }
+</script>          

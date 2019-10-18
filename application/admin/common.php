@@ -20,9 +20,42 @@ function connectRedis(){
     $redis->connect($host,$port);
     return $redis;
 }
+/**
+*获取验证码
+* @param  int $data 手机号/邮箱
+* @return string 验证码
+* @author jachin  2019-10-17
+*/
+function getCode($data){
+    $redis=connectRedis();
+    $timeOut=600000;
+    $params=strval(rand(100000,999999));
+    $redis->set($data,$params);
+    $redis->settimeout($data, $timeOut);
+    return $params;
+}
+/**
+* @description  验证验证码和手机号/邮箱
+* @param  int $data 手机号/邮箱
+* @param  string $code 验证码
+* @return bool 返回bool值 
+* @author jachin  2019-10-17
+*/
+function checkTelCode($data,$code){
+    $redis=connectRedis();
+    $res=$redis->get($data);
+    if(empty($res)){
+        return false;
+    }
+    if($res===$code){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 /**  
- * 获取客户端浏览器信息
+* 获取客户端浏览器信息
 * @return string 浏览器信息
 * @author jachin  2019-08-16
 */  
