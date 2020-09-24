@@ -17,6 +17,15 @@ use think\facade\Validate;
  */
 class Admin extends Model
 {
+    protected $pk = 'id';
+    /**
+     * @description  关联cate表 article（1）-cate（1） 一对一关系
+     * @return array 返回查询到的数据
+     * @author jachin  2020-08-7
+     */
+    public function article(){
+      return $this->hasOne('Article','uid','id');
+    }
     /**
      * @description  关联log表 admin（1）-log（n） 一对多关系
      * @return array 返回查询到的数据
@@ -122,37 +131,45 @@ class Admin extends Model
       }
 
       if('on'.md5('on'.md5($pwd))===$user['password']){
+        \session('uid',$user['id']);
+        \session('admin_name',$user['name']);
+        get_log('admin_login',$user['id'],'登录成功');
+        $status=[
+              'status'=>0,
+              'msg'=>'index/index'
+            ];
 
+          // var_dump($status);exit;
 
-          $res=$this->eqValueInRedis($user['id'],$user['name'],Session::sessionid());
-          // var_dump($res);exit;
-          switch ($res) {
-            case 1:
-              $status=[
-                'status'=>0,
-                'msg'=>'index/index'
-              ];
-              break;
-            case 2:
-              $status=[
-                'status'=>4,
-                'msg'=>'你的账号已在其他地方登录'
-              ];
-              break;
-            case 3:
-              $status=[
-                'status'=>5,
-                'msg'=>'你已经登录，请勿重复登录'
-              ];
-              break;
-          }
+          // $res=$this->eqValueInRedis($user['id'],$user['name'],Session::sessionid());
+          // // var_dump($res);exit;
+          // switch ($res) {
+          //   case 1:
+          //     $status=[
+          //       'status'=>0,
+          //       'msg'=>'index/index'
+          //     ];
+          //     break;
+          //   case 2:
+          //     $status=[
+          //       'status'=>4,
+          //       'msg'=>'你的账号已在其他地方登录'
+          //     ];
+          //     break;
+          //   case 3:
+          //     $status=[
+          //       'status'=>5,
+          //       'msg'=>'你已经登录，请勿重复登录'
+          //     ];
+          //     break;
+          // }
 
-          if($res===1){
-            \session('uid',$user['id']);
-            \session('admin_name',$user['name']);
-            $this->loginUserDevice($user['id'],$user['name'],session_id());
-            get_log('admin_login',$user['id'],'登录成功');
-          }
+          // if($res===1){
+          //   \session('uid',$user['id']);
+          //   \session('admin_name',$user['name']);
+          //   $this->loginUserDevice($user['id'],$user['name'],session_id());
+          //   get_log('admin_login',$user['id'],'登录成功');
+          // }
           // return $status;
        }else{
           $status=[
@@ -198,7 +215,7 @@ class Admin extends Model
     public function loginUserDevice($id,$name,$sessionId){
         $redis=connectRedis();
         $cacheName=config('REDIS_NAME').$id;
-        $deviceUUID=md5($id+$sessionId+$name);
+        $deviceUUID=md5($id.$sessionId.$name);
 
         $timeout=config('REDIS_TIME');
 
@@ -211,7 +228,9 @@ class Admin extends Model
     public function eqValueInRedis($id,$name,$sessionId){
         $redis=connectRedis();
         $cacheName=config('REDIS_NAME').$id;
-        $deviceUUID=md5($id+$sessionId+$name);
+        // var_dump($sessionId);exit;
+        $deviceUUID=md5($id.$sessionId.$name);
+
         $timeout=config('REDIS_TIME');
         $cachedDeviceUUID = $redis->get($cacheName);
         if($cachedDeviceUUID){
@@ -236,4 +255,6 @@ class Admin extends Model
         return 2;
     }
     
+
+
 }

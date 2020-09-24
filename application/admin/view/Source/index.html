@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            {include file="public:top"}
+            <block name="topCss">
+                <!--DataTables css-->
+                <link rel="stylesheet" href="__STATIC__/plugins/Datatable/css/dataTables.bootstrap4.css">
+
+                <!--iCheck css-->
+                <link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
+                <!--Morris css-->
+                <link rel="stylesheet" href="__STATIC__/plugins/morris/morris.css">
+                <!--Select2 css-->
+                <link rel="stylesheet" href="__STATIC__/plugins/select2/select2.css">
+
+            </block>
+        </head>
+
+        <body class="app ">
+
+            <div id="spinner"></div>
+
+            <div id="app">
+                <div class="main-wrapper" >
+                    {include file="public:header"}
+                    {include file="public:menu"}
+                    <block name="bodsy">
+                        <div class="app-content">
+                            <section class="section">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">自动搜索</li>
+                                </ol>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-xl-4 col-md-12 col-sm-12"></div>
+                                    <div class="col-lg-12 col-xl-4 col-md-12 col-sm-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>自动搜索</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <form class="form-horizontal" id="form" method="post" enctype="multipart/form-data"  target="addfile">
+                                                    
+                                                    <div class="form-group overflow-hidden">
+                                                        <label>Multiple</label>
+                                                        <!-- <input type="text" size="30" οnkeyup="showResult(this.value)">
+                                                        <div id="livesearch"></div> -->
+                                                        <select class="form-control select2 w-100" multiple="multiple" data-placeholder="Select a State"
+                                                            id="select_name">
+                                                            {volist name="list" id="vo"}
+                                                            <option>{$vo.name}</option>
+                                                            {/volist}
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-4 col-md-12 col-sm-12"></div>
+                                </div>
+
+                            </section>
+                        </div>
+                        
+                    </block>
+                </div>
+            </div>
+            {include file="public:js"}
+            <block name="js">
+                <script src="__STATIC__/plugins/Datatable/js/jquery.dataTables.js"></script>
+                <script src="__STATIC__/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
+                <!--iCheck js-->
+                <script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
+                <script src="__STATIC__/plugins/select2/select2.full.js"></script>
+                <script src="__STATIC__/js/forms.js"></script>
+
+                <script>
+                    function showResult(str){
+                        console.log(str);
+                        $.ajax({
+                            type: "post",
+                            url : "{:url('admin/source/index.php')}",
+                            datatype : 'json',
+                            data:  {'q':str} ,
+                             success :function (data) {
+                                 document.getElementById("livesearch").innerHTML=data;
+                                 document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+                             }
+                         })
+                     }
+
+                </script>
+                <!--DataTables css-->
+                
+            </block>
+        </body>
+    </html>

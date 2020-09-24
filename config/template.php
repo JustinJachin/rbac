@@ -35,5 +35,6 @@ return [
     'tpl_replace_string'=>[
         '__ROOT__'   => '/',
         '__STATIC__' => '/../static',
+        '__UPLOADS__' => '/../uploads',
     ]
 ];

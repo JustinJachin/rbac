@@ -24,7 +24,8 @@ class Base extends Controller
     public function initialize(){
         
         $this->is_login();
-        $this->extendDeviceInfoTTL();
+        // $this->extendDeviceInfoTTL();
+        
         // if(!$res){
         //     $this->error('你的账号已被登录，请联系管理员帮你修改密码','login/index');
         // }
@@ -122,5 +123,7 @@ class Base extends Controller
         return true;
 
     }
+
+    
 
 }

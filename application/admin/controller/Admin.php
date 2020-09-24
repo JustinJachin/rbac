@@ -194,7 +194,13 @@ class Admin extends Base
 			return json($data);
 		}else{
 			$id=session('uid');
+			if(empty($id)){
+				return $this->error('参数错误','index/index','',2);
+			}
 			$user=AdminModel::where('id',$id)->find();
+			if(!$user){
+				return $this->error('参数错误','index/index','',2);
+			}
 			$this->assign('user',$user);
 			return view('personEdit');
 		}
@@ -239,7 +245,15 @@ class Admin extends Base
 
 		}else{
 			$id=$request->param('id');
+			if(empty($id)){
+				return $this->error('参数错误','admin/index','',2);
+
+			}
 			$data=AdminModel::where('id',$id)->field('id,name')->find();
+			if(!$data){
+				return $this->error('参数错误','admin/index','',2);
+
+			}
 			$this->assign('user',$data);
 			return view('edit');
 		}

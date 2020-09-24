@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{include file="public:top"}
+		<block name="topCss">
+			<!--DataTables css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/Datatable/css/dataTables.bootstrap4.css">
+
+			<!--iCheck css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
+
+			
+		</block>
+	</head>
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{include file="public:header"}
+				{include file="public:menu"}
+				<block name="bodsy">
+					<div class="app-content">
+						<section class="section">
+							<ol class="breadcrumb">
+						        <li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
+						        <li class="breadcrumb-item active" aria-current="page">管理员页面</li>
+						    </ol>
+
+							<div class="row">
+								<div class="card">
+										
+										<div class="card-body">
+											<div class="jumbotron mb-0">
+												<h1 class="display-5" style="text-align: center;"> {$list.title}</h1>
+												<p style="text-align: center;">作者： {$list.admin.name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  发布时间：{$list.create_time}</p>
+												<hr class="my-4">
+												<p class="lead">{$list.content|raw}</p>
+											</div>
+										</div>
+									</div>
+							</div>
+
+						</section>
+					</div>
+					
+				</block>
+			</div>
+		</div>
+		<script>
+			function selectAll(choiceBtn){
+			    var arr=document.getElementsByName("choice");
+			    for(var i=0;i<arr.length;i++){
+			        arr[i].checked=choiceBtn.checked;//循环遍历看是否全选
+			    }
+		    }
+		    function btn(id,method,action){
+		    	var url="{:url('admin/"+action+"')}";
+		    	var data={'method':method,'id':id};
+		    	AjaxGet(url,data);
+		    }
+		 
+		    function moreDel(){
+		    	var obj=document.getElementsByName('choice');
+		    	check_val=[];
+		    	for(k in obj){
+		    		if(obj[k].checked){
+		    			check_val.push(obj[k].value);
+		    		}
+		    	}
+		    	$.ajax({
+		    		type:'post',
+		    		url:"{:url('admin/deletes')}",
+		    		data:{check_val},
+		    		dataType:'json',
+					success:function(data){
+						if(data.status==1){
+							$(".table").load(location.href+".table");
+							toastr.success('', data.msg);
+						}else{
+							toastr.error('', data.msg);
+						}
+						
+					},
+					error:function(msg){
+						
+						alert('系统错误，请联系管理员！');
+						
+					}
+		    	})
+		    };
+
+		</script>
+		{include file="public:js"}
+		<block name="js">
+			<!--DataTables css-->
+			<script src="__STATIC__/plugins/Datatable/js/jquery.dataTables.js"></script>
+			<script src="__STATIC__/plugins/Datatable/js/dataTables.bootstrap4.js"></script>
+
+			<!--Select2 js-->
+			<script src="__STATIC__/plugins/select2/select2.full.js"></script>
+
+			<!--Inputmask js-->
+			<script src="__STATIC__/plugins/inputmask/jquery.inputmask.js"></script>
+
+			<!--Moment js-->
+			<script src="__STATIC__/plugins/moment/moment.min.js"></script>
+
+			<!--Bootstrap-daterangepicker js-->
+			<script src="__STATIC__/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+			<!--Bootstrap-datepicker js-->
+			<script src="__STATIC__/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+			<!--Bootstrap-colorpicker js-->
+			<script src="__STATIC__/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+
+			<!--Bootstrap-timepicker js-->
+			<script src="__STATIC__/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+
+			<!--iCheck js-->
+			<script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
+
+			<!--forms js-->
+			<script src="__STATIC__/js/forms.js"></script>
+
+		</block>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{include file="public:top"}
+	<block name="topCss">
+		<!--morris css-->
+		<link rel="stylesheet" href="__STATIC__/plugins/morris/morris.css">
+
+		
+	</block>
+</head>
+
+<body class="app ">
+
+<div id="spinner"></div>
+
+<div id="app">
+	<div class="main-wrapper" >
+		{include file="public:header"}
+		{include file="public:menu"}
+		<block name="bodsy">
+			<div class="app-content">
+				<section class="section">
+					
+				</section>
+			</div>
+		</block>
+	</div>
+</div>
+{include file="public:js"}
+<block name="js">
+
+<!--Dashboard js-->
+<script src="__STATIC__/js/dashboard.js"></script>
+<script src="__STATIC__/js/apexcharts.js"></script>
+
+
+
+</block>
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+

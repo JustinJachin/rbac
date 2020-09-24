@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{include file="public:top"}
+		<block name="topCss">
+
+			<!--gallery css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/gallery/main.css">
+
+			<!--Morris css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/morris/morris.css">
+			<!--Select2 css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/select2/select2.css">
+			<!--Bootstrap-wysihtml5 css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+		</block>
+
+	</head>
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{include file="public:header"}
+				{include file="public:menu"}
+				<block name="bodsy">
+				<div class="app-content">
+					<section class="section">
+                    	<ol class="breadcrumb">
+                    		<li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
+                            <li class="breadcrumb-item"><a href="{:url('article/index')}">文章列表</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">添加文章</li>
+                        </ol>
+
+						<div class="row">
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<h4>添加文章</h4>
+									</div>
+									<div class="card-body cards">
+										<form id="form" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit="return false">
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" for="title">文章标题<span style="color:rgb(255,182,193); font-size: 20px;"> *</span></label>
+												<div class="col-md-6">
+													<input type="text" class="form-control" placeholder="标题" id="title" name="title" value="{$list.title}" >
+													
+												</div>
+												<div  class="col-md-4" id="title_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" for="cate_id">文章分类<span style="color:rgb(255,182,193); font-size: 20px;"> *</span></label>
+												
+												<div class="form-group overflow-hidden col-md-6">
+													<select class="form-control select2 w-100" id="cate_id" name="cate_id">
+														{volist name="cate" id="vo"}
+														<option value="{$vo.id}" {if condition="$list['cate_id'] eq $vo.id"} selected="selected" {/if} >{$vo.name}</option>
+														{/volist}
+													</select>
+												
+												</div>
+												<div  class="col-md-4" id="cate_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" >缩略图<span style="color:rgb(255,182,193); font-size: 20px;"> *</span></label>
+												<div class="col-md-4 files color">
+													<input type="file" id="pic" name="pic" class="form-control1" onchange="showImg(this)" accept="image/*">
+												</div>
+												<div class="galleryItem col-md-4" style="float: left;" >
+													<img src="__UPLOADS__/{$list.pic}" class="card-img-top" id="displayImg" >
+												</div>
+												<img src="" id="displayImg" style="float: left;width: 30%;display: none;" >
+												<div  class="col-md-4" id="pic_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+											
+											<div class="form-group  row">
+												<label class="col-md-2 col-form-label" for="elm1">文章内容<span style="color:rgb(255,182,193); font-size: 20px;"> *</span></label>
+												<div class="col-md-10">
+													<textarea id="elm1" name="content">{$list.content}</textarea>
+												</div>
+												<div  class="col-md-4" id="content_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" for="type">文章类型<span style="color:rgb(255,182,193); font-size: 20px;"> *</span></label>
+												
+												<div class="form-group overflow-hidden col-md-6">
+													<select class="form-control select2 w-100" name="type" id="type">
+														<option value="1" {if condition="$list['type'] eq '原创'"} selected="selected" {/if}>原创</option>
+														<option value="2" {if condition="$list['type'] eq '转载'"} selected="selected" {/if}>转载</option>
+														<option value="3" {if condition="$list['type'] eq '翻译'"} selected="selected" {/if}>翻译</option>
+													</select>
+												</div>
+												<div  class="col-md-4" id="type_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+
+											<div class="form-group mb-0 mt-2 row justify-content-end">
+												<div class="col-md-12 text-center">
+													<button id="btn" type="submit" class="btn btn-primary">提 交</button>
+													<a href="{:url('article/index')}" class="btn btn-outline-info">返 回</a> 
+												</div>
+											</div>
+											
+										</form>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+						</div>
+					</section>
+				</div>
+
+				</block>
+			
+			</div>
+		</div>
+{include file="public:js"}
+<block name="js">
+	<!--gallery js-->
+	<script src="__STATIC__/plugins/gallery/main.js"></script>
+	<!--ckeditor js-->
+	<script src="__STATIC__/plugins/tinymce/tinymce.min.js"></script>
+	<!--Scripts js-->
+<script src="__STATIC__/js/scripts.js"></script>
+	<script src="__STATIC__/js/formeditor.js"></script>
+	<script type="text/javascript">
+	
+		function showImg(obj){
+			var file=obj.files[0];
+			var reader =new FileReader();
+			reader.onload=function (e){
+				$('#displayImg').show();
+				var img=document.getElementById('displayImg');
+				img.src=e.target.result;
+			}
+			reader.readAsDataURL(file);
+		}
+		  
+		$("#form").submit(function(){
+			// var formData = new FormData($('#form')[2]);
+			var title=$('#title').val().trim();
+			var cate_id=$('#cate_id').val().trim();
+			var pic=$('#pic').val();  
+			var content=$('#elm1').val(); 
+			var type=$('#type').val().trim();
+			if(title==""){
+				$('#title_down').show();
+		  		$('#title_down').text('文章标题必须填写');
+				$('#title').focus();
+				return false;
+			}else{
+				$('#title_down').hide();
+			}
+			if(cate_id==""){
+				$('#cate_down').show();
+		  		$('#cate_down').text('选择文章分类');
+				$('#cate_id').focus();
+				return false;
+			}else{
+				$('#cate_down').hide();
+			}
+			if(pic==""){
+				$('#pic_down').show();
+		  		$('#pic_down').text('缩略图必须上传');
+				$('#pic').focus();
+				return false;
+			}else{
+				$('#pic_down').hide();
+			}
+			if(content==""){
+				$('#content_down').show();
+		  		$('#content_down').text('文章内容必须填写');
+				$('#elm1').focus();
+				return false;
+			}else{
+				$('#content_down').hide();
+			}
+			if(type==""){
+				$('#type_down').show();
+		  		$('#type_down').text('选择文章类型');
+				$('#type').focus();
+				return false;
+			}else{
+				$('#type_down').hide();
+			}
+			var form  =document.getElementById('form'),
+            formData =  new FormData(form);
+			$.ajax({
+				type:'post',
+				url:"{:url('/admin/article/edit')}",
+				data:formData,
+				dataType:'json',
+				contentType: false,
+            	processData: false,
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success('', msg.msg);
+						// $(".cards").load(location.href+" .cards");
+						setTimeout("location.reload()",1000);//设置延迟时间执行
+						// window.location.href="index";
+
+					}else{
+						toastr.error('', msg.msg);
+					}
+				},
+				error:function(msg){
+					toastr.error('请联系管理员', '系统错误');
+					
+				}
+			})
+			
+		});
+	</script>
+</block>
+</body>
+</html>

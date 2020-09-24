@@ -28,11 +28,12 @@ class Login extends Controller
         $captcha=new Captcha();
         if(request()->isPost()){
             $data=input('post.');
-            // if(!$captcha->check($data['code'])){
-            //     return $this->error('验证码错误，正在跳转......','','',2);
-            // }
+            if(!$captcha->check($data['code'])){
+                return $this->error('验证码错误，正在跳转......','','',2);
+            }
             $admin=new AdminModel;
             $res=$admin->check($data['email'],$data['password']);
+
             switch($res['status']){
                 case 0:
                     $this->redirect($res['msg']);
@@ -130,7 +131,42 @@ class Login extends Controller
     public function reset(){
         if(request()->isPost()){
             $data=input('post.');
-            var_dump($data);exit;
+            if(empty($data['email'])){
+                $status=['status'=>0,'msg'=>'邮箱不能为空！'];
+                return json($status);
+            }
+            if(empty($data['code'])){
+                $status=['status'=>0,'msg'=>'验证码不能为空！'];
+                return json($status);
+            }
+            if(empty($data['password'])){
+                $status=['status'=>0,'msg'=>'密码不能为空！'];
+                return json($status);
+            }
+            if(empty($data['password1'])){
+                $status=['status'=>0,'msg'=>'确认密码不能为空！'];
+                return json($status);
+            }
+            if($data['password']!=$data['password1']){
+                $status=['status'=>0,'msg'=>'确认密码不能为空！'];
+                return json($status);
+            }
+            $map['email']=$data['email'];
+            $res=checkTelCode($data['email'],$data['code']);
+            $password='on'.md5('on'.md5($data['password']));
+            if($res){
+                $admin=AdminModel::where($map)->find();
+                $admin->password    = $password;
+                $result=$admin->save();
+                if($result){
+                    $status=['status'=>1,'msg'=>'密码重置成功，请登录账号'];
+                }else{
+                    $status=['status'=>0,'msg'=>'密码重置失败'];
+                }
+            }else{
+                $status=['status'=>0,'msg'=>'验证码错误或者邮箱错误，请重新获取验证码'];
+            }
+            return json($status);
         }else{
           return view();  
         }

@@ -8,20 +8,20 @@
                         <div class=" wrapper">
                             <form  class="card-body" tabindex="500">
                                 <h3>Reset Password</h3>
-                                <div class="mail">
-                                    <input type="email" name="email">
+                                <div class="email">
+                                    <input type="email" name="email" id="email">
                                     <label>Email</label>
                                 </div>
                                 <div class="code">
-                                    <input type="text" name="code">
+                                    <input type="text" name="code" id="code">
                                     <label>Verification</label>
                                 </div>
                                 <div class="passwd">
-                                    <input type="password" name="password">
+                                    <input type="password" name="password" id="password">
                                     <label>Password</label>
                                 </div>
                                 <div class="passwd">
-                                    <input type="password" name="password1">
+                                    <input type="password" name="password1" id="password1">
                                     <label>Conform Password</label>
                                 </div>
                                 <div class="submit mt-1 mb-0">
@@ -44,30 +44,47 @@
 {include file="publics/footer"}
 <script>              
     function sendMessage(){
-        var email=$('.mail').val();
-        var code=$('.code').val();
-        var password=$('.password').val();
-        var password1=$('.password1').val();
+        var email=$('#email').val();
+        var code=$('#code').val();
+        var password=$('#password').val();
+        var password1=$('#password1').val();
+        if(email==''){
+            toastr.error('','邮箱不能为空！');
+            return false;
+        }
+        if(code==''){
+            toastr.error('','验证码不能为空！');
+            return false;
+        }
+        if(password==''){
+            toastr.error('','密码不能为空！');
+            return false;
+        }
+        if(password1==''){
+            toastr.error('','确认密码不能为空！');
+            return false;
+        }
         if(password1!=password){
             toastr.error('','密码不一致！');
-        }else{
-            $.ajax({
-                type:'post',
-                url:"{:url('/admin/login/reset')}",
-                data:{'email':email},
-                dataType:'json',
-                success:function(data){
-                    if(data.status==1){
-                        toastr.success('',data.msg);
-                    }else{
-                        toastr.error('',data.msg);
-                    }
-                },
-                error:function(msg){
-                    toastr.error('请联系管理员','系统错误');
-                }
-            })
+            return false;
         }
+        $.ajax({
+            type:'post',
+            url:"{:url('/admin/login/reset')}",
+            data:{'email':email,'code':code,'password':password,'password1':password1},
+            dataType:'json',
+            success:function(data){
+                if(data.status==1){
+                    toastr.success('',data.msg);
+                    setTimeout("javascript:location.href='index.html'", 1000);
+                }else{
+                    toastr.error('',data.msg);
+                }
+            },
+            error:function(msg){
+                toastr.error('请联系管理员','系统错误');
+            }
+        })
         
     }
 </script>         

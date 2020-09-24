@@ -81,7 +81,13 @@ class Action extends Base{
 			
 		}else{
 			$id=$request->param('id');
+			if(empty($id)){
+				return $this->error('参数错误','action/index','',2);
+			}
 			$data=ActionModel::find($id);
+			if(!$data){
+				return $this->error('参数错误','action/index','',2);
+			}
 			return view('edit',['vo'=>$data]);
 		}
 	}

@@ -114,7 +114,13 @@ class Role extends Base{
 			return json($status);
 		}else{
 			$id=$request->param('id');
+			if(empty($id)){
+				return $this->error('参数错误','role/index','',2);
+			}
 			$role=RoleModel::where('id',$id)->find();
+			if(!$role){
+				return $this->error('参数错误','role/index','',2);
+			}
 			$this->assign('role',$role);
 			return view();
 		}

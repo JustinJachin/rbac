@@ -142,7 +142,7 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
-
+    // 'exception_handle'       => \app\exception\Exception::class,
      /*redis数据库配置*/
     'REDIS_HOST'=>'127.0.0.1',//服务器地址
     'REDIS_PORT'=>'6379',//服务器端口

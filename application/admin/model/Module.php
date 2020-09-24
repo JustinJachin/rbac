@@ -26,10 +26,16 @@ class Module extends Model
 	public function perssion(){
 		return $this->hasMany('Permission');
 	}
+
+    /**
+     * @description  获取当前模块
+     * @return array 返回模块id
+     * @author jachin  2019-08-08
+     */
 	public function getModuleId(){
 		$model=Request::module();
-		// var_dump($model);
-        $module_id=$this::where('name',$model)->find();
+
+        $module_id=$this::where('name',$model)->field('name,id')->find();
         return $module_id['id'];
 	}
 }

@@ -51,7 +51,7 @@ class Permission extends Base{
 				return json($status);
 			}
 			$map=explode('/', $data['name']);
-			// var_dump($map);exit;
+
 			$data['controller']=$map[0];
 			$data['action']=$map[1];
 			$result=PermissionModel::create($data);

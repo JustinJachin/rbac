@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{include file="public:top"}
+		<block name="topCss">
+			<!--Morris css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/morris/morris.css">
+			<!--Select2 css-->
+			<link rel="stylesheet" href="__STATIC__/plugins/select2/select2.css">
+		</block>
+
+	</head>
+
+	<body class="app ">
+
+		<div id="spinner"></div>
+
+		<div id="app">
+			<div class="main-wrapper" >
+				{include file="public:header"}
+				{include file="public:menu"}
+				<block name="bodsy">
+				<div class="app-content">
+					<section class="section">
+                    	<ol class="breadcrumb">
+                    		<li class="breadcrumb-item"><a href="{:url('index/index')}">首页</a></li>
+                            <li class="breadcrumb-item"><a href="{:url('article/cate')}">分类页面</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">添加分类</li>
+                        </ol>
+
+						<div class="row">
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<h4>添加分类</h4>
+									</div>
+									<div class="card-body cards">
+										<form id="form" class="form-horizontal" method="post" onsubmit="return false">
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" for="name">分类名<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
+												<div class="col-md-4">
+													<input id="name" type="text" class="form-control" placeholder="分类名" name="name" >
+													
+												</div>
+												<div  class="col-md-4" id="name_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+											<div class="form-group row">
+												<label class="col-md-2 col-form-label" for="sort">排 序<span style="color:rgb(255,182,193); font-size: 10px;">（必填）</span></label>
+												<div class="col-md-2">
+													<input id="sort" type="text" class="form-control" placeholder="排序" name="sort" >
+												</div>
+												<div  class="col-md-4" id="sort_down" style="float: left;color: red;display: none;margin-top: 10px;"></div>
+											</div>
+											
+											<div class="form-group mb-0 mt-2 row justify-content-end">
+												<div class="col-md-12 text-center">
+													<button id="btn" type="submit" class="btn btn-primary">提 交</button>
+													<a href="{:url('article/cate')}" class="btn btn-outline-info">返 回</a> 
+												</div>
+											</div>
+											
+										</form>
+										<iframe id="addfile_iframe" src="" name="addfile" style="display: none;" frameborder="0"></iframe>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 col-xl-2 col-md-12 col-sm-12"></div>
+							
+						</div>
+
+						
+					</section>
+				</div>
+
+				</block>
+			
+			</div>
+		</div>
+{include file="public:js"}
+<block name="js">
+	<script type="text/javascript">
+		$("#form").submit(function(){
+			var name=$('#name').val().trim();
+			var sort=$('#sort').val().trim();
+			if(name==""){
+				$('#name_down').show();
+		  		$('#name_down').text('请填写分类名');
+				$('#name').focus();
+				return false;
+			}else{
+				$('.name_down').hide();
+			}
+			if(sort==""){
+				$('#sort_down').show();
+		  		$('#sort_down').text('请填写排序');
+				$('#sort').focus();
+				return false;
+			}else{
+				$('.sort_down').hide();
+			}
+			if(isNaN(sort)){
+				$('#sort_down').show();
+		  		$('#sort_down').text('排序只能为数字');
+		  		$('#sort').focus();
+				return false;
+			}
+			var formData = $("#form").serialize();//serialize() 方法通过序列化表单值，创建 URL 编码文本
+			$.ajax({
+				type:'post',
+				url:"{:url('/admin/article/cateAdd')}",
+				data:formData,
+				dataType:'json',
+				
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success('', msg.msg);
+						// $(".cards").load(location.href+" .cards");
+						setTimeout("location.reload()",1000);//设置延迟时间执行
+						// window.location.href="index";
+
+					}else{
+						toastr.error('', msg.msg);
+					}
+				},
+				error:function(msg){
+					toastr.error('请联系管理员', '系统错误');
+					
+				}
+			})
+			
+		});
+	</script>
+</block>
+</body>
+</html>
